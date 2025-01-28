@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5080800232503745637
+--- !u!1 &6394859829905760796
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3336901809951194257}
-  - component: {fileID: 7721913018638200654}
-  - component: {fileID: -5395792688621964731}
-  - component: {fileID: -7061539535370655353}
-  - component: {fileID: 4713550138259072852}
-  - component: {fileID: 7542219435250884082}
+  - component: {fileID: 5768176407132680504}
+  - component: {fileID: 3794509788438231111}
+  - component: {fileID: 5858253547665800944}
+  - component: {fileID: 4820200476384152208}
+  - component: {fileID: 4712786746717189489}
+  - component: {fileID: 4641242743909981304}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -21,28 +21,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3336901809951194257
+--- !u!4 &5768176407132680504
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5080800232503745637}
+  m_GameObject: {fileID: 6394859829905760796}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.136018, y: 2.8369458, z: 0}
+  m_LocalPosition: {x: -12.381195, y: -2.2344975, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7721913018638200654
+--- !u!212 &3794509788438231111
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5080800232503745637}
+  m_GameObject: {fileID: 6394859829905760796}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,14 +91,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-5395792688621964731
+--- !u!50 &5858253547665800944
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5080800232503745637}
+  m_GameObject: {fileID: 6394859829905760796}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -118,13 +118,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &-7061539535370655353
+--- !u!58 &4820200476384152208
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5080800232503745637}
+  m_GameObject: {fileID: 6394859829905760796}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -154,31 +154,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &4713550138259072852
+--- !u!114 &4712786746717189489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5080800232503745637}
+  m_GameObject: {fileID: 6394859829905760796}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e479465694d1834eae1c8edaefe00ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  waypoints: []
   speed: 3
---- !u!114 &7542219435250884082
+  damage: 10
+--- !u!114 &4641242743909981304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5080800232503745637}
+  m_GameObject: {fileID: 6394859829905760796}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53d30e87b0a1c8d4ab39e6899a3cba9e, type: 3}

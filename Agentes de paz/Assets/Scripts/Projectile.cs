@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage = 10f; 
-    public int penetration = 1; 
+    public float damage = 10f;
+    public int penetration = 1;
 
-    private int enemiesHit = 0; 
+    private int enemiesHit = 0;
+    private float lifeTime = 5f; // Tiempo de vida del proyectil
+
+    private void Start()
+    {
+        // Destruir el proyectil automáticamente después de que pase su tiempo de vida
+        Destroy(gameObject, lifeTime);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

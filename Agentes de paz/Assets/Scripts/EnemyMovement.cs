@@ -6,7 +6,9 @@ public class EnemyMovement : MonoBehaviour
     public List<Transform> waypoints; 
     private int currentWaypointIndex = 0;
     public float speed = 3f;
-
+    public float damage = 10f; 
+    public delegate void EnemyReachedEnd(float damage);  // Delegado que incluye el daño
+    public static event EnemyReachedEnd OnEnemyReachedEnd;  // Evento de muerte del enemigo
     void Update()
     {
         if (waypoints != null && waypoints.Count > 0)
@@ -25,11 +27,24 @@ public class EnemyMovement : MonoBehaviour
         {
             currentWaypointIndex++;
 
+            // Si el enemigo ha llegado al final de la ruta, notificar la muerte
             if (currentWaypointIndex >= waypoints.Count)
             {
                 Destroy(gameObject);
+                NotifyEnemyReachedEnd();
             }
         }
+    }
+
+    // Método que indica que el enemigo ha llegado al final de su ruta
+    void NotifyEnemyReachedEnd()
+    {
+        // Llamar al evento para notificar la muerte del enemigo y enviar el daño
+        if (OnEnemyReachedEnd != null)
+        {
+            OnEnemyReachedEnd.Invoke(damage);
+        }
+        Destroy(gameObject);
     }
 
     // Método para calcular el progreso del enemigo hacia el final
