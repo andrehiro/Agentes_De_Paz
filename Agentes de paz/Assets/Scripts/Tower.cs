@@ -66,4 +66,14 @@ public class Tower : MonoBehaviour
             rb.linearVelocity = direction * projectileSpeed;
         }
     }
+
+    // Dibujar un círculo que representa el rango de la torre en el editor
+    void OnDrawGizmosSelected()
+    {
+        // Establecer el color del Gizmo a verde
+        Gizmos.color = new Color(0f, 1f, 0f, 0.3f); // Color verde con transparencia
+
+        // Dibujar un círculo (o esfera en 3D) con el radio de rango
+        Gizmos.DrawWireSphere(transform.position, range);
+    }
 }

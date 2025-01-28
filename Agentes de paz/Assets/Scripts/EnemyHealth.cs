@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float maxHealth = 50f; 
+    public float maxHealth = 50f;
     private float currentHealth;
+    public delegate void DeathEventHandler();
+    public event DeathEventHandler onDeath;  // Evento cuando el enemigo muere
 
     void Start()
     {
-        // Inicializar la salud actual al valor máximo
-        currentHealth = maxHealth;
+        currentHealth = maxHealth;  // Inicializar la salud
     }
 
-    // Método para recibir daño
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
@@ -21,9 +21,12 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    // Método para manejar la muerte del enemigo
     private void Die()
     {
-        Destroy(gameObject);
+        if (onDeath != null)
+        {
+            onDeath();  // Llamar el evento de muerte
+        }
+        Destroy(gameObject);  // Eliminar al enemigo de la escena
     }
 }
