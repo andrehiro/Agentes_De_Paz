@@ -4,8 +4,6 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 50f;
     private float currentHealth;
-    public delegate void DeathEventHandler();
-    public event DeathEventHandler onDeath;  // Evento cuando el enemigo muere
 
     void Start()
     {
@@ -21,12 +19,9 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
-        if (onDeath != null)
-        {
-            onDeath();  // Llamar el evento de muerte
-        }
-        Destroy(gameObject);  // Eliminar al enemigo de la escena
+        EnemyManager.instance.UnregisterEnemy();
+        Destroy(gameObject); 
     }
 }

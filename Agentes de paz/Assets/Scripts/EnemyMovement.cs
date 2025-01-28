@@ -34,7 +34,8 @@ public class EnemyMovement : MonoBehaviour
                     {
                         EnemyManager.instance.UnregisterEnemy();
                         PlayerHealth.instance.TakeDamage(damage);
-                        Destroy(gameObject);
+                        // Llamar a Die() en el enemigo actual, no en la instancia estática
+                        GetComponent<EnemyHealth>().Die();
                     }
                 }
             }

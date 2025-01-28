@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
     public GameObject winGameUI;
     public GameObject lossGameUI;
     public TextMeshProUGUI health;
-    public TextMeshProUGUI waves;
+    public TextMeshProUGUI wave;
 
     void Awake()
     {
@@ -24,6 +24,10 @@ public class UIManager : MonoBehaviour
     public void UpdateHealthText(float currentHealth)
     {
         health.text = "Health: " + currentHealth.ToString();
+    }
+    public void UpdateWaveText(float currentWave)
+    {
+        wave.text = "Wave: " + currentWave.ToString();
     }
 
     public void ShowWinGameUI()

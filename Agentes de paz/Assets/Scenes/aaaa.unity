@@ -368,18 +368,18 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 7723663130635041286, guid: 6e849a80d89bd9241b708d1ffcc78cdc, type: 3}
       enemyCount: 2
       spawnDelay: 1
+    timeBeforeNextWave: 4
   - enemies:
     - enemyPrefab: {fileID: 5080800232503745637, guid: 4a34fb1f57b939345a005ab2d5dc7a61, type: 3}
       enemyCount: 1
       spawnDelay: 1
+    timeBeforeNextWave: 0
   spawnPoint: {fileID: 381093445}
   waypoints:
   - {fileID: 1860095797}
   - {fileID: 261617200}
   - {fileID: 693887824}
   - {fileID: 1208357612}
-  timeBeforeNextWave: 3
-  totalEnemiesAlive: 0
 --- !u!4 &381093445
 Transform:
   m_ObjectHideFlags: 0
@@ -1274,7 +1274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesAlive: 0
-  enemySpawner: {fileID: 381093444}
 --- !u!114 &1811966309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,7 +1289,7 @@ MonoBehaviour:
   winGameUI: {fileID: 172453427}
   lossGameUI: {fileID: 1779580248}
   health: {fileID: 614086242}
-  waves: {fileID: 1311614986}
+  wave: {fileID: 0}
 --- !u!4 &1811966310
 Transform:
   m_ObjectHideFlags: 0
@@ -1504,11 +1503,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6188790325392236760, guid: 3f434a3d59509ff4280e96b93d364a12, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.53
+      value: -5.18
       objectReference: {fileID: 0}
     - target: {fileID: 6188790325392236760, guid: 3f434a3d59509ff4280e96b93d364a12, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.96
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 6188790325392236760, guid: 3f434a3d59509ff4280e96b93d364a12, type: 3}
       propertyPath: m_LocalPosition.z

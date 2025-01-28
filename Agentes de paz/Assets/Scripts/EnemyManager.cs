@@ -4,7 +4,6 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
     public int enemiesAlive = 0;  // Número de enemigos vivos
-    public EnemySpawner enemySpawner; // Referencia al EnemySpawner
 
     void Awake()
     {
@@ -18,17 +17,15 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    // Método para registrar un enemigo
     public void RegisterEnemy()
     {
-        enemiesAlive++; // Incrementar cuando un nuevo enemigo es registrado
+        enemiesAlive++;
     }
 
+    // Método para desregistrar un enemigo
     public void UnregisterEnemy()
     {
-        enemiesAlive--; // Decrementar cuando un enemigo muere
-        if (enemiesAlive <= 0)
-        {
-            enemySpawner.OnEnemyDied(); // Notificar al spawner cuando todos los enemigos han muerto
-        }
+        enemiesAlive--;
     }
 }
