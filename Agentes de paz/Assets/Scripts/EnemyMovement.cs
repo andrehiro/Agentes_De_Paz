@@ -3,49 +3,54 @@ using System.Collections.Generic;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public List<Transform> waypoints;
-    public float speed = 3f;
+    public List<Transform> waypoints; 
     private int currentWaypointIndex = 0;
+    public float speed = 3f;
 
     void Update()
     {
-        // Si hay waypoints, mover al enemigo
         if (waypoints != null && waypoints.Count > 0)
         {
             MoveToWaypoint();
         }
     }
 
-    // Mover al enemigo hacia el waypoint
+    // Método para mover el enemigo hacia el siguiente waypoint
     void MoveToWaypoint()
     {
-        // Obtener el waypoint actual
         Transform targetWaypoint = waypoints[currentWaypointIndex];
-
-        // Mover hacia el waypoint
         transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
 
-        // Rotar hacia el waypoint solo en el eje Z
-        Vector3 direction = targetWaypoint.position - transform.position;
-        direction.z = 0f;
-        if (direction.magnitude > 0.1f)
-        {
-            // Calcular la rotación para el eje Z
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        }
-
-        // Verificar si el enemigo ha llegado al waypoint
         if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
         {
-            // Pasar al siguiente waypoint
             currentWaypointIndex++;
 
-            // Si se alcanzó el último waypoint, destruir el enemigo
             if (currentWaypointIndex >= waypoints.Count)
             {
                 Destroy(gameObject);
             }
         }
+    }
+
+    // Método para calcular el progreso del enemigo hacia el final
+    public float GetProgress()
+    {
+        if (waypoints == null || waypoints.Count == 0)
+        {
+            return float.MaxValue; // Si no hay waypoints, el progreso es infinito (enemigo no válido)
+        }
+
+        float progress = 0f;
+
+        // Suma las distancias desde los waypoints anteriores
+        for (int i = 0; i < currentWaypointIndex; i++)
+        {
+            progress += Vector3.Distance(waypoints[i].position, waypoints[i + 1].position);
+        }
+
+        // Suma la distancia restante al waypoint actual
+        progress += Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position);
+
+        return progress;
     }
 }
