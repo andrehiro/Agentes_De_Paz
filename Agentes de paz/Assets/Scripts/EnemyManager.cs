@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
-    public int enemiesAlive = 0;  // Número de enemigos vivos
+    public int enemiesAlive = 0;
 
     void Awake()
     {

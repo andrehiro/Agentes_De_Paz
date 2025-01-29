@@ -25,6 +25,7 @@ public class Tower : MonoBehaviour
         }
     }
 
+    // Método para encontrar el enemigo más cercano al final
     GameObject FindFirstEnemy()
     {
         GameObject firstEnemy = null;
@@ -51,6 +52,7 @@ public class Tower : MonoBehaviour
         return firstEnemy;
     }
 
+    // Método para disparar un proyectil hacia un enemigo
     void ShootAtEnemy(GameObject enemy)
     {
         // Crear el proyectil
@@ -70,10 +72,7 @@ public class Tower : MonoBehaviour
     // Dibujar un círculo que representa el rango de la torre en el editor
     void OnDrawGizmosSelected()
     {
-        // Establecer el color del Gizmo a verde
-        Gizmos.color = new Color(0f, 1f, 0f, 0.3f); // Color verde con transparencia
-
-        // Dibujar un círculo (o esfera en 3D) con el radio de rango
+        Gizmos.color = new Color(0f, 1f, 0f, 0.3f); 
         Gizmos.DrawWireSphere(transform.position, range);
     }
 }

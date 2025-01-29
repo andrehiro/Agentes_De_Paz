@@ -32,10 +32,8 @@ public class EnemyMovement : MonoBehaviour
 
                     if (currentWaypointIndex >= waypoints.Count)
                     {
-                        EnemyManager.instance.UnregisterEnemy();
                         PlayerHealth.instance.TakeDamage(damage);
-                        // Llamar a Die() en el enemigo actual, no en la instancia estática
-                        GetComponent<EnemyHealth>().Die();
+                        GetComponent<EnemyHealth>().DestroyEnemy();
                     }
                 }
             }
@@ -49,6 +47,7 @@ public class EnemyMovement : MonoBehaviour
         {
             return float.MaxValue; // Si no hay waypoints, el progreso es infinito (enemigo no válido)
         }
+
         // Calcula el progreso basado en la distancia recorrida y la distancia total
         float totalDistance = 0f;
         float distanceCovered = 0f;

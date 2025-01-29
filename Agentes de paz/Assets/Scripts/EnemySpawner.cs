@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     // Iniciar el spawn de enemigos
     void Start()
     {
+        UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
         StartCoroutine(SpawnWaves());
     }
 
@@ -36,7 +37,6 @@ public class EnemySpawner : MonoBehaviour
     while (currentWaveIndex < waves.Length)
     {
         Wave currentWave = waves[currentWaveIndex];
-        Debug.Log("Starting wave " + currentWaveIndex);
 
         // Spawnear todos los enemigos de la oleada
         foreach (EnemyWave enemyWave in currentWave.enemies)
@@ -45,31 +45,27 @@ public class EnemySpawner : MonoBehaviour
             {
                 SpawnEnemy(enemyWave.enemyPrefab);
                 EnemyManager.instance.RegisterEnemy();
-                Debug.Log("Enemy spawned: " + enemyWave.enemyPrefab.name);
 
-                // Esperar el tiempo de spawnDelay antes de generar el siguiente enemigo
                 if (enemyWave.spawnDelay > 0)
+                {
                     yield return new WaitForSeconds(enemyWave.spawnDelay);
+                }
             }
         }
-
-        // Esperar a que todos los enemigos sean eliminados antes de avanzar
-        while (EnemyManager.instance.enemiesAlive > 0)
-        {
-            Debug.Log("Waiting for enemies to be defeated: " + EnemyManager.instance.enemiesAlive + " remaining");
-            yield return null;
-        }
-
         // Avanzar a la siguiente oleada
         currentWaveIndex++;
         yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
+        UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
     }
 
-    // Mostrar la UI de victoria si no quedan enemigos
+    while (EnemyManager.instance.enemiesAlive > 0)
+    {
+        yield return null;
+    }
+
     if (EnemyManager.instance.enemiesAlive <= 0)
     {
         UIManager.instance.ShowWinGameUI();
-        Debug.Log("All enemies defeated. Victory!");
     }
 }
 
