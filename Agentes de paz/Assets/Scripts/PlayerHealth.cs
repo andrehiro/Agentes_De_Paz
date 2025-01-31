@@ -20,7 +20,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        // Inicializar la salud actual al valor máximo
         currentHealth = maxHealth;
         UIManager.instance.UpdateHealthText(currentHealth);
     }
@@ -32,12 +31,12 @@ public class PlayerHealth : MonoBehaviour
         UIManager.instance.UpdateHealthText(currentHealth);
         if (currentHealth <= 0)
         {
-            Die();
+            PlayerDie();
         }
     }
 
     // Método para manejar la muerte del jugador
-    private void Die()
+    private void PlayerDie()
     {
         UIManager.instance.ShowlossGameUI();
     }

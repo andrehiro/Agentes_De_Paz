@@ -3,25 +3,41 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 50f;
+    public int resources = 100;
+    private bool isCounted = false;
     private float currentHealth;
 
     void Start()
     {
-        currentHealth = maxHealth;  // Inicializar la salud
+        currentHealth = maxHealth;  
     }
 
-    public void TakeDamage(float amount)
+    // Método para recibir daño
+    public void TakeDamage(float damage)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        if(currentHealth <= 0) return;
+
+        currentHealth -= damage;
+
+        if(currentHealth <= 0 && !isCounted)
         {
-            Die();
+            isCounted = true; // Marcar como contabilizado
+            EnemyKilled();
         }
     }
 
-    public void Die()
+    // Método para destruir al enemigo
+    public void EnemyKilled()
     {
+        Destroy(gameObject, 0.1f);
         EnemyManager.instance.UnregisterEnemy();
-        Destroy(gameObject); 
+        GameManager.instance.GainResources(resources);
     }
+
+    public void DestroyEnemy()
+    {
+        Destroy(gameObject); 
+        EnemyManager.instance.UnregisterEnemy();
+    }
+
 }
