@@ -10,6 +10,17 @@ public class Tower : MonoBehaviour
     public Transform firePoint; 
     private float fireCooldown = 0f;
 
+    void Start()
+{
+    Transform rangeIndicator = transform.Find("RangeIndicator");
+    if (rangeIndicator != null)
+    {
+        float spriteDiameter = rangeIndicator.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
+        float scaleFactor = (range * 2f) / spriteDiameter;
+        rangeIndicator.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+    }
+}
+
     void Update()
     {
         fireCooldown -= Time.deltaTime;

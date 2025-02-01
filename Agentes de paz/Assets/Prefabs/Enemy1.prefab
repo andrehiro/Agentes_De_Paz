@@ -171,8 +171,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  speed: 8
-  damage: 50
+  speed: 4
+  damage: 10
 --- !u!114 &7542219435250884082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +186,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  resources: 100

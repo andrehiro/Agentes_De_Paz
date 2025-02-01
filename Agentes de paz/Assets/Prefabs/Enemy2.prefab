@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   speed: 3
+  damage: 10
 --- !u!114 &-5488872436041855408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,3 +183,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  resources: 100
