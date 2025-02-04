@@ -12,6 +12,19 @@ public class TowerPlacerButton : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(SelectTower);
     }
 
+    void Update()
+    {
+        if (towerPrefab.GetComponent<Tower>().cost > GameManager.instance.currentResources)
+        {
+            GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            GetComponent<Button>().interactable = true;
+        }
+
+    }
+
     void SelectTower()
     {
         towerPlacer.SelectTowerPrefab(towerPrefab);

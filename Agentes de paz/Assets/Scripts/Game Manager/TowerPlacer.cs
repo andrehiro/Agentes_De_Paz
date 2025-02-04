@@ -56,18 +56,19 @@ public class TowerPlacer : MonoBehaviour
 
     void PlaceTower()
     {
-        if (currentTower != null)
+        if (currentTower != null && GameManager.instance.CanAfford(selectedTowerPrefab.GetComponent<Tower>().cost))
         {
-            // Validar si la torre está en una zona restringida ANTES de colocarla
-            if (!IsPlacementValid())
+            if (IsPlacementValid())
             {
-                Debug.Log("No se puede colocar la torre aquí. Zona restringida.");
-                return; 
+                GameManager.instance.SpendResources(selectedTowerPrefab.GetComponent<Tower>().cost);
+                EnableTowerFunctionality(currentTower);
+                ShowTowerRange(false);
+                currentTower = null;
             }
-
-            EnableTowerFunctionality(currentTower);
-            ShowTowerRange(false);
-            currentTower = null;
+            else
+            {
+                Debug.Log("No se puede colocar la torre aquí");
+            }
         }
     }
 

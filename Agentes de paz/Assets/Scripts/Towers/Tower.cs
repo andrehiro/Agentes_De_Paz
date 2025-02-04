@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
+    public int cost= 100;
     public float range = 10f;
     public float fireRate = 1f; 
     public float projectileSpeed = 10f;

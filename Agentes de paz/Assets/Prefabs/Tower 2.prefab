@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6188790325392236760}
   - component: {fileID: 6288214793960434468}
   - component: {fileID: 2661844109286152059}
+  - component: {fileID: -2378957191006152810}
   - component: {fileID: -289221497454505608}
   m_Layer: 6
   m_Name: Tower 2
@@ -189,11 +190,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd14cdc340857f449b269c95e6ba0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cost: 200
   range: 3
   fireRate: 1
   projectileSpeed: 10
   projectilePrefab: {fileID: 2605390464641443986, guid: d6b695b5819660e4dabdacdfd13192e1, type: 3}
   firePoint: {fileID: 6188790325392236760}
+--- !u!114 &-2378957191006152810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca6482e8a2258745bd7cb57f4c22dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeUI: {fileID: 0}
 --- !u!60 &-289221497454505608
 PolygonCollider2D:
   m_ObjectHideFlags: 0
