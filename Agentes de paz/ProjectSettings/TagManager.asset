@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Tower
   - PlacementArea
-  - 
+  - RestrictedArea
   - 
   - 
   - 
@@ -42,6 +42,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Projectiles
+    uniqueID: 973041675
+    locked: 0
+  - name: Towers
+    uniqueID: 1329585991
+    locked: 0
+  - name: UI
+    uniqueID: 688543785
     locked: 0
   m_RenderingLayers:
   - Default
