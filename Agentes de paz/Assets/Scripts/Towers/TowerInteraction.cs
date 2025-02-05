@@ -1,31 +1,47 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerInteraction : MonoBehaviour
 {
+    public GameObject towerUpgradesUI;
+    private bool isUIActive = false;
+    private bool isPlaced = false;
+
     void OnMouseDown()
     {
-        // Mostrar/ocultar UI de mejoras a través del UIManager
-        if (UIManager.instance.towerUpgradesUI.activeSelf)
+        if (!isPlaced)
         {
-            UIManager.instance.towerUpgradesUI.SetActive(false);
+            isPlaced = true;
         }
         else
         {
-            // Ocultar UI de otras torres y mostrar esta
-            UIManager.instance.towerUpgradesUI.SetActive(true);
+            // Si el clic fue en la UI, no hacer nada
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
+            // Activar UI solo si la torre ya fue colocada
+            towerUpgradesUI.SetActive(true);
+            isUIActive = true;
         }
     }
 
     void Update()
     {
-        // Cerrar el UI al hacer clic fuera
-        if (UIManager.instance.towerUpgradesUI.activeSelf && Input.GetMouseButtonDown(0))
+        // Si la UI está activa y el usuario hace clic en otro lado
+        if (Input.GetMouseButtonDown(0) && isUIActive)
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            
+            // Si el clic fue en un elemento UI, no hacer nada
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
+                
+            // Verificar si el clic fue en la torre con un Raycast
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
             if (hit.collider == null || hit.collider.gameObject != gameObject)
             {
-                UIManager.instance.towerUpgradesUI.SetActive(false);
+                // Si el clic no fue en la torre ni en la UI, ocultar el UI
+                towerUpgradesUI.SetActive(false);
+                isUIActive = false;
             }
         }
     }

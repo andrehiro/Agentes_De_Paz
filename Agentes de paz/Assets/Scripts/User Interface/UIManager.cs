@@ -6,7 +6,6 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public GameObject winGameUI;
     public GameObject lossGameUI;
-    public GameObject towerUpgradesUI; 
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI resourcesText;

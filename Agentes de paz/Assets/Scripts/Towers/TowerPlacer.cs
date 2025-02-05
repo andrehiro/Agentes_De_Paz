@@ -65,10 +65,6 @@ public class TowerPlacer : MonoBehaviour
                 ShowTowerRange(false);
                 currentTower = null;
             }
-            else
-            {
-                Debug.Log("No se puede colocar la torre aquí");
-            }
         }
     }
 
