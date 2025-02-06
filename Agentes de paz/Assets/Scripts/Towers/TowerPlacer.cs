@@ -2,10 +2,22 @@ using UnityEngine;
 
 public class TowerPlacer : MonoBehaviour
 {
+    public static TowerPlacer instance;
     private GameObject currentTower;
     private GameObject selectedTowerPrefab;
+    public LayerMask restrictedLayer; 
 
-    [SerializeField] private LayerMask restrictedLayer; // Capa de zonas prohibidas
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public void SelectTowerPrefab(GameObject towerPrefab)
     {
         if (currentTower != null) return;
@@ -87,7 +99,7 @@ public class TowerPlacer : MonoBehaviour
         return towerCollider.Overlap(filter, new Collider2D[1]) == 0;
     }
 
-    void SetTowerRangeIndicator(GameObject tower)
+    public void SetTowerRangeIndicator(GameObject tower)
     {
         Transform rangeIndicator = tower.transform.Find("RangeIndicator");
         if (rangeIndicator != null)
@@ -158,14 +170,14 @@ public class TowerPlacer : MonoBehaviour
     }
 
     void CancelTowerPlacement()
-{
-    if (currentTower != null)
     {
-        // Destruir la torre preview
-        Destroy(currentTower);
-        ShowTowerRange(false);
-        currentTower = null;
-        Debug.Log("Colocación cancelada");
+        if (currentTower != null)
+        {
+            // Destruir la torre preview
+            Destroy(currentTower);
+            ShowTowerRange(false);
+            currentTower = null;
+            Debug.Log("Colocación cancelada");
+        }
     }
-}
 }
