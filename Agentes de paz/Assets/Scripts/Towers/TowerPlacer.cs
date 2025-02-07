@@ -5,7 +5,11 @@ public class TowerPlacer : MonoBehaviour
     public static TowerPlacer instance;
     private GameObject currentTower;
     private GameObject selectedTowerPrefab;
-    public LayerMask restrictedLayer; 
+    public LayerMask restrictedLayer;
+
+    [Header("Range Indicator Colors")]
+    [SerializeField] private Color validColor = new Color(1f, 1f, 1f, 0.1f);
+    [SerializeField] private Color invalidColor = new Color(1f, 0f, 0f, 0.3f);
 
     void Awake()
     {
@@ -18,6 +22,7 @@ public class TowerPlacer : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void SelectTowerPrefab(GameObject towerPrefab)
     {
         if (currentTower != null) return;
@@ -36,14 +41,13 @@ public class TowerPlacer : MonoBehaviour
         {
             SetTowerPosition();
 
-            // Cambiar color si la torre está en una zona prohibida
             if (!IsPlacementValid())
             {
-                ChangeChildSpriteColor(currentTower, "RangeIndicator", new Color(1f, 0f, 0f, 0.3f)); // Rojo semi-transparente
+                ChangeChildSpriteColor(currentTower, "RangeIndicator", invalidColor);
             }
             else
             {
-                ChangeChildSpriteColor(currentTower, "RangeIndicator", new Color(1f, 1f, 1f, 0.1f)); // Blanco con 30% de transparencia
+                ChangeChildSpriteColor(currentTower, "RangeIndicator", validColor);
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -61,10 +65,8 @@ public class TowerPlacer : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         currentTower.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
-        
-        // Añadir esto para actualización precisa de colisiones
         Physics2D.SyncTransforms();
-    }   
+    }
 
     void PlaceTower()
     {
@@ -87,15 +89,12 @@ public class TowerPlacer : MonoBehaviour
         Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
         if (towerCollider == null) return false;
 
-        // Fuerza la actualización inmediata de la posición física
         Physics2D.SyncTransforms();
 
-        // Configurar filtro de capa
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(restrictedLayer);
         filter.useTriggers = false;
 
-        // Verificar colisiones con la forma EXACTA del collider
         return towerCollider.Overlap(filter, new Collider2D[1]) == 0;
     }
 
@@ -141,10 +140,10 @@ public class TowerPlacer : MonoBehaviour
 
     void DisableTowerFunctionality(GameObject tower)
     {
-        // Mantener el collider habilitado pero como trigger
         Collider2D col = tower.GetComponent<Collider2D>();
-        if (col != null) {
-            col.isTrigger = true; // Permite que el collider detecte pero no cause físicas
+        if (col != null)
+        {
+            col.isTrigger = true;
         }
 
         MonoBehaviour[] scripts = tower.GetComponents<MonoBehaviour>();
@@ -158,8 +157,9 @@ public class TowerPlacer : MonoBehaviour
     void EnableTowerFunctionality(GameObject tower)
     {
         Collider2D col = tower.GetComponent<Collider2D>();
-        if (col != null) {
-            col.isTrigger = false; // Restaurar comportamiento normal
+        if (col != null)
+        {
+            col.isTrigger = false;
         }
 
         MonoBehaviour[] scripts = tower.GetComponents<MonoBehaviour>();
@@ -173,7 +173,6 @@ public class TowerPlacer : MonoBehaviour
     {
         if (currentTower != null)
         {
-            // Destruir la torre preview
             Destroy(currentTower);
             ShowTowerRange(false);
             currentTower = null;

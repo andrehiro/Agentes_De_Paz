@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealthText(float currentHealth)
     {
-        healthText.text = "Health: " + currentHealth.ToString();
+        healthText.text = currentHealth.ToString();
     }
 
     public void UpdateWaveText(float currentWave)
@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateResourcesText(int currentResources)
     {
-        resourcesText.text = $"Resources: {currentResources}";
+        resourcesText.text = currentResources.ToString();
     }
 
     public void ShowWinGameUI()

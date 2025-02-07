@@ -20,7 +20,7 @@ public class TowerSlideUI : MonoBehaviour
         panelRect.anchoredPosition = collapsedPosition; // Estado inicial
     }
 
-    void ToggleTowerSlideUI()
+    public void ToggleTowerSlideUI()
     {
         isExpanded = !isExpanded;
         StopAllCoroutines();
