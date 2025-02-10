@@ -17,7 +17,7 @@ public class Tower : MonoBehaviour
     if (rangeIndicator != null)
     {
         float spriteDiameter = rangeIndicator.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-        float scaleFactor = (range * 2f) / spriteDiameter;
+        float scaleFactor = (range * 6f) / spriteDiameter;
         rangeIndicator.localScale = new Vector3(scaleFactor, scaleFactor, 1);
     }
 }
