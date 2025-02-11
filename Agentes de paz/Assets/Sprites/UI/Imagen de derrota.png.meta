@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c5676a77ff6ade64991dc420950cea7b
+guid: 4a71c2e30bfd52046ad3e6496bb52094
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -99618515343605954
-    second: Imagen de derrota_0
+      213: -3316924861822995959
+    second: Imagen de derrota sin fondo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Imagen de derrota_0
+      name: Imagen de derrota sin fondo_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1048
-        height: 626
+        width: 656
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3f74e3fc751e9ef0800000000000000
-      internalID: -99618515343605954
+      spriteID: 902f068796ae7f1d0800000000000000
+      internalID: -3316924861822995959
       vertices: []
       indices: 
       edges: []
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Imagen de derrota sin fondo_0: -3316924861822995959
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
