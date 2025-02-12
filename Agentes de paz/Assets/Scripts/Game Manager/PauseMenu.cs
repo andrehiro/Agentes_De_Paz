@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI;       // Canvas del menú de pausa
-    public GameObject blockerPanel;      // Panel transparente que bloquea interacciones
+    public GameObject pauseMenuUI;
+    public GameObject settingsUI;
+    public GameObject blockerPanel;
     private bool isPaused = false;
 
     void Update()
@@ -15,7 +16,14 @@ public class PauseMenu : MonoBehaviour
         {
             if (isPaused)
             {
-                Resume();
+                if (settingsUI.activeSelf)
+                {
+                    CloseSettings();
+                }
+                else
+                {
+                    Resume();
+                }
             }
             else
             {
@@ -33,7 +41,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         blockerPanel.SetActive(true);
         
-        // Asegurar que el EventSystem solo interactúe con el menú
+        // Asegurar que el EventSystem funcione correctamente
         EventSystem.current.SetSelectedGameObject(pauseMenuUI.GetComponentInChildren<Button>().gameObject);
     }
 
@@ -42,15 +50,30 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         
-        // Desactivar menú y panel bloqueador
+        // Desactivar todos los menús y el panel
         pauseMenuUI.SetActive(false);
+        settingsUI.SetActive(false);
         blockerPanel.SetActive(false);
     }
 
     public void OpenSettings()
     {
-        Debug.Log("Abrir configuración");
-        // Aquí cargarías tu menú de configuración
+        // Ocultar menú de pausa y mostrar configuración
+        pauseMenuUI.SetActive(false);
+        settingsUI.SetActive(true);
+        
+        // Enfocar el primer botón de la configuración
+        EventSystem.current.SetSelectedGameObject(settingsUI.GetComponentInChildren<Button>().gameObject);
+    }
+
+    public void CloseSettings()
+    {
+        // Ocultar configuración y mostrar menú de pausa
+        settingsUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        
+        // Re-enfocar el botón del menú de pausa
+        EventSystem.current.SetSelectedGameObject(pauseMenuUI.GetComponentInChildren<Button>().gameObject);
     }
 
     public void CloseMenu()
