@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class EnemyWave
@@ -22,23 +23,40 @@ public class EnemySpawner : MonoBehaviour
     public Wave[] waves;
     public Transform spawnPoint;
     public List<Transform> waypoints;
+    public Toggle autoModeToggle;
     private int currentWaveIndex = 0;
+    private bool isWaveInProgress = false;
 
-    // Iniciar el spawn de enemigos
     void Start()
     {
         UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
-        StartCoroutine(SpawnWaves());
     }
 
-    // Spawnear las oleadas de enemigos
+    void Update()
+    {
+        // Iniciar la siguiente oleada si el modo automático está activado
+        if (!isWaveInProgress && currentWaveIndex < waves.Length && autoModeToggle.isOn && currentWaveIndex != 0)
+        {
+            StartNextWave();
+        }
+    }
+
+    // Método para iniciar la oleada cuando se presione el botón
+    public void StartNextWave()
+    {
+        if (!isWaveInProgress && currentWaveIndex < waves.Length)
+        {
+            isWaveInProgress = true;
+            StartCoroutine(SpawnWaves());
+        }
+    }
+
     IEnumerator SpawnWaves()
     {
         while (currentWaveIndex < waves.Length)
         {
             Wave currentWave = waves[currentWaveIndex];
 
-            // Spawnear todos los enemigos de la oleada
             foreach (EnemyWave enemyWave in currentWave.enemies)
             {
                 for (int i = 0; i < enemyWave.enemyCount; i++)
@@ -53,12 +71,19 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
 
-            // Esperar hasta que todos los enemigos de esta oleada hayan sido derrotados
+            // Esperar hasta que todos los enemigos sean derrotados
             yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
 
             // Avanzar a la siguiente oleada
             currentWaveIndex++;
             UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
+            isWaveInProgress = false; // Permitir iniciar la siguiente oleada con el botón
+
+            // Si quedan oleadas, esperar el botón para la siguiente
+            if (currentWaveIndex < waves.Length)
+            {
+                yield break; 
+            }
         }
 
         // Verificar que no haya más enemigos antes de mostrar la victoria
@@ -67,19 +92,12 @@ public class EnemySpawner : MonoBehaviour
             yield return null;
         }
 
-        if (EnemyManager.instance.enemiesAlive <= 0)
-        {
-            UIManager.instance.ShowWinGameUI();
-        }
+        UIManager.instance.ShowWinGameUI();
     }
 
-    // Spawnear un enemigo y asignarle los waypoints
     void SpawnEnemy(GameObject enemyPrefab)
     {
-        // Instanciar el enemigo
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-        // Asignar los waypoints al enemigo
         EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
         if (enemyMovement != null)
         {

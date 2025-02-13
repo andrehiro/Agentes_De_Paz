@@ -64,6 +64,7 @@ public class PauseMenu : MonoBehaviour
 
         settingsUI.SetActive(false);
         pauseMenuUI.SetActive(true);
+        GameStateManager.instance.SaveToggleState();
         
         EventSystem.current.SetSelectedGameObject(pauseMenuUI.GetComponentInChildren<Button>().gameObject);
     }
