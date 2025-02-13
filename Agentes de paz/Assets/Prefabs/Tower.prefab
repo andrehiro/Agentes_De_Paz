@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4789426833577770632}
   - component: {fileID: 6483234646326439666}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Sell Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -311,8 +311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 818, y: 509}
+  m_AnchoredPosition: {x: -0, y: 0}
+  m_SizeDelta: {x: 784.943, y: 542.057}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5177455308355746557
 Canvas:
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+  m_Color: {r: 0.6415094, g: 0.4197254, b: 0.31167677, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -737,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8294452552703551298
 Transform:
   m_ObjectHideFlags: 0
@@ -794,8 +794,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 688543785
-  m_SortingLayer: 5
+  m_SortingLayerID: 1329585991
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.64705884}
@@ -1098,7 +1098,6 @@ MonoBehaviour:
   projectileSpeed: 10
   projectilePrefab: {fileID: 2605390464641443986, guid: d6b695b5819660e4dabdacdfd13192e1, type: 3}
   firePoint: {fileID: 6188790325392236760}
-  rangeScaleMultiplier: 1
 --- !u!114 &-8051959270877283457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,3 +1123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f689ad9b76f5e4145a64ddd51600a4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeCost: 120
+  upgradeButton: {fileID: 1989217376012263238}
+  upgradeCostText: {fileID: 0}
+  sellValueText: {fileID: 6483234646326439666}
+  towerUpgradeSprite1: {fileID: -1823698551240451063, guid: 8b7e569a40d16e949b682c6d457dbb3f, type: 3}
+  towerUpgradeSprite2: {fileID: -569938136511312490, guid: 735dee7ba105a5f428d2e0cf77739ee1, type: 3}

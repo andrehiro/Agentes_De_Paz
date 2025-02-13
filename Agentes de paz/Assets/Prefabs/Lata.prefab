@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
-  speed: 3
+  speed: 0
   damage: 10
 --- !u!114 &-4143084786050644106
 MonoBehaviour:

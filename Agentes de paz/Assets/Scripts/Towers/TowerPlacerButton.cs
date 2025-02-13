@@ -22,7 +22,6 @@ public class TowerPlacerButton : MonoBehaviour
         {
             GetComponent<Button>().interactable = true;
         }
-
     }
 
     void SelectTower()

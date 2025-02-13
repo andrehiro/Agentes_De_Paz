@@ -5,7 +5,7 @@ public class TowerInteraction : MonoBehaviour
 {
     public GameObject towerUpgradesUI;
     private bool isUIActive = false;
-    private bool isPlaced = false; // Variable restaurada
+    private bool isPlaced = false; 
 
     void OnMouseDown()
     {
@@ -16,8 +16,7 @@ public class TowerInteraction : MonoBehaviour
 
         if (!isPlaced)
         {
-            Debug.Log("hola");
-            isPlaced = true; // Primer clic marca como colocada
+            isPlaced = true;
         }
         else
         {
@@ -60,7 +59,7 @@ public class TowerInteraction : MonoBehaviour
         filter.SetLayerMask(TowerPlacer.instance.restrictedLayer);
         filter.useTriggers = false;
 
-        Physics2D.SyncTransforms(); // Actualizar posición
+        Physics2D.SyncTransforms(); 
 
         return towerCollider.Overlap(filter, new Collider2D[1]) > 0;
     }

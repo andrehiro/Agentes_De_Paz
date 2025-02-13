@@ -33,41 +33,45 @@ public class EnemySpawner : MonoBehaviour
 
     // Spawnear las oleadas de enemigos
     IEnumerator SpawnWaves()
-{
-    while (currentWaveIndex < waves.Length)
     {
-        Wave currentWave = waves[currentWaveIndex];
-
-        // Spawnear todos los enemigos de la oleada
-        foreach (EnemyWave enemyWave in currentWave.enemies)
+        while (currentWaveIndex < waves.Length)
         {
-            for (int i = 0; i < enemyWave.enemyCount; i++)
-            {
-                SpawnEnemy(enemyWave.enemyPrefab);
-                EnemyManager.instance.RegisterEnemy();
+            Wave currentWave = waves[currentWaveIndex];
 
-                if (enemyWave.spawnDelay > 0)
+            // Spawnear todos los enemigos de la oleada
+            foreach (EnemyWave enemyWave in currentWave.enemies)
+            {
+                for (int i = 0; i < enemyWave.enemyCount; i++)
                 {
-                    yield return new WaitForSeconds(enemyWave.spawnDelay);
+                    SpawnEnemy(enemyWave.enemyPrefab);
+                    EnemyManager.instance.RegisterEnemy();
+
+                    if (enemyWave.spawnDelay > 0)
+                    {
+                        yield return new WaitForSeconds(enemyWave.spawnDelay);
+                    }
                 }
             }
+
+            // Esperar hasta que todos los enemigos de esta oleada hayan sido derrotados
+            yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
+
+            // Avanzar a la siguiente oleada
+            currentWaveIndex++;
+            UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
         }
-        // Avanzar a la siguiente oleada
-        currentWaveIndex++;
-        yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
-        UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
-    }
 
-    while (EnemyManager.instance.enemiesAlive > 0)
-    {
-        yield return null;
-    }
+        // Verificar que no haya más enemigos antes de mostrar la victoria
+        while (EnemyManager.instance.enemiesAlive > 0)
+        {
+            yield return null;
+        }
 
-    if (EnemyManager.instance.enemiesAlive <= 0)
-    {
-        UIManager.instance.ShowWinGameUI();
+        if (EnemyManager.instance.enemiesAlive <= 0)
+        {
+            UIManager.instance.ShowWinGameUI();
+        }
     }
-}
 
     // Spawnear un enemigo y asignarle los waypoints
     void SpawnEnemy(GameObject enemyPrefab)

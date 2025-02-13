@@ -1,32 +1,76 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class TowerUpgrades : MonoBehaviour
 {
+    public int upgradeCost = 120;
+    public Button upgradeButton;
+    public TextMeshProUGUI upgradeCostText;
+    public TextMeshProUGUI sellValueText;
+    public Sprite towerUpgradeSprite1;
+    public Sprite towerUpgradeSprite2;
+    private bool maxUpgrade = false;
+
+    void Update()
+    {
+        if (upgradeCost > GameManager.instance.currentResources || maxUpgrade)
+        {
+            upgradeButton.interactable = false;
+        }
+        else
+        {
+            upgradeButton.interactable = true;
+        }
+    }
+
     public void UpgradeTower()
     {
-        if(GameManager.instance.CanAfford(40))
+        if (!CheckAndSpendResources(upgradeCost)) return;
+
+        Tower tower = GetComponent<Tower>();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        tower.range *= 1.2f;
+        tower.fireRate *= 1.2f;
+        TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
+
+        if (spriteRenderer.sprite == towerUpgradeSprite1)
         {
-            GameManager.instance.SpendResources(40);
-            GetComponent<Tower>().range *= 1.2f;
-            GetComponent<Tower>().fireRate *= 1.2f;
-            GetComponent<Tower>().cost += 40;
-            TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
+            spriteRenderer.sprite = towerUpgradeSprite2;
+            maxUpgrade = true;
+        }
+        else
+        {
+            spriteRenderer.sprite = towerUpgradeSprite1;
+        }
+    }
+
+    public bool CheckAndSpendResources(int price)
+    {
+        if (GameManager.instance.CanAfford(price))
+        {
+            GameManager.instance.SpendResources(price);
+            GetComponent<Tower>().cost += price;
+            UpdateSellValueText(Mathf.RoundToInt(GetComponent<Tower>().cost * 0.7f));
+            return true;
         }
         else
         {
             Debug.Log("Not enough resources to upgrade tower");
+            return false;
         }
-
-        
     }
 
-    public void SellTower()
+    public void UpdateSellValueText(int currentSellValue)
     {
-        // Agregar los recursos al jugador
+        sellValueText.text = "Venta = "+currentSellValue.ToString();
+    }
+    
+        public void SellTower()
+    {
         GameManager.instance.GainResources(Mathf.RoundToInt(GetComponent<Tower>().cost * 0.7f));
-
-        // Destruir la torre
         Destroy(gameObject);
     }
+
 }
