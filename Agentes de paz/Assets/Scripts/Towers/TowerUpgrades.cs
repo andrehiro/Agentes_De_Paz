@@ -8,6 +8,7 @@ public class TowerUpgrades : MonoBehaviour
     public Button upgradeButton;
     public TextMeshProUGUI upgradeCostText;
     public TextMeshProUGUI sellValueText;
+    public TextMeshProUGUI targetingButtonText;
     public Sprite towerUpgradeSprite1;
     public Sprite towerUpgradeSprite2;
     private bool maxUpgrade = false;
@@ -61,13 +62,24 @@ public class TowerUpgrades : MonoBehaviour
             return false;
         }
     }
+    public void UpdateTargetingButtonText()
+    {
+        if (targetingButtonText.text == "Primero")
+        {
+            targetingButtonText.text = "Último";
+        }
+        else
+        {
+            targetingButtonText.text = "Primero";
+        }
+    }
 
     public void UpdateSellValueText(int currentSellValue)
     {
         sellValueText.text = "Venta = "+currentSellValue.ToString();
     }
     
-        public void SellTower()
+    public void SellTower()
     {
         GameManager.instance.GainResources(Mathf.RoundToInt(GetComponent<Tower>().cost * 0.7f));
         Destroy(gameObject);

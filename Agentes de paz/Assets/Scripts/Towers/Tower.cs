@@ -1,79 +1,159 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Tower : MonoBehaviour
 {
-    public int cost= 100;
+    public int cost = 100;
     public float range = 10f;
-    public float fireRate = 1f; 
+    public float fireRate = 1f;
     public float projectileSpeed = 10f;
-    public GameObject projectilePrefab; 
-    public Transform firePoint; 
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    public GameObject rangeIndicator;
+    private GameObject targetEnemy;
     private float fireCooldown = 0f;
+    
+
 
     void Start()
-{
-    Transform rangeIndicator = transform.Find("RangeIndicator");
-    if (rangeIndicator != null)
     {
-        float spriteDiameter = rangeIndicator.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-        float scaleFactor = (range * 6f) / spriteDiameter;
-        rangeIndicator.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+        TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
+        GameObject targetEnemy = FindMostAdvancedEnemy();
     }
-}
 
     void Update()
     {
-        fireCooldown -= Time.deltaTime;
-
-        // Buscar el enemigo más cercano al final
-        GameObject targetEnemy = FindFirstEnemy();
-
+        fireCooldown = Mathf.Max(0, fireCooldown - Time.deltaTime);
+        
+        if(GetComponent<TowerUpgrades>().targetingButtonText.text == "Primero")
+        {
+            targetEnemy = FindMostAdvancedEnemy();
+        }
+        else
+        {
+            targetEnemy = FindLeastAdvancedEnemy();
+        }
+    
         if (targetEnemy != null && fireCooldown <= 0f)
         {
-            // Disparar hacia el enemigo
             ShootAtEnemy(targetEnemy);
-            fireCooldown = 1f / fireRate; // Resetear cooldown según la tasa de disparo
+            fireCooldown = 1f / fireRate;
         }
     }
 
-    // Método para encontrar el enemigo más cercano al final
-    GameObject FindFirstEnemy()
+    GameObject FindMostAdvancedEnemy()
     {
-        GameObject firstEnemy = null;
-        float closestToEnd = float.MaxValue; // Una medida del "progreso" hacia el final
+        GameObject bestTarget = null;
+        int highestWaypointIndex = -1;
+        float smallestDistanceToWaypoint = float.MaxValue;
 
-        // Buscar todos los enemigos en el rango de la torre
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            // Verificar distancia a la torre
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distanceToEnemy > range) continue;
 
-            // Verificar si el enemigo está en rango
-            if (distance <= range)
+            EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+            if (enemyMovement == null || enemyMovement.waypoints == null) continue;
+
+            // Obtener información del progreso del enemigo
+            int currentIndex = enemyMovement.currentWaypointIndex;
+            Transform currentWaypoint = GetCurrentWaypoint(enemyMovement);
+
+            if (currentWaypoint == null) continue;
+
+            // Calcular distancia al waypoint actual
+            float distanceToWaypoint = Vector3.Distance(enemy.transform.position, currentWaypoint.position);
+
+            // Priorizar enemigos más adelantados en el camino
+            bool isBetterTarget = false;
+            
+            if (currentIndex > highestWaypointIndex)
             {
-                // Obtener el progreso del enemigo hacia el final
-                EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
-                if (enemyMovement != null && enemyMovement.GetProgress() < closestToEnd)
+                isBetterTarget = true;
+            }
+            else if (currentIndex == highestWaypointIndex)
+            {
+                if (distanceToWaypoint < smallestDistanceToWaypoint)
                 {
-                    closestToEnd = enemyMovement.GetProgress();
-                    firstEnemy = enemy;
+                    isBetterTarget = true;
                 }
+            }
+
+            // Actualizar mejor objetivo
+            if (isBetterTarget)
+            {
+                highestWaypointIndex = currentIndex;
+                smallestDistanceToWaypoint = distanceToWaypoint;
+                bestTarget = enemy;
             }
         }
 
-        return firstEnemy;
+        return bestTarget;
     }
 
-    // Método para disparar un proyectil hacia un enemigo
+    GameObject FindLeastAdvancedEnemy()
+    {
+        GameObject bestTarget = null;
+        int lowestWaypointIndex = int.MaxValue;
+        float largestDistanceToWaypoint = -1f;
+
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            // Verificar distancia a la torre
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distanceToEnemy > range) continue;
+
+            EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+            if (enemyMovement == null || enemyMovement.waypoints == null) continue;
+
+            // Obtener información del progreso del enemigo
+            int currentIndex = enemyMovement.currentWaypointIndex;
+            Transform currentWaypoint = GetCurrentWaypoint(enemyMovement);
+
+            if (currentWaypoint == null) continue;
+
+            // Calcular distancia al waypoint actual
+            float distanceToWaypoint = Vector3.Distance(enemy.transform.position, currentWaypoint.position);
+
+            // Priorizar enemigos menos avanzados en el camino
+            bool isBetterTarget = false;
+            
+            if (currentIndex < lowestWaypointIndex)
+            {
+                isBetterTarget = true;
+            }
+            else if (currentIndex == lowestWaypointIndex)
+            {
+                if (distanceToWaypoint > largestDistanceToWaypoint)
+                {
+                    isBetterTarget = true;
+                }
+            }
+
+            // Actualizar mejor objetivo
+            if (isBetterTarget)
+            {
+                lowestWaypointIndex = currentIndex;
+                largestDistanceToWaypoint = distanceToWaypoint;
+                bestTarget = enemy;
+            }
+        }
+
+        return bestTarget;
+    }
+
+    Transform GetCurrentWaypoint(EnemyMovement enemyMovement)
+    {
+        if (enemyMovement.waypoints.Count == 0) return null;
+        int index = Mathf.Clamp(enemyMovement.currentWaypointIndex, 0, enemyMovement.waypoints.Count - 1);
+        return enemyMovement.waypoints[index];
+    }
+
     void ShootAtEnemy(GameObject enemy)
     {
-        // Crear el proyectil
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-
-        // Establecer la dirección hacia el enemigo
         Vector3 direction = (enemy.transform.position - firePoint.position).normalized;
 
-        // Obtener el componente Rigidbody2D del proyectil y aplicar la velocidad
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -81,10 +161,9 @@ public class Tower : MonoBehaviour
         }
     }
 
-    // Dibujar un círculo que representa el rango de la torre en el editor
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0f, 1f, 0f, 0.3f); 
+        Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
         Gizmos.DrawWireSphere(transform.position, range);
     }
 }
