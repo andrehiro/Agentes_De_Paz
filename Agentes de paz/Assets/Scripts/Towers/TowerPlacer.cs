@@ -169,7 +169,7 @@ public class TowerPlacer : MonoBehaviour
         }
     }
 
-    void CancelTowerPlacement()
+    public void CancelTowerPlacement()
     {
         if (currentTower != null)
         {

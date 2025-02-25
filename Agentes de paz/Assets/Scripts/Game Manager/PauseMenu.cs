@@ -37,6 +37,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         
         pauseMenuUI.SetActive(true);
+        TowerPlacer.instance.CancelTowerPlacement();
         
         EventSystem.current.SetSelectedGameObject(pauseMenuUI.GetComponentInChildren<Button>().gameObject);
     }

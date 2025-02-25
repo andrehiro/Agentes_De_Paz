@@ -1,33 +1,42 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
 
 public class TowerUpgrades : MonoBehaviour
 {
-    public int upgradeCost = 120;
+    public int upgradeCost1 = 120;
+    public int upgradeCost2 = 200;
+    private bool firstUpgrade = false;
+    private bool maxUpgrade = false;
+
     public Button upgradeButton;
-    public TextMeshProUGUI upgradeCostText;
     public TextMeshProUGUI sellValueText;
-    public TextMeshProUGUI targetingButtonText;
+    public TextMeshProUGUI upgradeCostText;
     public Sprite towerUpgradeSprite1;
     public Sprite towerUpgradeSprite2;
-    private bool maxUpgrade = false;
 
     void Update()
     {
-        if (upgradeCost > GameManager.instance.currentResources || maxUpgrade)
+        if (maxUpgrade)
         {
             upgradeButton.interactable = false;
+            upgradeCostText.text = "Máx alcanzado";
         }
         else
         {
-            upgradeButton.interactable = true;
+            int currentUpgradeCost = firstUpgrade ? upgradeCost2 : upgradeCost1;
+            upgradeButton.interactable = GameManager.instance.currentResources >= currentUpgradeCost;
+            upgradeCostText.text = "Mejorar = " + currentUpgradeCost.ToString();
         }
     }
 
     public void UpgradeTower()
     {
-        if (!CheckAndSpendResources(upgradeCost)) return;
+        if (maxUpgrade) return;  // No permitir mejoras adicionales
+
+        int currentUpgradeCost = firstUpgrade ? upgradeCost2 : upgradeCost1;
+
+        if (!CheckAndSpendResources(currentUpgradeCost)) return;
 
         Tower tower = GetComponent<Tower>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -36,14 +45,15 @@ public class TowerUpgrades : MonoBehaviour
         tower.fireRate *= 1.2f;
         TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
 
-        if (spriteRenderer.sprite == towerUpgradeSprite1)
+        if (!firstUpgrade)
         {
-            spriteRenderer.sprite = towerUpgradeSprite2;
-            maxUpgrade = true;
+            spriteRenderer.sprite = towerUpgradeSprite1;
+            firstUpgrade = true;
         }
         else
         {
-            spriteRenderer.sprite = towerUpgradeSprite1;
+            spriteRenderer.sprite = towerUpgradeSprite2;
+            maxUpgrade = true;
         }
     }
 
@@ -53,7 +63,7 @@ public class TowerUpgrades : MonoBehaviour
         {
             GameManager.instance.SpendResources(price);
             GetComponent<Tower>().cost += price;
-            UpdateSellValueText(Mathf.RoundToInt(GetComponent<Tower>().cost * 0.7f));
+            UpdateSellValueText(Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn));
             return true;
         }
         else
@@ -62,27 +72,15 @@ public class TowerUpgrades : MonoBehaviour
             return false;
         }
     }
-    public void UpdateTargetingButtonText()
-    {
-        if (targetingButtonText.text == "Primero")
-        {
-            targetingButtonText.text = "Último";
-        }
-        else
-        {
-            targetingButtonText.text = "Primero";
-        }
-    }
 
     public void UpdateSellValueText(int currentSellValue)
     {
-        sellValueText.text = "Venta = "+currentSellValue.ToString();
-    }
-    
-    public void SellTower()
-    {
-        GameManager.instance.GainResources(Mathf.RoundToInt(GetComponent<Tower>().cost * 0.7f));
-        Destroy(gameObject);
+        sellValueText.text = "Venta = " + currentSellValue.ToString();
     }
 
+    public void SellTower()
+    {
+        GameManager.instance.GainResources(Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn));
+        Destroy(gameObject);
+    }
 }

@@ -91,8 +91,8 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return null;
         }
-
         UIManager.instance.ShowWinGameUI();
+        TowerPlacer.instance.CancelTowerPlacement();
     }
 
     void SpawnEnemy(GameObject enemyPrefab)

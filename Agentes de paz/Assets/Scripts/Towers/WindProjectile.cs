@@ -1,17 +1,12 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class WindProjectile : MonoBehaviour
 {
-    private float damage;
-    private int pierce;
+    public float damage = 10f;
+    public int pierce = 1;
+    public float knockbackForce = 5f;
     private int enemiesHit = 0;
-    private float lifeTime = 5f; 
-
-    public void Initialize(float damage, int pierce)
-    {
-        this.damage = damage;
-        this.pierce = pierce;
-    }
+    private float lifeTime = 5f;
 
     private void Start()
     {
@@ -22,15 +17,25 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            // Aplicar daño al enemigo
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+            Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
+            EnemyMovement enemyMovement = collision.GetComponent<EnemyMovement>();
+
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
             }
+
+            if (enemyRb != null && enemyMovement != null)
+            {
+                // Intentar calcular la dirección inversa del movimiento del enemigo
+
+                // Aplicar la fuerza de knockback
+
+            }
+
             enemiesHit++;
 
-            // Si el proyectil ha alcanzado su límite de penetración, destruirlo
             if (enemiesHit >= pierce)
             {
                 Destroy(gameObject);

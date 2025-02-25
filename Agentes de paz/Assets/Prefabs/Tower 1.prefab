@@ -1298,12 +1298,12 @@ GameObject:
   - component: {fileID: 6188790325392236760}
   - component: {fileID: 6288214793960434468}
   - component: {fileID: 4329617702607904564}
-  - component: {fileID: 3116502412170941654}
+  - component: {fileID: -4360959487567648732}
   - component: {fileID: -7536335263042762524}
   - component: {fileID: -8051959270877283457}
   - component: {fileID: 6989545425280133798}
   m_Layer: 6
-  m_Name: Tower
+  m_Name: Tower 1
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1371,7 +1371,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6209080570435709821, guid: 931152b2f20eb3a4c8f28afd5aa9fe55, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4292453, g: 0.6380744, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1427,7 +1427,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.53, y: 4.7}
   m_EdgeRadius: 0
---- !u!114 &3116502412170941654
+--- !u!114 &-4360959487567648732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7785496489854992362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e3c766a1906bcd49bc7f331758cb80e, type: 3}
+  m_Script: {fileID: 11500000, guid: a73e97941a7e5ca43a85b7dffb959ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 100
@@ -1446,9 +1446,10 @@ MonoBehaviour:
   damage: 10
   pierce: 1
   sellValueReturn: 0.7
-  projectilePrefab: {fileID: 2605390464641443986, guid: d6b695b5819660e4dabdacdfd13192e1, type: 3}
+  projectilePrefab: {fileID: 2605390464641443986, guid: a0171cf2f7fced248b2e56d7ddf2f151, type: 3}
   firePoint: {fileID: 6188790325392236760}
   rangeIndicator: {fileID: 6787870790843346987}
+  knockbackForce: 50
 --- !u!114 &-7536335263042762524
 MonoBehaviour:
   m_ObjectHideFlags: 0
