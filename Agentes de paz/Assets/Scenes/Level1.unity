@@ -2043,24 +2043,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemies:
+  - enemyGroups:
     - enemyPrefab: {fileID: 7723663130635041286, guid: 6e849a80d89bd9241b708d1ffcc78cdc, type: 3}
-      enemyCount: 8
+      enemyCount: 3
       spawnDelay: 1
+      delayAfterWave: 0
     - enemyPrefab: {fileID: 3158037144004019896, guid: 8d773d3a31ec7e1429d804da0bbd5a30, type: 3}
-      enemyCount: 2
+      enemyCount: 3
       spawnDelay: 1
-    - enemyPrefab: {fileID: 7723663130635041286, guid: 6e849a80d89bd9241b708d1ffcc78cdc, type: 3}
-      enemyCount: 8
-      spawnDelay: 1
-    timeBeforeNextWave: 0
-  - enemies:
-    - enemyPrefab: {fileID: 5080800232503745637, guid: 4a34fb1f57b939345a005ab2d5dc7a61, type: 3}
-      enemyCount: 1
-      spawnDelay: 1
-    - enemyPrefab: {fileID: 3158037144004019896, guid: 8d773d3a31ec7e1429d804da0bbd5a30, type: 3}
-      enemyCount: 2
-      spawnDelay: 1
+      delayAfterWave: 1
     timeBeforeNextWave: 0
   spawnPoint: {fileID: 381093445}
   waypoints:

@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private float damage;
-    private int pierce;
+    private Tower tower; 
     private int enemiesHit = 0;
-    private float lifeTime = 5f; 
+    private float lifeTime = 5f;
+    private bool isActive = true;
+    private Collider2D projectileCollider;
 
-    public void Initialize(float damage, int pierce)
+    private float cachedDamage;
+    private int cachedPierce;
+
+    public void SetTower(Tower sourceTower)
     {
-        this.damage = damage;
-        this.pierce = pierce;
+        tower = sourceTower;
+        cachedDamage = tower.damage;
+        cachedPierce = tower.pierce;
+        projectileCollider = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -20,19 +26,24 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!isActive || tower == null) return;
+
         if (collision.CompareTag("Enemy"))
         {
-            // Aplicar daño al enemigo
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damage);
+                enemyHealth.TakeDamage(cachedDamage);
             }
             enemiesHit++;
 
-            // Si el proyectil ha alcanzado su límite de penetración, destruirlo
-            if (enemiesHit >= pierce)
+            if (enemiesHit >= cachedPierce)
             {
+                isActive = false;
+                if (projectileCollider != null)
+                {
+                    projectileCollider.enabled = false;
+                }
                 Destroy(gameObject);
             }
         }

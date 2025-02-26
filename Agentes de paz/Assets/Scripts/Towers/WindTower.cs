@@ -3,6 +3,7 @@ using UnityEngine;
 public class WindTower : Tower
 {
     public float knockbackForce = 5f;
+    public float knockbackDuration = 0.3f; // Nueva variable para controlar la duración
 
     protected override void ShootAtEnemy(GameObject enemy)
     {
@@ -18,9 +19,7 @@ public class WindTower : Tower
         WindProjectile windProjectile = projectile.GetComponent<WindProjectile>();
         if (windProjectile != null)
         {
-            windProjectile.damage = damage;
-            windProjectile.pierce = pierce;
-            windProjectile.knockbackForce = knockbackForce;
+            windProjectile.SetTower(this); // Pasamos toda la torre como referencia
         }
     }
 }

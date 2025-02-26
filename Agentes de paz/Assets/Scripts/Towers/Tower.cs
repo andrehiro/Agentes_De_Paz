@@ -2,12 +2,12 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    public int cost = 100;
-    public float range = 10f;
+    public float damage = 10f;
     public float fireRate = 1f;
     public float projectileSpeed = 10f;
-    public float damage = 10f;
+    public float range = 10f;
     public int pierce = 1;
+    public int cost = 100;
     public float sellValueReturn = 0.7f;
 
     public GameObject projectilePrefab;

@@ -16,7 +16,7 @@ public class BasicTower : Tower
         Projectile projectileScript = projectile.GetComponent<Projectile>();
         if (projectileScript != null)
         {
-            projectileScript.Initialize(damage, pierce);
+            projectileScript.SetTower(this); // Pasamos la referencia completa de la torre
         }
     }
 }

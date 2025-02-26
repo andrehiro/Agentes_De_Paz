@@ -9,12 +9,13 @@ public class EnemyWave
     public GameObject enemyPrefab;
     public int enemyCount;
     public float spawnDelay;
+    public float delayAfterWave; // Nuevo campo para delay después de este grupo
 }
 
 [System.Serializable]
 public class Wave
 {
-    public EnemyWave[] enemies;
+    public EnemyWave[] enemyGroups; // Renombrado para mayor claridad
     public float timeBeforeNextWave;
 }
 
@@ -24,7 +25,9 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnPoint;
     public List<Transform> waypoints;
     public Toggle autoModeToggle;
+    
     private int currentWaveIndex = 0;
+    private int currentGroupIndex = 0;
     private bool isWaveInProgress = false;
 
     void Start()
@@ -34,14 +37,12 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        // Iniciar la siguiente oleada si el modo automático está activado
         if (!isWaveInProgress && currentWaveIndex < waves.Length && autoModeToggle.isOn && currentWaveIndex != 0)
         {
             StartNextWave();
         }
     }
 
-    // Método para iniciar la oleada cuando se presione el botón
     public void StartNextWave()
     {
         if (!isWaveInProgress && currentWaveIndex < waves.Length)
@@ -56,37 +57,52 @@ public class EnemySpawner : MonoBehaviour
         while (currentWaveIndex < waves.Length)
         {
             Wave currentWave = waves[currentWaveIndex];
+            currentGroupIndex = 0;
 
-            foreach (EnemyWave enemyWave in currentWave.enemies)
+            while (currentGroupIndex < currentWave.enemyGroups.Length)
             {
-                for (int i = 0; i < enemyWave.enemyCount; i++)
+                EnemyWave currentGroup = currentWave.enemyGroups[currentGroupIndex];
+
+                for (int i = 0; i < currentGroup.enemyCount; i++)
                 {
-                    SpawnEnemy(enemyWave.enemyPrefab);
+                    SpawnEnemy(currentGroup.enemyPrefab);
                     EnemyManager.instance.RegisterEnemy();
 
-                    if (enemyWave.spawnDelay > 0)
+                    if (i < currentGroup.enemyCount - 1 && currentGroup.spawnDelay > 0)
                     {
-                        yield return new WaitForSeconds(enemyWave.spawnDelay);
+                        yield return new WaitForSeconds(currentGroup.spawnDelay);
                     }
                 }
+
+                // Esperar delay después del grupo si está definido
+                if (currentGroup.delayAfterWave > 0)
+                {
+                    yield return new WaitForSeconds(currentGroup.delayAfterWave);
+                }
+
+                currentGroupIndex++;
             }
 
-            // Esperar hasta que todos los enemigos sean derrotados
             yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
 
-            // Avanzar a la siguiente oleada
+            // Guardar el delay de la onda ACTUAL antes de incrementar
+            float currentWaveDelay = currentWave.timeBeforeNextWave;
+            
             currentWaveIndex++;
             UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
-            isWaveInProgress = false; // Permitir iniciar la siguiente oleada con el botón
+            isWaveInProgress = false;
 
-            // Si quedan oleadas, esperar el botón para la siguiente
             if (currentWaveIndex < waves.Length)
             {
-                yield break; 
+                // Usar el delay de la onda que ACABA de terminar
+                if (currentWaveDelay > 0)
+                {
+                    yield return new WaitForSeconds(currentWaveDelay);
+                }
+                yield break;
             }
         }
 
-        // Verificar que no haya más enemigos antes de mostrar la victoria
         while (EnemyManager.instance.enemiesAlive > 0)
         {
             yield return null;
