@@ -1,10 +1,14 @@
 using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth instance;
     public float maxHealth = 100f;
     private float currentHealth;
+    public event Action OnPlayerDeath;
 
     void Awake()
     {
@@ -38,6 +42,6 @@ public class PlayerHealth : MonoBehaviour
     // Método para manejar la muerte del jugador
     private void PlayerDie()
     {
-        UIManager.instance.ShowlossGameUI();
+        OnPlayerDeath?.Invoke();
     }
 }

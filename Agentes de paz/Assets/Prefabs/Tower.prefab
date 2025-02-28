@@ -1055,8 +1055,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7536335263042762524}
-        m_TargetAssemblyTypeName: TowerUpgrades, Assembly-CSharp
+      - m_Target: {fileID: 113959635837264255}
+        m_TargetAssemblyTypeName: EarthTowerUpgrades, Assembly-CSharp
         m_MethodName: UpgradeTower
         m_Mode: 1
         m_Arguments:
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7536335263042762524}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TowerUpgrades, Assembly-CSharp
         m_MethodName: SellTower
         m_Mode: 1
@@ -1299,7 +1299,7 @@ GameObject:
   - component: {fileID: 6288214793960434468}
   - component: {fileID: 4329617702607904564}
   - component: {fileID: 3116502412170941654}
-  - component: {fileID: -7536335263042762524}
+  - component: {fileID: 113959635837264255}
   - component: {fileID: -8051959270877283457}
   - component: {fileID: 6989545425280133798}
   m_Layer: 6
@@ -1439,17 +1439,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3c766a1906bcd49bc7f331758cb80e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 100
-  range: 5
+  damage: 5
   fireRate: 1
-  projectileSpeed: 10
-  damage: 10
+  projectileSpeed: 15
+  range: 4
   pierce: 1
+  cost: 150
   sellValueReturn: 0.7
   projectilePrefab: {fileID: 2605390464641443986, guid: d6b695b5819660e4dabdacdfd13192e1, type: 3}
   firePoint: {fileID: 6188790325392236760}
   rangeIndicator: {fileID: 6787870790843346987}
---- !u!114 &-7536335263042762524
+--- !u!114 &113959635837264255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1458,11 +1458,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7785496489854992362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f689ad9b76f5e4145a64ddd51600a4c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4516f965058b402458ea02b6f5794135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeCost1: 120
   upgradeCost2: 200
+  firstUpgrade: 0
+  maxUpgrade: 0
   upgradeButton: {fileID: 1989217376012263238}
   sellValueText: {fileID: 6483234646326439666}
   upgradeCostText: {fileID: 1248204214620865993}

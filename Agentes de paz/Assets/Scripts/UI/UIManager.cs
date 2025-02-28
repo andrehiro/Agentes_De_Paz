@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
         winGameUI.SetActive(true);
     }
 
-    public void ShowlossGameUI()
+    public void ShowLoseGameUI()
     {
         lossGameUI.SetActive(true);
     }

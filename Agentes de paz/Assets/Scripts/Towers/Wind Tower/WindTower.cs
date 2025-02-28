@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WindTower : Tower
 {
+    [Header("Knockback Stats")]
     public float knockbackForce = 5f;
     public float knockbackDuration = 0.3f; // Nueva variable para controlar la duración
 

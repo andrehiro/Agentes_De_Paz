@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -25,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnPoint;
     public List<Transform> waypoints;
     public Toggle autoModeToggle;
-    
+    public static event Action<int> OnWaveCompleted; 
+    public static event Action OnAllWavesCompleted;
+
     private int currentWaveIndex = 0;
     private int currentGroupIndex = 0;
     private bool isWaveInProgress = false;
@@ -85,9 +88,15 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
 
+            // Obtener el número de onda completada (base 1 para UI)
+            int completedWaveNumber = currentWaveIndex + 1;
+
+            // Activar evento de onda completada
+            OnWaveCompleted?.Invoke(completedWaveNumber);
+
             // Guardar el delay de la onda ACTUAL antes de incrementar
             float currentWaveDelay = currentWave.timeBeforeNextWave;
-            
+
             currentWaveIndex++;
             UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
             isWaveInProgress = false;
@@ -107,8 +116,8 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return null;
         }
-        UIManager.instance.ShowWinGameUI();
-        TowerPlacer.instance.CancelTowerPlacement();
+        OnAllWavesCompleted?.Invoke();
+        yield break;
     }
 
     void SpawnEnemy(GameObject enemyPrefab)
