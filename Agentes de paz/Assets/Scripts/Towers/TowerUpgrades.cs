@@ -6,7 +6,10 @@ public abstract class TowerUpgrades : MonoBehaviour
 {
     public int upgradeCost1 = 120;
     public int upgradeCost2 = 200;
+    public int upgradeCost3 = 350;
+
     public bool firstUpgrade = false;
+    public bool secondUpgrade = false;
     public bool maxUpgrade = false;
 
     public Button upgradeButton;
@@ -14,6 +17,7 @@ public abstract class TowerUpgrades : MonoBehaviour
     public TextMeshProUGUI sellValueText;
     public Sprite towerUpgradeSprite1;
     public Sprite towerUpgradeSprite2;
+    public Sprite towerUpgradeSprite3;
 
     void Update()
     {
@@ -24,7 +28,7 @@ public abstract class TowerUpgrades : MonoBehaviour
         }
         else
         {
-            int currentUpgradeCost = firstUpgrade ? upgradeCost2 : upgradeCost1;
+            int currentUpgradeCost = !firstUpgrade ? upgradeCost1 : (!secondUpgrade ? upgradeCost2 : upgradeCost3);
             upgradeButton.interactable = GameManager.instance.currentResources >= currentUpgradeCost;
             upgradeCostText.text = "Mejorar = " + currentUpgradeCost.ToString();
         }

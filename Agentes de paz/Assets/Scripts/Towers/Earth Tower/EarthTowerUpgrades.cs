@@ -4,9 +4,9 @@ public class EarthTowerUpgrades : TowerUpgrades
 {
     public override void UpgradeTower()
     {
-        if (maxUpgrade) return;  // No permitir mejoras adicionales
+        if (maxUpgrade) return; 
 
-        int currentUpgradeCost = firstUpgrade ? upgradeCost2 : upgradeCost1;
+        int currentUpgradeCost = !firstUpgrade ? upgradeCost1 : (!secondUpgrade ? upgradeCost2 : upgradeCost3);
 
         if (!CheckAndSpendResources(currentUpgradeCost)) return;
 
@@ -15,18 +15,26 @@ public class EarthTowerUpgrades : TowerUpgrades
 
         if (!firstUpgrade)
         {
+            // Primera mejora
             tower.fireRate = 1.7f;
             tower.damage = 5f;
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
         }
+        else if (!secondUpgrade)
+        {
+            // Segunda mejora
+            tower.fireRate = 3.5f;
+            tower.damage = 5f;
+            spriteRenderer.sprite = towerUpgradeSprite2;
+            secondUpgrade = true;
+        }
         else
         {
-            tower.range *= 1.2f;
-            tower.fireRate = 1.8f;
-            tower.damage = 10f;
-            TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
-            spriteRenderer.sprite = towerUpgradeSprite2;
+            // Tercera mejora
+            tower.fireRate = 9f;
+            tower.damage = 5f;
+            spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
         }
     }

@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
     public static event Action<int> OnWaveCompleted; 
     public static event Action OnAllWavesCompleted;
 
-    private int currentWaveIndex = 0;
+    public int currentWaveIndex = 0;
     private int currentGroupIndex = 0;
     private bool isWaveInProgress = false;
 

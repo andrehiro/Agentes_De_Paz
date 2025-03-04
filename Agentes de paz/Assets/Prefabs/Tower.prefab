@@ -1297,11 +1297,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6188790325392236760}
   - component: {fileID: 6288214793960434468}
-  - component: {fileID: 4329617702607904564}
   - component: {fileID: 3116502412170941654}
   - component: {fileID: 113959635837264255}
   - component: {fileID: -8051959270877283457}
   - component: {fileID: 6989545425280133798}
+  - component: {fileID: 6452832148756447306}
   m_Layer: 6
   m_Name: Tower
   m_TagString: Tower
@@ -1318,8 +1318,8 @@ Transform:
   m_GameObject: {fileID: 7785496489854992362}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.046185, y: 2.0481925, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalPosition: {x: 4.046185, y: 2.041, z: 0}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8294452552703551298}
@@ -1369,7 +1369,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1329585991
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 6209080570435709821, guid: 931152b2f20eb3a4c8f28afd5aa9fe55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1381,8 +1381,80 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4329617702607904564
-BoxCollider2D:
+--- !u!114 &3116502412170941654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3c766a1906bcd49bc7f331758cb80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  fireRate: 1
+  projectileSpeed: 15
+  range: 4
+  pierce: 1
+  cost: 150
+  sellValueReturn: 0.7
+  projectilePrefab: {fileID: 2605390464641443986, guid: d6b695b5819660e4dabdacdfd13192e1, type: 3}
+  firePoint: {fileID: 6188790325392236760}
+  rangeIndicator: {fileID: 6787870790843346987}
+--- !u!114 &113959635837264255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4516f965058b402458ea02b6f5794135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeCost1: 190
+  upgradeCost2: 300
+  upgradeCost3: 770
+  firstUpgrade: 0
+  secondUpgrade: 0
+  maxUpgrade: 0
+  upgradeButton: {fileID: 1989217376012263238}
+  upgradeCostText: {fileID: 1248204214620865993}
+  sellValueText: {fileID: 6483234646326439666}
+  towerUpgradeSprite1: {fileID: -1823698551240451063, guid: 8b7e569a40d16e949b682c6d457dbb3f, type: 3}
+  towerUpgradeSprite2: {fileID: -569938136511312490, guid: 735dee7ba105a5f428d2e0cf77739ee1, type: 3}
+  towerUpgradeSprite3: {fileID: -569938136511312490, guid: 840e303c1a0ed994b9cecb9893e93220, type: 3}
+--- !u!114 &-8051959270877283457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca6482e8a2258745bd7cb57f4c22dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerUpgradesUI: {fileID: 5061290987793941864}
+--- !u!114 &6989545425280133798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ecb80ecec64b74fa3293088886e1e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetingButtonText: {fileID: 8175930983700553264}
+--- !u!60 &6452832148756447306
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1425,74 +1497,53 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.53, y: 4.7}
-  m_EdgeRadius: 0
---- !u!114 &3116502412170941654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e3c766a1906bcd49bc7f331758cb80e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  fireRate: 1
-  projectileSpeed: 15
-  range: 4
-  pierce: 1
-  cost: 150
-  sellValueReturn: 0.7
-  projectilePrefab: {fileID: 2605390464641443986, guid: d6b695b5819660e4dabdacdfd13192e1, type: 3}
-  firePoint: {fileID: 6188790325392236760}
-  rangeIndicator: {fileID: 6787870790843346987}
---- !u!114 &113959635837264255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4516f965058b402458ea02b6f5794135, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeCost1: 120
-  upgradeCost2: 200
-  firstUpgrade: 0
-  maxUpgrade: 0
-  upgradeButton: {fileID: 1989217376012263238}
-  sellValueText: {fileID: 6483234646326439666}
-  upgradeCostText: {fileID: 1248204214620865993}
-  towerUpgradeSprite1: {fileID: -1823698551240451063, guid: 8b7e569a40d16e949b682c6d457dbb3f, type: 3}
-  towerUpgradeSprite2: {fileID: -569938136511312490, guid: 735dee7ba105a5f428d2e0cf77739ee1, type: 3}
---- !u!114 &-8051959270877283457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca6482e8a2258745bd7cb57f4c22dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerUpgradesUI: {fileID: 5061290987793941864}
---- !u!114 &6989545425280133798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ecb80ecec64b74fa3293088886e1e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetingButtonText: {fileID: 8175930983700553264}
+  m_Points:
+    m_Paths:
+    - - {x: 1.6700722, y: -1.8599592}
+      - {x: 1.7889236, y: -1.7570227}
+      - {x: 1.8841999, y: -1.5806364}
+      - {x: 1.9353907, y: -1.4047637}
+      - {x: 1.9624544, y: -1.3042085}
+      - {x: 1.9936454, y: -1.1353592}
+      - {x: 2.0036454, y: -0.5935727}
+      - {x: 2.0248365, y: 0.79098624}
+      - {x: 2.0077748, y: 1.0040053}
+      - {x: 1.987775, y: 1.1946}
+      - {x: 1.9583675, y: 1.3581327}
+      - {x: 1.9060701, y: 1.5415819}
+      - {x: 1.8249596, y: 1.6950734}
+      - {x: 1.745, y: 1.7909459}
+      - {x: 1.6338513, y: 1.8991997}
+      - {x: 1.4832145, y: 1.9809874}
+      - {x: 1.3144459, y: 2.0368588}
+      - {x: 1.1191274, y: 2.0815818}
+      - {x: -0.9242825, y: 2.102773}
+      - {x: -1.0990456, y: 2.082773}
+      - {x: -1.2590042, y: 2.0369003}
+      - {x: -1.3807092, y: 1.981069}
+      - {x: -1.4671773, y: 1.9287271}
+      - {x: -1.560669, y: 1.8428949}
+      - {x: -1.6771371, y: 1.7252771}
+      - {x: -1.7901139, y: 1.5452368}
+      - {x: -1.8713049, y: 1.348172}
+      - {x: -1.9118589, y: 1.1305956}
+      - {x: -1.9559861, y: 0.9694861}
+      - {x: -1.9865818, y: 0.7271453}
+      - {x: -1.9930499, y: 0.3247229}
+      - {x: -1.9895191, y: -0.5122596}
+      - {x: -1.9907103, y: -0.89809144}
+      - {x: -1.9595181, y: -1.2664273}
+      - {x: -1.927774, y: -1.5246004}
+      - {x: -1.8848368, y: -1.6869819}
+      - {x: -1.8342823, y: -1.8022189}
+      - {x: -1.7413875, y: -1.9069003}
+      - {x: -1.5678254, y: -1.9871793}
+      - {x: -1.3349999, y: -2.0447676}
+      - {x: -0.977015, y: -2.0613384}
+      - {x: -0.43507212, y: -2.0713384}
+      - {x: 0.50373304, y: -2.0701442}
+      - {x: 0.83372617, y: -2.0780504}
+      - {x: 1.0819405, y: -2.0721774}
+      - {x: 1.3201529, y: -2.033964}
+      - {x: 1.5519004, y: -1.946346}
+  m_UseDelaunayMesh: 0
