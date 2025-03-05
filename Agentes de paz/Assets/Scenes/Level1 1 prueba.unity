@@ -2506,6 +2506,7 @@ MonoBehaviour:
   - {fileID: 1973156476}
   - {fileID: 1680139522}
   autoModeToggle: {fileID: 1668174616}
+  currentWaveIndex: 0
 --- !u!4 &381093445
 Transform:
   m_ObjectHideFlags: 0
@@ -2751,6 +2752,7 @@ MonoBehaviour:
   - {fileID: 1973156476}
   - {fileID: 1680139522}
   autoModeToggle: {fileID: 1668174616}
+  currentWaveIndex: 0
 --- !u!1 &409540667
 GameObject:
   m_ObjectHideFlags: 0

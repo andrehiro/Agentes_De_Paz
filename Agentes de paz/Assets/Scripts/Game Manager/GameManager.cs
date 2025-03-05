@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         UIManager.instance.ShowWinGameUI();
         TowerPlacer.instance.CancelTowerPlacement();
+        CompleteLevel();
         yield return new WaitForSeconds(1f);
         Time.timeScale = 0f;
     }
@@ -79,5 +81,17 @@ public class GameManager : MonoBehaviour
         UIManager.instance.ShowLoseGameUI();
         TowerPlacer.instance.CancelTowerPlacement();
         Time.timeScale = 0f;
+    }
+
+    public void CompleteLevel()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1);
+
+        if (currentLevel >= unlockedLevels)
+        {
+            PlayerPrefs.SetInt("UnlockedLevels", currentLevel + 1);
+            PlayerPrefs.Save();
+        }
     }
 }
