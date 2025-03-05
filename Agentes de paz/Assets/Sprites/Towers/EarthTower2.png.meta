@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 840e303c1a0ed994b9cecb9893e93220
+guid: 1ff590191a91f3046a1dbfbc2daee21e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -569938136511312490
-    second: Torre3_0
+      213: 6720261238081311945
+    second: EarthTower2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Torre3_0
+      name: EarthTower2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 481
-        height: 518
+        width: 494
+        height: 505
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69d8b45d84c2718f0800000000000000
-      internalID: -569938136511312490
+      spriteID: 9c4d9a59df9234d50800000000000000
+      internalID: 6720261238081311945
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Torre3_0: -569938136511312490
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

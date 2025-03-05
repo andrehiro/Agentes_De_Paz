@@ -4,7 +4,8 @@ public class ResourceTower : Tower
 {
     public int resourcesPerWave = 50;
 
-    protected override void Start() {
+    protected override void Start() 
+    {
         towerUpgrades = GetComponent<TowerUpgrades>();
         towerUpgrades.UpdateSellValueText(Mathf.RoundToInt(cost * sellValueReturn));
         EnemySpawner.OnWaveCompleted += HandleWaveCompleted;

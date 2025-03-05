@@ -1055,8 +1055,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6361322930976211500}
-        m_TargetAssemblyTypeName: WindTowerUpgrades, Assembly-CSharp
+      - m_Target: {fileID: 4037245111588181362}
+        m_TargetAssemblyTypeName: FireTowerUpgrades, Assembly-CSharp
         m_MethodName: UpgradeTower
         m_Mode: 1
         m_Arguments:
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4037245111588181362}
         m_TargetAssemblyTypeName: TowerUpgrades, Assembly-CSharp
         m_MethodName: SellTower
         m_Mode: 1
@@ -1298,12 +1298,12 @@ GameObject:
   - component: {fileID: 6188790325392236760}
   - component: {fileID: 6288214793960434468}
   - component: {fileID: 4329617702607904564}
-  - component: {fileID: -4360959487567648732}
-  - component: {fileID: 6361322930976211500}
+  - component: {fileID: -6023269070619369849}
+  - component: {fileID: 4037245111588181362}
   - component: {fileID: -8051959270877283457}
   - component: {fileID: 6989545425280133798}
   m_Layer: 6
-  m_Name: Wind Tower
+  m_Name: FireTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1370,12 +1370,12 @@ SpriteRenderer:
   m_SortingLayerID: 1329585991
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2935162957305063868, guid: 4d3d601aa3b38dd45a5ce70357e247be, type: 3}
+  m_Sprite: {fileID: 2315099711232129893, guid: 49661de0e1fc74941a84a8775e343b6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.88, y: 5.11}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1419,15 +1419,15 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.88, y: 5.11}
-    newSize: {x: 4.88, y: 5.11}
+    oldSize: {x: 4.88, y: 5.05}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 4.53, y: 4.7}
   m_EdgeRadius: 0
---- !u!114 &-4360959487567648732
+--- !u!114 &-6023269070619369849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1436,22 +1436,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7785496489854992362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a73e97941a7e5ca43a85b7dffb959ca8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd0ba1cc813b1546b04407d7e20a80c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  fireRate: 0.5
-  projectileSpeed: 10
-  range: 5
-  pierce: 5
+  damage: 3
+  fireRate: 3
+  projectileSpeed: 15
+  range: 4
+  pierce: 1
   cost: 100
   sellValueReturn: 0.7
-  projectilePrefab: {fileID: 2605390464641443986, guid: a0171cf2f7fced248b2e56d7ddf2f151, type: 3}
+  projectilePrefab: {fileID: 2605390464641443986, guid: 55381b85e32ea074a9ea6bd508109ee2, type: 3}
   firePoint: {fileID: 6188790325392236760}
   rangeIndicator: {fileID: 6787870790843346987}
-  knockbackForce: 3
-  knockbackDuration: 0.3
---- !u!114 &6361322930976211500
+  projectileCount: 3
+  angleBetweenShots: 15
+--- !u!114 &4037245111588181362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1460,18 +1460,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7785496489854992362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90950d9b4d8724d46bcd89d55451e0a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 560929caeceebaa44a8096fd023e82e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeCost1: 120
   upgradeCost2: 200
+  upgradeCost3: 350
   firstUpgrade: 0
+  secondUpgrade: 0
   maxUpgrade: 0
   upgradeButton: {fileID: 1989217376012263238}
   upgradeCostText: {fileID: 1248204214620865993}
   sellValueText: {fileID: 6483234646326439666}
-  towerUpgradeSprite1: {fileID: 6331231272467036890, guid: 00e2b58a426ded447b5d2b5e1c28710b, type: 3}
-  towerUpgradeSprite2: {fileID: -921798394539355605, guid: 96347b56bc5253b4081e4586398d8827, type: 3}
+  towerUpgradeSprite1: {fileID: 5167640130771724519, guid: c06a69fd703b2ab4aa0d20cdd262576b, type: 3}
+  towerUpgradeSprite2: {fileID: -7770100478521514559, guid: 09272c09248890245b59d9f0aabd5816, type: 3}
+  towerUpgradeSprite3: {fileID: -7770100478521514559, guid: 09272c09248890245b59d9f0aabd5816, type: 3}
 --- !u!114 &-8051959270877283457
 MonoBehaviour:
   m_ObjectHideFlags: 0

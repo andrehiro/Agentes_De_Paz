@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 00e2b58a426ded447b5d2b5e1c28710b
+guid: 6a8415515fc99294ca5a7463e1c4f895
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6331231272467036890
-    second: WindTower2_0
+      213: 309964321272357833
+    second: EarthTower_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WindTower2_0
+      name: EarthTower_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 491
-        height: 508
+        width: 487
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: adafd3a4c4d0dd750800000000000000
-      internalID: 6331231272467036890
+      spriteID: 9c3eb7e68e63d4400800000000000000
+      internalID: 309964321272357833
       vertices: []
       indices: 
       edges: []

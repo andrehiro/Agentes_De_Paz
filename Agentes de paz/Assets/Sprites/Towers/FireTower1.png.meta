@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 96347b56bc5253b4081e4586398d8827
+guid: c06a69fd703b2ab4aa0d20cdd262576b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -921798394539355605
-    second: WindTower3_0
+      213: 5167640130771724519
+    second: FireTower1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WindTower3_0
+      name: FireTower1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 491
-        height: 508
+        height: 509
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b22d4fa7e3d1533f0800000000000000
-      internalID: -921798394539355605
+      spriteID: 7e8a3b1d15527b740800000000000000
+      internalID: 5167640130771724519
       vertices: []
       indices: 
       edges: []

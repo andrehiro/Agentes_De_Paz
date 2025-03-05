@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8b7e569a40d16e949b682c6d457dbb3f
+guid: a19c6f25b9c2b4f41be1d381e532667c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1823698551240451063
-    second: Torre2_0
+      213: 8106197212900678316
+    second: WaterTower1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Torre2_0
+      name: WaterTower1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 462
-        height: 479
+        width: 487
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 90c1beb74dbe0b6e0800000000000000
-      internalID: -1823698551240451063
+      spriteID: caad43aaa6ffe7070800000000000000
+      internalID: 8106197212900678316
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Torre2_0: -1823698551240451063
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

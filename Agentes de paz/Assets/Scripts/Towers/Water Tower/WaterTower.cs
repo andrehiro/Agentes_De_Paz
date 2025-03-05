@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EarthTower : Tower
+public class WaterTower : Tower
 {
     protected override void ShootAtEnemy(GameObject enemy)
     {
@@ -16,7 +16,7 @@ public class EarthTower : Tower
         Projectile projectileScript = projectile.GetComponent<Projectile>();
         if (projectileScript != null)
         {
-            projectileScript.SetTower(this); // Pasamos la referencia completa de la torre
+            projectileScript.SetTower(this);
         }
     }
 }
