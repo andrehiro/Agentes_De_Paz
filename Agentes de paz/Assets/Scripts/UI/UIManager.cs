@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateWaveText(float currentWave)
     {
-        waveText.text = "Wave: " + currentWave.ToString();
+        waveText.text = "Ronda: " + currentWave.ToString();
     }
 
     public void UpdateResourcesText(int currentResources)

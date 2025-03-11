@@ -11,6 +11,25 @@ public class EnemyMovement : MonoBehaviour
 
     private bool isKnockedBack = false;
     private Vector2 currentMovementDirection;
+    private SpriteRenderer spriteRenderer;
+    private EnemyHealth enemyHealth;
+
+    private List<int> stealthWaypoints = new List<int>();
+    private List<int> stealthExitWaypoints = new List<int>();
+
+    private bool isInvulnerable = false;
+    private Vector3 originalScale;
+    
+    [Header("Stealth Animation Settings")]
+    public float stealthDuration = 0.5f;  // Duración de la animación completa
+    public float stealthScaleSpeed = 1.5f; // Velocidad de escalado (1 = normal, >1 = más rápido)
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        enemyHealth = GetComponent<EnemyHealth>();
+        originalScale = transform.localScale;
+    }
 
     void Update()
     {
@@ -31,13 +50,53 @@ public class EnemyMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
             {
                 currentWaypointIndex++;
+
+                if (stealthWaypoints.Contains(currentWaypointIndex))
+                {
+                    StartCoroutine(SetStealthMode(true));
+                }
+                else if (stealthExitWaypoints.Contains(currentWaypointIndex))
+                {
+                    StartCoroutine(SetStealthMode(false));
+                }
+
                 if (currentWaypointIndex >= waypoints.Count)
                 {
                     PlayerHealth.instance.TakeDamage(damage);
-                    GetComponent<EnemyHealth>().DestroyEnemy();
+                    enemyHealth.DestroyEnemy();
                 }
             }
         }
+    }
+
+    public void SetStealthWaypoints(List<int> stealthPoints, List<int> exitPoints)
+    {
+        stealthWaypoints = stealthPoints ?? new List<int>();
+        stealthExitWaypoints = exitPoints ?? new List<int>();
+    }
+
+    IEnumerator SetStealthMode(bool active)
+    {
+        isInvulnerable = active;
+        float elapsedTime = 0f;
+        Vector3 startScale = transform.localScale;
+        Vector3 targetScale = active ? Vector3.zero : originalScale;
+        
+        float adjustedDuration = stealthDuration / stealthScaleSpeed; // Ajuste de velocidad
+
+        while (elapsedTime < adjustedDuration)
+        {
+            transform.localScale = Vector3.Lerp(startScale, targetScale, elapsedTime / adjustedDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = targetScale; 
+    }
+
+    public bool IsInvulnerable()
+    {
+        return isInvulnerable;
     }
 
     public void ApplyKnockback(Vector2 direction, float force, float duration)

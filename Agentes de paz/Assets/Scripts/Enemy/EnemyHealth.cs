@@ -7,19 +7,28 @@ public class EnemyHealth : MonoBehaviour
     private bool isCounted = false;
     private float currentHealth;
 
+    private EnemyMovement enemyMovement;
+
     void Start()
     {
-        currentHealth = maxHealth;  
+        currentHealth = maxHealth;
+        enemyMovement = GetComponent<EnemyMovement>(); // Obtener referencia al movimiento
     }
 
     // Método para recibir daño
     public void TakeDamage(float damage)
     {
-        if(currentHealth <= 0) return;
+        // ❌ Si el enemigo está en stealth, no recibe daño
+        if (enemyMovement != null && enemyMovement.IsInvulnerable())
+        {
+            return;
+        }
+
+        if (currentHealth <= 0) return;
 
         currentHealth -= damage;
 
-        if(currentHealth <= 0 && !isCounted)
+        if (currentHealth <= 0 && !isCounted)
         {
             isCounted = true; // Marcar como contabilizado
             EnemyKilled();
@@ -29,6 +38,9 @@ public class EnemyHealth : MonoBehaviour
     // Método para destruir al enemigo
     public void EnemyKilled()
     {
+        // Agregar un efecto visual opcional antes de destruir (si lo deseas)
+        // GetComponent<SpriteRenderer>().color = Color.red;
+
         Destroy(gameObject, 0.1f);
         EnemyManager.instance.UnregisterEnemy();
         GameManager.instance.GainResources(resources);
@@ -36,8 +48,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void DestroyEnemy()
     {
-        Destroy(gameObject); 
+        Destroy(gameObject);
         EnemyManager.instance.UnregisterEnemy();
     }
-
 }

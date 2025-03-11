@@ -1,8 +1,6 @@
 using UnityEngine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class EnemyWave
@@ -10,24 +8,29 @@ public class EnemyWave
     public GameObject enemyPrefab;
     public int enemyCount;
     public float spawnDelay;
-    public float delayAfterWave; // Nuevo campo para delay después de este grupo
+    public float delayAfterWave;
 }
 
 [System.Serializable]
 public class Wave
 {
-    public EnemyWave[] enemyGroups; // Renombrado para mayor claridad
+    public EnemyWave[] enemyGroups;
     public float timeBeforeNextWave;
 }
 
+// 🟢 Ahora el EnemySpawner define los stealth waypoints
 public class EnemySpawner : MonoBehaviour
 {
     public Wave[] waves;
     public Transform spawnPoint;
     public List<Transform> waypoints;
-    public Toggle autoModeToggle;
-    public static event Action<int> OnWaveCompleted; 
-    public static event Action OnAllWavesCompleted;
+
+    // Waypoints de sigilo (se configuran en Unity para cada nivel)
+    public List<int> stealthWaypoints;
+    public List<int> stealthExitWaypoints;
+
+    public static event System.Action<int> OnWaveCompleted;
+    public static event System.Action OnAllWavesCompleted;
 
     public int currentWaveIndex = 0;
     private int currentGroupIndex = 0;
@@ -40,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (!isWaveInProgress && currentWaveIndex < waves.Length && autoModeToggle.isOn && currentWaveIndex != 0)
+        if (!isWaveInProgress && currentWaveIndex < waves.Length && GameStateManager.instance.autoModeToggle.isOn && currentWaveIndex != 0)
         {
             StartNextWave();
         }
@@ -77,7 +80,6 @@ public class EnemySpawner : MonoBehaviour
                     }
                 }
 
-                // Esperar delay después del grupo si está definido
                 if (currentGroup.delayAfterWave > 0)
                 {
                     yield return new WaitForSeconds(currentGroup.delayAfterWave);
@@ -88,13 +90,9 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
 
-            // Obtener el número de onda completada (base 1 para UI)
             int completedWaveNumber = currentWaveIndex + 1;
-
-            // Activar evento de onda completada
             OnWaveCompleted?.Invoke(completedWaveNumber);
 
-            // Guardar el delay de la onda ACTUAL antes de incrementar
             float currentWaveDelay = currentWave.timeBeforeNextWave;
 
             currentWaveIndex++;
@@ -103,7 +101,6 @@ public class EnemySpawner : MonoBehaviour
 
             if (currentWaveIndex < waves.Length)
             {
-                // Usar el delay de la onda que ACABA de terminar
                 if (currentWaveDelay > 0)
                 {
                     yield return new WaitForSeconds(currentWaveDelay);
@@ -124,9 +121,11 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+
         if (enemyMovement != null)
         {
             enemyMovement.waypoints = waypoints;
+            enemyMovement.SetStealthWaypoints(stealthWaypoints, stealthExitWaypoints); // 🟢 Pasar los stealth waypoints al enemigo
         }
     }
 }

@@ -38,10 +38,21 @@ public abstract class Tower : MonoBehaviour
         {
             GameObject targetEnemy = targetingSystem.GetTarget(towerTargeting.targetingButtonText.text);
 
-            if (targetEnemy != null && fireCooldown <= 0f)
+            if (targetEnemy != null)
             {
-                ShootAtEnemy(targetEnemy);
-                fireCooldown = 1f / fireRate;
+                EnemyMovement enemyMovement = targetEnemy.GetComponent<EnemyMovement>();
+
+                // ❌ Si el enemigo está en stealth, no disparamos
+                if (enemyMovement != null && enemyMovement.IsInvulnerable())
+                {
+                    return;
+                }
+
+                if (fireCooldown <= 0f)
+                {
+                    ShootAtEnemy(targetEnemy);
+                    fireCooldown = 1f / fireRate;
+                }
             }
         }
     }

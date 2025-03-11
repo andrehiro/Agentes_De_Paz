@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private PlayerHealth playerHealth;
     public int currentResources = 350;
+    private PlayerHealth playerHealth;
     private bool gameOver = false;
 
     void Awake()
