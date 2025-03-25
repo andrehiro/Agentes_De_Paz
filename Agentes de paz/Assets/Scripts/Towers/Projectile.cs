@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
@@ -30,11 +31,20 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
+            EnemyMovement enemyMovement = collision.GetComponent<EnemyMovement>();
+
+            // Si el enemigo está en stealth, ignorar el impacto
+            if (enemyMovement != null && enemyMovement.IsInvulnerable())
+            {
+                return;
+            }
+
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(cachedDamage);
             }
+
             enemiesHit++;
 
             if (enemiesHit >= cachedPierce)
@@ -44,8 +54,14 @@ public class Projectile : MonoBehaviour
                 {
                     projectileCollider.enabled = false;
                 }
-                Destroy(gameObject);
+                StartCoroutine(DestroyAfterDelay(0.03f));
             }
         }
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }

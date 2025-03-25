@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class WaterTowerUpgrades : TowerUpgrades
 {
+    void Start()
+    {
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        
+        selectedTower.upgradeText = "Mejora 1";
+        UIManager.instance.upgradeText.text = selectedTower.upgradeText;
+    }
+
     public override void UpgradeTower()
     {
         if (maxUpgrade) return; 
@@ -11,6 +19,7 @@ public class WaterTowerUpgrades : TowerUpgrades
         if (!CheckAndSpendResources(currentUpgradeCost)) return;
 
         Tower tower = GetComponent<Tower>();
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
@@ -20,6 +29,8 @@ public class WaterTowerUpgrades : TowerUpgrades
             tower.damage = 5f;
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
+
+            selectedTower.upgradeText = "Mejora 2";
         }
         else if (!secondUpgrade)
         {
@@ -28,14 +39,23 @@ public class WaterTowerUpgrades : TowerUpgrades
             tower.damage = 5f;
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
+
+            selectedTower.upgradeText = "Mejora 3";
         }
         else
         {
             // Tercera mejora
             tower.fireRate = 9f;
             tower.damage = 5f;
+            tower.range = 6f;
+            tower.rangeAdjustment = 8.5f;
+            TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
+
+            selectedTower.upgradeText = "";
         }
+
+        towerLevel++;
     }
 }

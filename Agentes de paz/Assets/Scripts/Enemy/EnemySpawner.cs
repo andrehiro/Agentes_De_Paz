@@ -18,23 +18,31 @@ public class Wave
     public float timeBeforeNextWave;
 }
 
-// 🟢 Ahora el EnemySpawner define los stealth waypoints
+[System.Serializable]
+public class PathBifurcation
+{
+    public int bifurcationWaypointIndex;
+    public List<Transform> pathA;
+    public List<Transform> pathB;
+}
+
 public class EnemySpawner : MonoBehaviour
 {
     public Wave[] waves;
     public Transform spawnPoint;
-    public List<Transform> waypoints;
+    public List<Transform> defaultWaypoints;
+    public List<PathBifurcation> pathBifurcations;
 
-    // Waypoints de sigilo (se configuran en Unity para cada nivel)
     public List<int> stealthWaypoints;
     public List<int> stealthExitWaypoints;
 
     public static event System.Action<int> OnWaveCompleted;
     public static event System.Action OnAllWavesCompleted;
 
-    public int currentWaveIndex = 0;
+    [SerializeField] private int currentWaveIndex = 0;
     private int currentGroupIndex = 0;
     private bool isWaveInProgress = false;
+    private int enemyCounter = 0;
 
     void Start()
     {
@@ -43,7 +51,11 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (!isWaveInProgress && currentWaveIndex < waves.Length && GameStateManager.instance.autoModeToggle.isOn && currentWaveIndex != 0)
+        // Solo para oleadas posteriores si el toggle está activado
+        if (!isWaveInProgress &&
+            currentWaveIndex > 0 &&
+            currentWaveIndex < waves.Length &&
+            GameStateManager.instance.autoModeToggle.isOn)
         {
             StartNextWave();
         }
@@ -53,79 +65,95 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!isWaveInProgress && currentWaveIndex < waves.Length)
         {
-            isWaveInProgress = true;
-            StartCoroutine(SpawnWaves());
+            StartCoroutine(SpawnWave());
         }
     }
 
-    IEnumerator SpawnWaves()
+    IEnumerator SpawnWave()
     {
-        while (currentWaveIndex < waves.Length)
+        isWaveInProgress = true;
+        Wave currentWave = waves[currentWaveIndex];
+        enemyCounter = 0;
+
+        // Esperar delay inicial solo para oleadas posteriores
+        if (currentWaveIndex > 0 && currentWave.timeBeforeNextWave > 0)
         {
-            Wave currentWave = waves[currentWaveIndex];
-            currentGroupIndex = 0;
-
-            while (currentGroupIndex < currentWave.enemyGroups.Length)
-            {
-                EnemyWave currentGroup = currentWave.enemyGroups[currentGroupIndex];
-
-                for (int i = 0; i < currentGroup.enemyCount; i++)
-                {
-                    SpawnEnemy(currentGroup.enemyPrefab);
-                    EnemyManager.instance.RegisterEnemy();
-
-                    if (i < currentGroup.enemyCount - 1 && currentGroup.spawnDelay > 0)
-                    {
-                        yield return new WaitForSeconds(currentGroup.spawnDelay);
-                    }
-                }
-
-                if (currentGroup.delayAfterWave > 0)
-                {
-                    yield return new WaitForSeconds(currentGroup.delayAfterWave);
-                }
-
-                currentGroupIndex++;
-            }
-
-            yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
-
-            int completedWaveNumber = currentWaveIndex + 1;
-            OnWaveCompleted?.Invoke(completedWaveNumber);
-
-            float currentWaveDelay = currentWave.timeBeforeNextWave;
-
-            currentWaveIndex++;
-            UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
-            isWaveInProgress = false;
-
-            if (currentWaveIndex < waves.Length)
-            {
-                if (currentWaveDelay > 0)
-                {
-                    yield return new WaitForSeconds(currentWaveDelay);
-                }
-                yield break;
-            }
+            yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
         }
 
-        while (EnemyManager.instance.enemiesAlive > 0)
+        // Spawn de grupos de enemigos
+        for (currentGroupIndex = 0; currentGroupIndex < currentWave.enemyGroups.Length; currentGroupIndex++)
         {
-            yield return null;
+            EnemyWave currentGroup = currentWave.enemyGroups[currentGroupIndex];
+
+            for (int i = 0; i < currentGroup.enemyCount; i++)
+            {
+                SpawnEnemy(currentGroup.enemyPrefab, SelectPath(enemyCounter));
+                enemyCounter++;
+
+                if (i < currentGroup.enemyCount - 1 && currentGroup.spawnDelay > 0)
+                    yield return new WaitForSeconds(currentGroup.spawnDelay);
+            }
+
+            if (currentGroup.delayAfterWave > 0)
+                yield return new WaitForSeconds(currentGroup.delayAfterWave);
         }
-        OnAllWavesCompleted?.Invoke();
-        yield break;
+
+        // Esperar a que todos los enemigos mueran
+        yield return new WaitUntil(() => EnemyManager.instance.enemiesAlive == 0);
+
+        // Notificar finalización de oleada
+        OnWaveCompleted?.Invoke(currentWaveIndex + 1);
+
+        // Preparar siguiente oleada
+        currentWaveIndex++;
+        UIManager.instance.UpdateWaveText(currentWaveIndex + 1);
+        isWaveInProgress = false;
+
+        // Finalizar si es la última oleada
+        if (currentWaveIndex >= waves.Length)
+        {
+            OnAllWavesCompleted?.Invoke();
+        }
     }
 
-    void SpawnEnemy(GameObject enemyPrefab)
+    void SpawnEnemy(GameObject enemyPrefab, List<Transform> path)
     {
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
 
         if (enemyMovement != null)
         {
-            enemyMovement.waypoints = waypoints;
-            enemyMovement.SetStealthWaypoints(stealthWaypoints, stealthExitWaypoints); // 🟢 Pasar los stealth waypoints al enemigo
+            enemyMovement.waypoints = path;
+            enemyMovement.spawnPoint = spawnPoint; // Asigna el spawnPoint desde el EnemySpawner
+            enemyMovement.SetStealthWaypoints(stealthWaypoints, stealthExitWaypoints);
         }
+
+        EnemyManager.instance.RegisterEnemy();
+    }
+
+    List<Transform> SelectPath(int enemyIndex)
+    {
+        foreach (PathBifurcation bifurcation in pathBifurcations)
+        {
+            if (bifurcation.bifurcationWaypointIndex < defaultWaypoints.Count)
+            {
+                List<Transform> combinedPath = new List<Transform>();
+
+                // Base path hasta bifurcación
+                for (int i = 0; i <= bifurcation.bifurcationWaypointIndex; i++)
+                {
+                    if (i < defaultWaypoints.Count)
+                        combinedPath.Add(defaultWaypoints[i]);
+                }
+
+                // Rama seleccionada
+                List<Transform> selectedBranch = (enemyIndex % 2 == 0) ? bifurcation.pathA : bifurcation.pathB;
+                combinedPath.AddRange(selectedBranch);
+
+                return combinedPath;
+            }
+        }
+        return new List<Transform>(defaultWaypoints);
     }
 }

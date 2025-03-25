@@ -7,7 +7,7 @@ public class ResourceTower : Tower
     protected override void Start() 
     {
         towerUpgrades = GetComponent<TowerUpgrades>();
-        towerUpgrades.UpdateSellValueText(Mathf.RoundToInt(cost * sellValueReturn));
+        towerUpgrades.UpdateSellValueText();
         EnemySpawner.OnWaveCompleted += HandleWaveCompleted;
     }
 

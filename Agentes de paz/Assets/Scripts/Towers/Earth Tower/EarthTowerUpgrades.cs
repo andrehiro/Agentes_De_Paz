@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class EarthTowerUpgrades : TowerUpgrades
 {
+    void Start()
+    {
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        
+        selectedTower.upgradeText = "Mejora 1";
+        UIManager.instance.upgradeText.text = selectedTower.upgradeText;
+    }
+
     public override void UpgradeTower()
     {
         if (maxUpgrade) return; 
@@ -11,31 +19,39 @@ public class EarthTowerUpgrades : TowerUpgrades
         if (!CheckAndSpendResources(currentUpgradeCost)) return;
 
         Tower tower = GetComponent<Tower>();
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
         {
             // Primera mejora
-            tower.fireRate = 1.7f;
-            tower.damage = 5f;
+            tower.fireRate = 0.35f;
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
+
+            selectedTower.upgradeText = "Mejora 2";
         }
         else if (!secondUpgrade)
         {
             // Segunda mejora
-            tower.fireRate = 3.5f;
-            tower.damage = 5f;
+            tower.fireRate = 0.4f;
+            tower.damage = 65f;
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
+
+            selectedTower.upgradeText = "Mejora 3";
         }
         else
         {
             // Tercera mejora
-            tower.fireRate = 9f;
-            tower.damage = 5f;
+            tower.fireRate = 0.4f;
+            tower.damage = 150f;
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
+
+            selectedTower.upgradeText = "";
         }
+
+        towerLevel++;
     }
 }

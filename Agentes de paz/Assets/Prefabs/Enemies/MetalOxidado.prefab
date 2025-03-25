@@ -80,8 +80,8 @@ SpriteRenderer:
   m_SortingLayerID: -1744641929
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6981132, g: 0.29838276, b: 0.042808846, a: 1}
+  m_Sprite: {fileID: -460014258568396115, guid: f91229651125208469e9612e508cd2f6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -156,7 +156,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 6.33, y: 3.87}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -176,10 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e479465694d1834eae1c8edaefe00ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
   waypoints: []
   currentWaypointIndex: 0
   speed: 1.8
   damage: 5
+  knockbackResistance: 0.5
+  stealthDuration: 0.5
+  stealthScaleSpeed: 1.5
 --- !u!114 &-5488872436041855408
 MonoBehaviour:
   m_ObjectHideFlags: 0

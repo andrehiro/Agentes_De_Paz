@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class WaterTower : Tower
 {
+    protected override void Start()
+    {
+        base.Start();
+        TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
+    }
+
     protected override void ShootAtEnemy(GameObject enemy)
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);

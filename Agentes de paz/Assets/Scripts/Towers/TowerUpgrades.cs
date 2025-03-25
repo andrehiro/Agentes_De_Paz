@@ -4,6 +4,7 @@ using TMPro;
 
 public abstract class TowerUpgrades : MonoBehaviour
 {
+    public int towerLevel = 0;
     public int upgradeCost1 = 120;
     public int upgradeCost2 = 200;
     public int upgradeCost3 = 350;
@@ -12,25 +13,42 @@ public abstract class TowerUpgrades : MonoBehaviour
     public bool secondUpgrade = false;
     public bool maxUpgrade = false;
 
-    public Button upgradeButton;
-    public TextMeshProUGUI upgradeCostText;
-    public TextMeshProUGUI sellValueText;
     public Sprite towerUpgradeSprite1;
     public Sprite towerUpgradeSprite2;
     public Sprite towerUpgradeSprite3;
 
+    public string upgradeText;
+
     void Update()
     {
-        if (maxUpgrade)
+        // Verificar si hay una torre seleccionada
+        if (TowerSelectionManager.instance.selectedTower == null)
         {
-            upgradeButton.interactable = false;
-            upgradeCostText.text = "Máx alcanzado";
+            UIManager.instance.upgradeTowerButton.interactable = false;
+            return;
         }
-        else
+        
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        
+        if (selectedTower.towerLevel >= 3)
         {
-            int currentUpgradeCost = !firstUpgrade ? upgradeCost1 : (!secondUpgrade ? upgradeCost2 : upgradeCost3);
-            upgradeButton.interactable = GameManager.instance.currentResources >= currentUpgradeCost;
-            upgradeCostText.text = "Mejorar = " + currentUpgradeCost.ToString();
+            UIManager.instance.upgradeTowerButton.interactable = false;
+            UIManager.instance.upgradeCostText.text = "Máx alcanzado";
+        }
+        else if(selectedTower.towerLevel == 0)
+        {
+            UIManager.instance.upgradeTowerButton.interactable = GameManager.instance.currentResources >= upgradeCost1;
+            UIManager.instance.upgradeCostText.text = "Mejorar = " + upgradeCost1.ToString();
+        }
+        else if(selectedTower.towerLevel == 1)
+        {
+            UIManager.instance.upgradeTowerButton.interactable = GameManager.instance.currentResources >= upgradeCost2;
+            UIManager.instance.upgradeCostText.text = "Mejorar = " + upgradeCost2.ToString();
+        }
+        else if(selectedTower.towerLevel == 2)
+        {
+            UIManager.instance.upgradeTowerButton.interactable = GameManager.instance.currentResources >= upgradeCost3;
+            UIManager.instance.upgradeCostText.text = "Mejorar = " + upgradeCost3.ToString();
         }
     }
 
@@ -40,25 +58,57 @@ public abstract class TowerUpgrades : MonoBehaviour
         {
             GameManager.instance.SpendResources(price);
             GetComponent<Tower>().cost += price;
-            UpdateSellValueText(Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn));
+            UpdateSellValueText();
             return true;
         }
         else
         {
-            Debug.Log("Not enough resources to upgrade tower");
             return false;
         }
     }
 
-    public void UpdateSellValueText(int currentSellValue)
+    public void UpdateSellValueText()
     {
-        sellValueText.text = "Venta = " + currentSellValue.ToString();
+        UIManager.instance.sellValueText.text = "Venta = " + Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn).ToString();
     }
 
     public void SellTower()
     {
-        GameManager.instance.GainResources(Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn));
-        Destroy(gameObject);
+        Tower selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<Tower>();
+        TowerInteraction towerInteraction = TowerSelectionManager.instance.selectedTower.GetComponent<TowerInteraction>();
+
+        GameManager.instance.GainResources(Mathf.RoundToInt(selectedTower.cost * selectedTower.sellValueReturn));
+        towerInteraction.CloseTowerUI();
+        Destroy(selectedTower.gameObject);
+    }
+    
+    public void UpgradeTowerGeneral()
+    {
+        Tower selectedTower = TowerSelectionManager.instance.selectedTower;
+
+        if (selectedTower.GetComponent<WaterTowerUpgrades>() != null)
+        {
+            selectedTower.GetComponent<WaterTowerUpgrades>().UpgradeTower();
+        }
+        else if (selectedTower.GetComponent<WindTowerUpgrades>() != null)
+        {
+            selectedTower.GetComponent<WindTowerUpgrades>().UpgradeTower();
+        }
+        else if (selectedTower.GetComponent<FireTowerUpgrades>() != null)
+        {
+            selectedTower.GetComponent<FireTowerUpgrades>().UpgradeTower();
+        }
+        else if (selectedTower.GetComponent<EarthTowerUpgrades>() != null)
+        {
+            selectedTower.GetComponent<EarthTowerUpgrades>().UpgradeTower();
+        }
+        else if (selectedTower.GetComponent<ResourceTowerUpgrades>() != null)
+        {
+            selectedTower.GetComponent<ResourceTowerUpgrades>().UpgradeTower();
+        }
+        
+        UIManager.instance.towerUpgradeUIImage.sprite = selectedTower.GetComponent<SpriteRenderer>().sprite;
+        UIManager.instance.upgradeText.text = selectedTower.GetComponent<TowerUpgrades>().upgradeText;
     }
 
     public abstract void UpgradeTower();

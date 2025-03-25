@@ -12,6 +12,7 @@ public abstract class Tower : MonoBehaviour
     public float sellValueReturn = 0.7f;
 
     [Header("Tower Settings")]
+    public float rangeAdjustment = 8f;
     public GameObject projectilePrefab;
     public Transform firePoint;
     public GameObject rangeIndicator;
@@ -26,23 +27,22 @@ public abstract class Tower : MonoBehaviour
         targetingSystem = GetComponent<TowerTargeting>();
         towerTargeting = GetComponent<TowerTargeting>();
         towerUpgrades = GetComponent<TowerUpgrades>();
-        TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
-        towerUpgrades.UpdateSellValueText(Mathf.RoundToInt(cost * sellValueReturn));
+        towerUpgrades.UpdateSellValueText();
     }
 
     protected virtual void Update()
     {
+        TowerData towerData = GetComponent<TowerData>();
         fireCooldown = Mathf.Max(0, fireCooldown - Time.deltaTime);
 
         if (towerTargeting != null)
         {
-            GameObject targetEnemy = targetingSystem.GetTarget(towerTargeting.targetingButtonText.text);
+            GameObject targetEnemy = targetingSystem.GetTarget(towerData.targetingMode);
 
             if (targetEnemy != null)
             {
                 EnemyMovement enemyMovement = targetEnemy.GetComponent<EnemyMovement>();
 
-                // ❌ Si el enemigo está en stealth, no disparamos
                 if (enemyMovement != null && enemyMovement.IsInvulnerable())
                 {
                     return;
@@ -55,6 +55,11 @@ public abstract class Tower : MonoBehaviour
                 }
             }
         }
+    }
+
+    protected virtual void OnMouseDown()
+    {
+        TowerSelectionManager.instance.SelectTower(this);
     }
 
     protected abstract void ShootAtEnemy(GameObject enemy);

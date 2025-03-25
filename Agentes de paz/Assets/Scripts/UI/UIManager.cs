@@ -1,14 +1,23 @@
 using UnityEngine;
 using TMPro; 
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    public GameObject towerUpgradesUI;
+    public Animator animatorTowerUpgradesUI;
     public GameObject winGameUI;
     public GameObject lossGameUI;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI resourcesText;
+    public TextMeshProUGUI upgradeCostText;
+    public TextMeshProUGUI upgradeText;
+    public TextMeshProUGUI sellValueText;
+    public TextMeshProUGUI targetingButtonText;
+    public Button upgradeTowerButton;
+    public Image towerUpgradeUIImage;
 
     void Awake()
     {

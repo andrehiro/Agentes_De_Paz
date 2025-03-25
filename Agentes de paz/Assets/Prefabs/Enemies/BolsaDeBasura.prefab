@@ -180,6 +180,9 @@ MonoBehaviour:
   currentWaypointIndex: 0
   speed: 0.8
   damage: 5
+  knockbackResistance: 0.8
+  stealthDuration: 0.5
+  stealthScaleSpeed: 1.5
 --- !u!114 &-5488872436041855408
 MonoBehaviour:
   m_ObjectHideFlags: 0

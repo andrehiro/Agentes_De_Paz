@@ -2500,12 +2500,10 @@ MonoBehaviour:
       delayAfterWave: 0
     timeBeforeNextWave: 0
   spawnPoint: {fileID: 381093445}
-  waypoints:
-  - {fileID: 1061361180}
-  - {fileID: 1423618864}
-  - {fileID: 1973156476}
-  - {fileID: 1680139522}
-  autoModeToggle: {fileID: 1668174616}
+  defaultWaypoints: []
+  pathBifurcations: []
+  stealthWaypoints: 
+  stealthExitWaypoints: 
   currentWaveIndex: 0
 --- !u!4 &381093445
 Transform:
@@ -2746,12 +2744,10 @@ MonoBehaviour:
       delayAfterWave: 0
     timeBeforeNextWave: 0
   spawnPoint: {fileID: 381093445}
-  waypoints:
-  - {fileID: 1061361180}
-  - {fileID: 1423618864}
-  - {fileID: 1973156476}
-  - {fileID: 1680139522}
-  autoModeToggle: {fileID: 1668174616}
+  defaultWaypoints: []
+  pathBifurcations: []
+  stealthWaypoints: 
+  stealthExitWaypoints: 
   currentWaveIndex: 0
 --- !u!1 &409540667
 GameObject:
@@ -10381,7 +10377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a14da48fbbdd824382a67697761b1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
   currentResources: 1500
 --- !u!114 &1811966313
 MonoBehaviour:
@@ -10426,6 +10421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd27581e7abc1504ab7b9d1720529f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolutionDropdown: {fileID: 0}
   resolutions:
   - {x: 1920, y: 1080}
   - {x: 1280, y: 720}

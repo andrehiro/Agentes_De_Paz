@@ -38,8 +38,6 @@ public class ColliderScaler : MonoBehaviour
 
     void HandleResolution(int width, int height)
     {
-        Debug.Log("Resolución cambiada a: " + width + "x" + height);
-
         if (width == 1920 && height == 1080)
         {
             transform.position = initialPosition;
@@ -47,11 +45,8 @@ public class ColliderScaler : MonoBehaviour
         }
          if (width == 1680 && height == 1050)
         {
-            Debug.Log("Modo 1680x1050 activado.");
-            Debug.Log("posicion inicial en x: " + initialPosition.x);
             if (initialPosition.x >= -9f && initialPosition.x < -7f)
             {
-                Debug.Log("dentro del rango");
                 newPosition = initialPosition;
                 newPosition.x += 0.8f;
                 transform.position = newPosition;

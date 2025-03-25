@@ -107,7 +107,7 @@ public class TowerPlacer : MonoBehaviour
             if (towerScript != null)
             {
                 float spriteDiameter = rangeIndicator.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-                float scaleFactor = (towerScript.range * 7.575f) / spriteDiameter;
+                float scaleFactor = (towerScript.range * towerScript.rangeAdjustment) / spriteDiameter;
                 rangeIndicator.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
             }
         }

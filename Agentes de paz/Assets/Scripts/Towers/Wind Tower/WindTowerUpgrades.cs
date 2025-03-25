@@ -2,32 +2,63 @@ using UnityEngine;
 
 public class WindTowerUpgrades : TowerUpgrades
 {
+    void Start()
+    {
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        
+        selectedTower.upgradeText = "Mejora 1";
+        UIManager.instance.upgradeText.text = selectedTower.upgradeText;
+    }
+
     public override void UpgradeTower()
     {
-        if (maxUpgrade) return;  // No permitir mejoras adicionales
+        if (maxUpgrade) return; 
 
-        int currentUpgradeCost = firstUpgrade ? upgradeCost2 : upgradeCost1;
+        int currentUpgradeCost = !firstUpgrade ? upgradeCost1 : (!secondUpgrade ? upgradeCost2 : upgradeCost3);
 
         if (!CheckAndSpendResources(currentUpgradeCost)) return;
 
         Tower tower = GetComponent<Tower>();
+        WindTower windtower = GetComponent<WindTower>();
+        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
         {
-            tower.fireRate = 1.7f;
-            tower.damage = 5f;
+            // Primera mejora
+            tower.fireRate = 0.3f;
+            windtower.knockbackForce = 4f;
+            tower.range = 6f;
+            TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
+
+            selectedTower.upgradeText = "Mejora 2";
+        }
+        else if (!secondUpgrade)
+        {
+            // Segunda mejora
+            tower.fireRate = 0.5f;
+            windtower.knockbackForce = 5f;
+            spriteRenderer.sprite = towerUpgradeSprite2;
+            secondUpgrade = true;
+
+            selectedTower.upgradeText = "Mejora 3";
         }
         else
         {
-            tower.range *= 1.2f;
-            tower.fireRate = 1.8f;
-            tower.damage = 10f;
+            // Tercera mejora
+            tower.damage = 5f;
+            tower.pierce = 8;
+            windtower.knockbackForce = 10f;
+            tower.range = 8f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
-            spriteRenderer.sprite = towerUpgradeSprite2;
+            spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
+
+            selectedTower.upgradeText = "";
         }
+
+        towerLevel++;
     }
 }

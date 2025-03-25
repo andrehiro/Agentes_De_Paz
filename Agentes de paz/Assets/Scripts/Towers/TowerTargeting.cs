@@ -5,7 +5,6 @@ using TMPro;
 public class TowerTargeting : MonoBehaviour
 {
     private GameObject targetEnemy;
-    public TextMeshProUGUI targetingButtonText;
 
     public GameObject GetTarget(string targetingMode)
     {
@@ -23,11 +22,9 @@ public class TowerTargeting : MonoBehaviour
 
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if (!IsWithinRange(enemy)) continue;
+            if (!IsValidTarget(enemy)) continue;
 
             EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
-            if (enemyMovement == null) continue;
-
             int currentIndex = enemyMovement.currentWaypointIndex;
             float distanceToWaypoint = GetDistanceToWaypoint(enemyMovement, enemy);
 
@@ -50,11 +47,9 @@ public class TowerTargeting : MonoBehaviour
 
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if (!IsWithinRange(enemy)) continue;
+            if (!IsValidTarget(enemy)) continue;
 
             EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
-            if (enemyMovement == null) continue;
-
             int currentIndex = enemyMovement.currentWaypointIndex;
             float distanceToWaypoint = GetDistanceToWaypoint(enemyMovement, enemy);
 
@@ -76,10 +71,9 @@ public class TowerTargeting : MonoBehaviour
 
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if (!IsWithinRange(enemy)) continue;
+            if (!IsValidTarget(enemy)) continue;
 
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if (enemyHealth == null) continue;
 
             if (enemyHealth.maxHealth > highestMaxHealth)
             {
@@ -88,6 +82,16 @@ public class TowerTargeting : MonoBehaviour
             }
         }
         return bestTarget;
+    }
+
+    private bool IsValidTarget(GameObject enemy)
+    {
+        if (!IsWithinRange(enemy)) return false;
+
+        EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+        if (enemyMovement == null || enemyMovement.IsInvulnerable()) return false; // Ignorar si está en stealth
+
+        return true;
     }
 
     private bool IsWithinRange(GameObject enemy)
@@ -105,17 +109,18 @@ public class TowerTargeting : MonoBehaviour
 
     public void UpdateTargetingButtonText()
     {
-        if (targetingButtonText.text == "Primero")
-        {
-            targetingButtonText.text = "Ultimo";
-        }
-        else if (targetingButtonText.text == "Ultimo")
-        {
-            targetingButtonText.text = "Fuerte";
-        }
-        else if (targetingButtonText.text == "Fuerte")
-        {
-            targetingButtonText.text = "Primero";
-        }
+        // Verifica si hay una torre seleccionada
+        if (TowerSelectionManager.instance.selectedTower == null) return;
+
+        // Obtiene el TowerData de la torre seleccionada
+        TowerData selectedTowerData = TowerSelectionManager.instance.selectedTower.GetComponent<TowerData>();
+        if (selectedTowerData == null) return;
+
+        // Cambia el modo de targeting
+        selectedTowerData.UpdateTargetingMode();
+
+        // Actualiza el texto del botón en la UI
+        UIManager.instance.targetingButtonText.text = selectedTowerData.targetingMode;
     }
+
 }

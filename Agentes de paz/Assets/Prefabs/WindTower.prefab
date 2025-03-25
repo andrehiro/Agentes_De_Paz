@@ -1300,6 +1300,7 @@ GameObject:
   - component: {fileID: 4329617702607904564}
   - component: {fileID: -4360959487567648732}
   - component: {fileID: 6361322930976211500}
+  - component: {fileID: -2975515609771828803}
   - component: {fileID: -8051959270877283457}
   - component: {fileID: 6989545425280133798}
   m_Layer: 6
@@ -1319,7 +1320,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.046185, y: 2.0481925, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8294452552703551298}
@@ -1439,18 +1440,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73e97941a7e5ca43a85b7dffb959ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  fireRate: 0.5
-  projectileSpeed: 10
+  damage: 1
+  fireRate: 15
+  projectileSpeed: 15
   range: 5
-  pierce: 5
-  cost: 100
+  pierce: 4
+  cost: 300
   sellValueReturn: 0.7
+  rangeAdjustment: 8.4
   projectilePrefab: {fileID: 2605390464641443986, guid: a0171cf2f7fced248b2e56d7ddf2f151, type: 3}
   firePoint: {fileID: 6188790325392236760}
   rangeIndicator: {fileID: 6787870790843346987}
-  knockbackForce: 3
-  knockbackDuration: 0.3
+  knockbackForce: 3.5
+  knockbackDuration: 0.5
 --- !u!114 &6361322930976211500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,18 +1465,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90950d9b4d8724d46bcd89d55451e0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeCost1: 120
-  upgradeCost2: 200
-  upgradeCost3: 350
+  towerLevel: 0
+  upgradeCost1: 200
+  upgradeCost2: 450
+  upgradeCost3: 1050
   firstUpgrade: 0
   secondUpgrade: 0
   maxUpgrade: 0
-  upgradeButton: {fileID: 1989217376012263238}
-  upgradeCostText: {fileID: 1248204214620865993}
-  sellValueText: {fileID: 6483234646326439666}
   towerUpgradeSprite1: {fileID: -2935162957305063868, guid: 4d3d601aa3b38dd45a5ce70357e247be, type: 3}
   towerUpgradeSprite2: {fileID: 6331231272467036890, guid: 00e2b58a426ded447b5d2b5e1c28710b, type: 3}
   towerUpgradeSprite3: {fileID: 6331231272467036890, guid: 00e2b58a426ded447b5d2b5e1c28710b, type: 3}
+  upgradeText: 
+--- !u!114 &-2975515609771828803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f772599b8c20c434ea23bd03c357703d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerLevel: 0
+  targetingMode: Primero
+  position: {x: 0, y: 0, z: 0}
 --- !u!114 &-8051959270877283457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1487,7 +1503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca6482e8a2258745bd7cb57f4c22dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerUpgradesUI: {fileID: 5061290987793941864}
 --- !u!114 &6989545425280133798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,4 +1515,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ecb80ecec64b74fa3293088886e1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetingButtonText: {fileID: 8175930983700553264}

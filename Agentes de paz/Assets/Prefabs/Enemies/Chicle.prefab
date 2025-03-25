@@ -176,10 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e479465694d1834eae1c8edaefe00ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
   waypoints: []
   currentWaypointIndex: 0
   speed: 2.5
   damage: 5
+  knockbackResistance: 0.2
+  stealthDuration: 0.5
+  stealthScaleSpeed: 1.5
 --- !u!114 &-5488872436041855408
 MonoBehaviour:
   m_ObjectHideFlags: 0
