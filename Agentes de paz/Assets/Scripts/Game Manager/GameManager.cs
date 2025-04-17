@@ -86,39 +86,16 @@ public class GameManager : MonoBehaviour
     public void CompleteLevel()
     {
         string currentLevelName = SceneManager.GetActiveScene().name;
-        string nextLevel = "";
+        string[] levelNames = LevelManager.instance.levelNames;
 
-        // Determinar el siguiente nivel en la secuencia
-        switch (currentLevelName)
-        {
-            case "WindLevel1":
-                nextLevel = "WindLevel2";
-                break;
-            case "WindLevel2":
-                nextLevel = "FireLevel1";
-                break;
-            case "FireLevel1":
-                nextLevel = "FireLevel2";
-                break;
-            case "FireLevel2":
-                nextLevel = "EarthLevel1";
-                break;
-            case "EarthLevel1":
-                nextLevel = "EarthLevel2";
-                break;
-            case "EarthLevel2":
-                nextLevel = "WaterLevel2";
-                break;
-            case "WaterLevel1":
-                nextLevel = "WaterLevel2";
-                break;
-        }
+        int currentIndex = System.Array.IndexOf(levelNames, currentLevelName);
 
-        // Si hay un siguiente nivel, lo desbloqueamos
-        if (!string.IsNullOrEmpty(nextLevel))
+        if (currentIndex >= 0 && currentIndex + 1 < levelNames.Length)
         {
+            string nextLevel = levelNames[currentIndex + 1];
             PlayerPrefs.SetString("UnlockedLevels", nextLevel);
             PlayerPrefs.Save();
+            Debug.Log("Desbloqueado: " + nextLevel);
         }
     }
 }

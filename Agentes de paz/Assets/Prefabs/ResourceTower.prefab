@@ -97,11 +97,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6188790325392236760}
   - component: {fileID: 6288214793960434468}
-  - component: {fileID: 4329617702607904564}
   - component: {fileID: -2374665402751740207}
   - component: {fileID: 8684897913179389132}
   - component: {fileID: 3185934517665928984}
   - component: {fileID: -8051959270877283457}
+  - component: {fileID: 3354331584738251517}
   m_Layer: 6
   m_Name: ResourceTower
   m_TagString: Tower
@@ -169,19 +169,92 @@ SpriteRenderer:
   m_SortingLayerID: 1329585991
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 309964321272357833, guid: 6a8415515fc99294ca5a7463e1c4f895, type: 3}
-  m_Color: {r: 0.6099947, g: 0.9528302, b: 0.5438323, a: 1}
+  m_Sprite: {fileID: 91695491077232421, guid: e9316d07f30f6ec42846b6cff610c72e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.87, y: 5.12}
+  m_Size: {x: 4.93, y: 5.06}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4329617702607904564
-BoxCollider2D:
+--- !u!114 &-2374665402751740207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9a9ecf228e324488ae78ab9c9e841a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  fireRate: 0
+  projectileSpeed: 0
+  range: 1
+  pierce: 0
+  cost: 550
+  sellValueReturn: 0.7
+  rangeAdjustment: 8
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  rangeIndicator: {fileID: 6787870790843346987}
+  resourcesPerWave: 90
+--- !u!114 &8684897913179389132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d8d995c60fcfa489fb71d2c96587f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeCost1: 320
+  upgradeCost2: 630
+  upgradeCost3: 2200
+  firstUpgrade: 0
+  secondUpgrade: 0
+  maxUpgrade: 0
+  towerUpgradeSprite1: {fileID: 91695491077232421, guid: e9316d07f30f6ec42846b6cff610c72e, type: 3}
+  towerUpgradeSprite2: {fileID: 91695491077232421, guid: e9316d07f30f6ec42846b6cff610c72e, type: 3}
+  towerUpgradeSprite3: {fileID: 91695491077232421, guid: e9316d07f30f6ec42846b6cff610c72e, type: 3}
+  upgradeText: 
+--- !u!114 &3185934517665928984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f772599b8c20c434ea23bd03c357703d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerLevel: 0
+  targetingMode: Primero
+  position: {x: 0, y: 0, z: 0}
+--- !u!114 &-8051959270877283457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca6482e8a2258745bd7cb57f4c22dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &3354331584738251517
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -218,85 +291,59 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.87, y: 5.12}
-    newSize: {x: 4.87, y: 5.12}
+    oldSize: {x: 4.94, y: 5.05}
+    newSize: {x: 4.93, y: 5.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.53, y: 4.7}
-  m_EdgeRadius: 0
---- !u!114 &-2374665402751740207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9a9ecf228e324488ae78ab9c9e841a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  fireRate: 0
-  projectileSpeed: 0
-  range: 1
-  pierce: 0
-  cost: 100
-  sellValueReturn: 0.7
-  rangeAdjustment: 8
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
-  rangeIndicator: {fileID: 6787870790843346987}
-  resourcesPerWave: 50
---- !u!114 &8684897913179389132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d8d995c60fcfa489fb71d2c96587f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerLevel: 0
-  upgradeCost1: 120
-  upgradeCost2: 200
-  upgradeCost3: 350
-  firstUpgrade: 0
-  secondUpgrade: 0
-  maxUpgrade: 0
-  towerUpgradeSprite1: {fileID: 309964321272357833, guid: 6a8415515fc99294ca5a7463e1c4f895, type: 3}
-  towerUpgradeSprite2: {fileID: -4305728820328851901, guid: 37ba6390383b94040b7204abb619777a, type: 3}
-  towerUpgradeSprite3: {fileID: 6720261238081311945, guid: 1ff590191a91f3046a1dbfbc2daee21e, type: 3}
-  upgradeText: 
---- !u!114 &3185934517665928984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f772599b8c20c434ea23bd03c357703d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerLevel: 0
-  targetingMode: Primero
-  position: {x: 0, y: 0, z: 0}
---- !u!114 &-8051959270877283457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca6482e8a2258745bd7cb57f4c22dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Points:
+    m_Paths:
+    - - {x: 1.6700722, y: -1.8599592}
+      - {x: 1.8150564, y: -1.7784901}
+      - {x: 1.9818887, y: -1.6021277}
+      - {x: 2.1042995, y: -1.3923037}
+      - {x: 2.16182, y: -1.2419065}
+      - {x: 2.2040868, y: -1.0536743}
+      - {x: 2.2528534, y: -0.61434}
+      - {x: 2.244988, y: 0.87945795}
+      - {x: 2.2217534, y: 1.1480296}
+      - {x: 2.1852942, y: 1.4024056}
+      - {x: 2.1600025, y: 1.5823979}
+      - {x: 2.1077027, y: 1.8152268}
+      - {x: 2.0080738, y: 2.0386734}
+      - {x: 1.8458164, y: 2.1777527}
+      - {x: 1.681173, y: 2.2407408}
+      - {x: 1.4420635, y: 2.2813797}
+      - {x: 1.1807082, y: 2.291986}
+      - {x: 1.0121382, y: 2.2914455}
+      - {x: -0.7896898, y: 2.3017375}
+      - {x: -1.0661081, y: 2.2682009}
+      - {x: -1.3029209, y: 2.1918302}
+      - {x: -1.4697628, y: 2.1006217}
+      - {x: -1.6086885, y: 1.9799633}
+      - {x: -1.7033994, y: 1.8550934}
+      - {x: -1.7674111, y: 1.7325977}
+      - {x: -1.825492, y: 1.5732955}
+      - {x: -1.8713049, y: 1.348172}
+      - {x: -1.9118589, y: 1.1305956}
+      - {x: -1.9246557, y: 0.94859844}
+      - {x: -1.9226152, y: 0.6488183}
+      - {x: -1.9186383, y: 0.3116684}
+      - {x: -1.91409, y: -0.5230356}
+      - {x: -1.9045067, y: -0.89809144}
+      - {x: -1.876906, y: -1.129937}
+      - {x: -1.8415682, y: -1.3019055}
+      - {x: -1.7734898, y: -1.4930218}
+      - {x: -1.6870166, y: -1.6441772}
+      - {x: -1.5625736, y: -1.7757696}
+      - {x: -1.46007, y: -1.8650559}
+      - {x: -1.2739388, y: -1.9513797}
+      - {x: -0.9662396, y: -2.0218282}
+      - {x: -0.4171127, y: -2.0282362}
+      - {x: 0.48571074, y: -2.0193546}
+      - {x: 0.8206175, y: -2.0141542}
+      - {x: 1.0603442, y: -2.0095465}
+      - {x: 1.3273357, y: -1.9836776}
+      - {x: 1.5440847, y: -1.9229009}
+  m_UseDelaunayMesh: 0

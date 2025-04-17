@@ -1541,6 +1541,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6965540279667549826, guid: 76cef7c4432b03340981ef3f405c182c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.67561257
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965540279667549826, guid: 76cef7c4432b03340981ef3f405c182c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.601517
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965540279667549826, guid: 76cef7c4432b03340981ef3f405c182c, type: 3}
+      propertyPath: m_Center.x
+      value: 0.06667496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965540279667549826, guid: 76cef7c4432b03340981ef3f405c182c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.8312012
+      objectReference: {fileID: 0}
     - target: {fileID: 7065767490922152718, guid: 76cef7c4432b03340981ef3f405c182c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 7.1554904
@@ -1695,10 +1711,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
+  - {fileID: 408911838}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 197173381}
   - {fileID: 1646248462}
   - {fileID: 7640402124914091660}
-  - {fileID: 408911838}
   - {fileID: 536251486}

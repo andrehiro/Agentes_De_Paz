@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 8286530515152310337}
   - component: {fileID: 8659414133122588458}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Upgrade Tower Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 5931585955142735482}
   - component: {fileID: 7730186678942925445}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1485,7 +1485,7 @@ GameObject:
   - component: {fileID: 1080922292679804180}
   - component: {fileID: 5552372698691187920}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Sell Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1538,7 +1538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1990,14 +1990,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5884111, g: 0.9433962, b: 0.56514776, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 309964321272357833, guid: 6a8415515fc99294ca5a7463e1c4f895, type: 3}
+  m_Sprite: {fileID: 91695491077232421, guid: e9316d07f30f6ec42846b6cff610c72e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2050,7 +2050,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5789295658765260044}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5592114137267683863}
+        m_TargetAssemblyTypeName: TowerSlideUI, Assembly-CSharp
+        m_MethodName: ToggleTowerSlideUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7894719461592471373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2437,7 +2449,7 @@ GameObject:
   - component: {fileID: 8947373193751508457}
   - component: {fileID: 4036078408081198354}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Sell Tower Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2544,7 +2556,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8947373193751508457}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6424798754908362847, guid: a9a3aa6931c1c614d897ecded91fbc5d, type: 3}
+        m_TargetAssemblyTypeName: TowerUpgrades, Assembly-CSharp
+        m_MethodName: SellTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6190912210672953606
 GameObject:
   m_ObjectHideFlags: 0
@@ -3218,7 +3242,7 @@ GameObject:
   - component: {fileID: 3422003237975953131}
   - component: {fileID: 8839964088707711144}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Enemy Targeting Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3271,7 +3295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Primero
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3355,7 +3379,7 @@ GameObject:
   - component: {fileID: 6107026286189772868}
   - component: {fileID: 6461347328871273018}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Upgrade Tower Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3462,7 +3486,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6107026286189772868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6424798754908362847, guid: a9a3aa6931c1c614d897ecded91fbc5d, type: 3}
+        m_TargetAssemblyTypeName: TowerUpgrades, Assembly-CSharp
+        m_MethodName: UpgradeTowerGeneral
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7260461086660029602
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,7 +4103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7842265974014065494
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4477,7 +4513,7 @@ GameObject:
   - component: {fileID: 82661274244409898}
   - component: {fileID: 7603692995553038188}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Enemy Targeting Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4584,4 +4620,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 82661274244409898}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6989545425280133798, guid: a9a3aa6931c1c614d897ecded91fbc5d, type: 3}
+        m_TargetAssemblyTypeName: TowerTargeting, Assembly-CSharp
+        m_MethodName: UpdateTargetingButtonText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

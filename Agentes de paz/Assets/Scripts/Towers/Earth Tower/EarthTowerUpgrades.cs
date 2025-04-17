@@ -20,6 +20,7 @@ public class EarthTowerUpgrades : TowerUpgrades
 
         Tower tower = GetComponent<Tower>();
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        TowerData selectedTowerData = TowerSelectionManager.instance.selectedTower.GetComponent<TowerData>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
@@ -52,6 +53,6 @@ public class EarthTowerUpgrades : TowerUpgrades
             selectedTower.upgradeText = "";
         }
 
-        towerLevel++;
+        selectedTowerData.towerLevel++;
     }
 }

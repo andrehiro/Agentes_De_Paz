@@ -4,7 +4,6 @@ using TMPro;
 
 public abstract class TowerUpgrades : MonoBehaviour
 {
-    public int towerLevel = 0;
     public int upgradeCost1 = 120;
     public int upgradeCost2 = 200;
     public int upgradeCost3 = 350;
@@ -28,7 +27,7 @@ public abstract class TowerUpgrades : MonoBehaviour
             return;
         }
         
-        TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        TowerData selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerData>();
         
         if (selectedTower.towerLevel >= 3)
         {

@@ -21,6 +21,7 @@ public class WindTowerUpgrades : TowerUpgrades
         Tower tower = GetComponent<Tower>();
         WindTower windtower = GetComponent<WindTower>();
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        TowerData selectedTowerData = TowerSelectionManager.instance.selectedTower.GetComponent<TowerData>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
@@ -29,6 +30,7 @@ public class WindTowerUpgrades : TowerUpgrades
             tower.fireRate = 0.3f;
             windtower.knockbackForce = 4f;
             tower.range = 6f;
+            tower.rangeAdjustment = 8.5f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
@@ -52,6 +54,7 @@ public class WindTowerUpgrades : TowerUpgrades
             tower.pierce = 8;
             windtower.knockbackForce = 10f;
             tower.range = 8f;
+            tower.rangeAdjustment = 8.7f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
@@ -59,6 +62,6 @@ public class WindTowerUpgrades : TowerUpgrades
             selectedTower.upgradeText = "";
         }
 
-        towerLevel++;
+        selectedTowerData.towerLevel++;
     }
 }

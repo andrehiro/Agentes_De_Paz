@@ -97,12 +97,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6188790325392236760}
   - component: {fileID: 6288214793960434468}
-  - component: {fileID: 4329617702607904564}
   - component: {fileID: -6023269070619369849}
   - component: {fileID: 4037245111588181362}
   - component: {fileID: 6230968038370532629}
   - component: {fileID: -8051959270877283457}
   - component: {fileID: 6989545425280133798}
+  - component: {fileID: 3988989532004716310}
   m_Layer: 6
   m_Name: FireTower
   m_TagString: Tower
@@ -175,58 +175,12 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.9, y: 5.09}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4329617702607904564
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7785496489854992362}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.09868479, y: -0.019736767}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.88, y: 5.05}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 4.095785, y: 4.1868362}
-  m_EdgeRadius: 0
 --- !u!114 &-6023269070619369849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +200,7 @@ MonoBehaviour:
   pierce: 1
   cost: 330
   sellValueReturn: 0.7
-  rangeAdjustment: 8
+  rangeAdjustment: 7
   projectilePrefab: {fileID: 2605390464641443986, guid: 55381b85e32ea074a9ea6bd508109ee2, type: 3}
   firePoint: {fileID: 6188790325392236760}
   rangeIndicator: {fileID: 6787870790843346987}
@@ -264,7 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560929caeceebaa44a8096fd023e82e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerLevel: 0
   upgradeCost1: 420
   upgradeCost2: 630
   upgradeCost3: 1450
@@ -314,3 +267,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ecb80ecec64b74fa3293088886e1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!60 &3988989532004716310
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785496489854992362}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.9, y: 5.09}
+    newSize: {x: 4.9, y: 5.09}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.6700722, y: -1.8599592}
+      - {x: 1.8150564, y: -1.7784901}
+      - {x: 1.9818887, y: -1.6021277}
+      - {x: 2.1042995, y: -1.3923037}
+      - {x: 2.16182, y: -1.2419065}
+      - {x: 2.2040868, y: -1.0536743}
+      - {x: 2.2528534, y: -0.61434}
+      - {x: 2.244988, y: 0.87945795}
+      - {x: 2.2217534, y: 1.1480296}
+      - {x: 2.1852942, y: 1.4024056}
+      - {x: 2.1600025, y: 1.5823979}
+      - {x: 2.1077027, y: 1.8152268}
+      - {x: 2.0080738, y: 2.0386734}
+      - {x: 1.8458164, y: 2.1777527}
+      - {x: 1.681173, y: 2.2407408}
+      - {x: 1.4420635, y: 2.2813797}
+      - {x: 1.1807082, y: 2.291986}
+      - {x: 1.0121382, y: 2.2914455}
+      - {x: -0.7896898, y: 2.3017375}
+      - {x: -1.0661081, y: 2.2682009}
+      - {x: -1.3029209, y: 2.1918302}
+      - {x: -1.4697628, y: 2.1006217}
+      - {x: -1.6086885, y: 1.9799633}
+      - {x: -1.7033994, y: 1.8550934}
+      - {x: -1.7674111, y: 1.7325977}
+      - {x: -1.825492, y: 1.5732955}
+      - {x: -1.8713049, y: 1.348172}
+      - {x: -1.9118589, y: 1.1305956}
+      - {x: -1.9246557, y: 0.94859844}
+      - {x: -1.9226152, y: 0.6488183}
+      - {x: -1.9186383, y: 0.3116684}
+      - {x: -1.91409, y: -0.5230356}
+      - {x: -1.9045067, y: -0.89809144}
+      - {x: -1.876906, y: -1.129937}
+      - {x: -1.8415682, y: -1.3019055}
+      - {x: -1.7734898, y: -1.4930218}
+      - {x: -1.6870166, y: -1.6441772}
+      - {x: -1.5625736, y: -1.7757696}
+      - {x: -1.46007, y: -1.8650559}
+      - {x: -1.2739388, y: -1.9513797}
+      - {x: -0.9662396, y: -2.0218282}
+      - {x: -0.4171127, y: -2.0282362}
+      - {x: 0.48571074, y: -2.0193546}
+      - {x: 0.8206175, y: -2.0141542}
+      - {x: 1.0603442, y: -2.0095465}
+      - {x: 1.3273357, y: -1.9836776}
+      - {x: 1.5440847, y: -1.9229009}
+  m_UseDelaunayMesh: 0

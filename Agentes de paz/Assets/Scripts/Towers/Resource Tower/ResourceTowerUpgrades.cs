@@ -20,12 +20,13 @@ public class ResourceTowerUpgrades : TowerUpgrades
 
         ResourceTower tower = GetComponent<ResourceTower>();
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        TowerData selectedTowerData = TowerSelectionManager.instance.selectedTower.GetComponent<TowerData>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
         {
             // Primera mejora
-            tower.resourcesPerWave = 100;
+            tower.resourcesPerWave = 140;
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
@@ -34,7 +35,7 @@ public class ResourceTowerUpgrades : TowerUpgrades
         else if (!secondUpgrade)
         {
             // Segunda mejora
-            tower.resourcesPerWave = 150;
+            tower.resourcesPerWave = 350;
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
@@ -43,13 +44,13 @@ public class ResourceTowerUpgrades : TowerUpgrades
         else
         {
             // Tercera mejora
-            tower.resourcesPerWave = 200;
+            tower.resourcesPerWave = 1500;
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
 
             selectedTower.upgradeText = "";
         }
 
-        towerLevel++;
+        selectedTowerData.towerLevel++;
     }
 }

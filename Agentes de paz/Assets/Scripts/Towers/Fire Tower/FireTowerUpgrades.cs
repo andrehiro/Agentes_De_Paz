@@ -21,6 +21,7 @@ public class FireTowerUpgrades : TowerUpgrades
         Tower tower = GetComponent<Tower>();
         FireTower firetower = GetComponent<FireTower>();
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
+        TowerData selectedTowerData = TowerSelectionManager.instance.selectedTower.GetComponent<TowerData>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (!firstUpgrade)
@@ -30,6 +31,7 @@ public class FireTowerUpgrades : TowerUpgrades
             tower.fireRate = 1.2f;
             firetower.projectileCount = 5;
             tower.range = 2.8f;
+            tower.rangeAdjustment = 7.2f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
@@ -61,6 +63,6 @@ public class FireTowerUpgrades : TowerUpgrades
             selectedTower.upgradeText = "";
         }
 
-        towerLevel++;
+        selectedTowerData.towerLevel++;
     }
 }

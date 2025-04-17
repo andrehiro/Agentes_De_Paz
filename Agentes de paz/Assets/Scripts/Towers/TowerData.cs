@@ -4,13 +4,13 @@ public class TowerData : MonoBehaviour
 {
     public int towerLevel;
     public string targetingMode;
-    
     public Vector3 position;
 
     void Start()
     {
-        towerLevel = 1;
+        towerLevel = 0;
         targetingMode = "Primero";
+        Debug.Log("Hola");
     }
 
     void Awake()

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8a6ccf16e9330a74babf7dd054148b4f
+guid: 98b420c7598dd6e49a5741d4e8ca24ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -980158475511615743
-    second: WaterTower2_0
+      213: -5904988441479199971
+    second: cargando...2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WaterTower2_0
+      name: cargando...2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 3
-        width: 483
-        height: 512
+        y: 0
+        width: 1500
+        height: 2051
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10faa834f07c562f0800000000000000
-      internalID: -980158475511615743
+      spriteID: d1348d66c444d0ea0800000000000000
+      internalID: -5904988441479199971
       vertices: []
       indices: 
       edges: []
