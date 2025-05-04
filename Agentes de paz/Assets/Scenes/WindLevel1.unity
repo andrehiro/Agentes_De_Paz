@@ -1615,7 +1615,7 @@ MonoBehaviour:
   pathBifurcations: []
   stealthWaypoints: 
   stealthExitWaypoints: 
-  currentWaveIndex: 49
+  currentWaveIndex: 0
 --- !u!4 &381093445
 Transform:
   m_ObjectHideFlags: 0
@@ -3273,6 +3273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 274955690524857904, guid: de02b40984c3f174584cf146d6d91893, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 586391271484650953, guid: de02b40984c3f174584cf146d6d91893, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3369,6 +3373,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4547368148728163257, guid: de02b40984c3f174584cf146d6d91893, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 409540670}
     - target: {fileID: 4947212865788028178, guid: de02b40984c3f174584cf146d6d91893, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4391,6 +4399,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3923597225120733848, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.187439
+      objectReference: {fileID: 0}
     - target: {fileID: 4000666918245288834, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4490,6 +4502,10 @@ PrefabInstance:
     - target: {fileID: 7543467124361148092, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
       propertyPath: m_RenderMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704509068301407031, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8859156311228437186, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
       propertyPath: m_Pivot.x

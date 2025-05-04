@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3695783252790708514}
   - component: {fileID: -5488872436041855408}
   m_Layer: 7
-  m_Name: b
+  m_Name: BoteDeBasura
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.906483, y: 3.0490692, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: -1744641929
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 5458238056137135905, guid: f7f75d0d6bcdca0429e7e1e3ad1c91ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,17 +152,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.02464056, y: -0.18105268}
+  m_Offset: {x: 0.018641055, y: -0.038602352}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.2}
+    oldSize: {x: 4.2, y: 5.94}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.9924583, y: 5.806978}
+  m_Size: {x: 3.8358703, y: 5.8603525}
   m_EdgeRadius: 0
 --- !u!114 &-3695783252790708514
 MonoBehaviour:
@@ -179,9 +179,9 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   waypoints: []
   currentWaypointIndex: 0
-  speed: 3.5
+  speed: 0.8
   damage: 5
-  knockbackResistance: 0
+  knockbackResistance: 0.8
   stealthDuration: 0.5
   stealthScaleSpeed: 1.5
 --- !u!114 &-5488872436041855408
@@ -196,5 +196,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d30e87b0a1c8d4ab39e6899a3cba9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 155
-  resources: 25
+  maxHealth: 800
+  resources: 45

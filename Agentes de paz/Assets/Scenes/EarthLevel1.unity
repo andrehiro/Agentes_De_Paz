@@ -1569,7 +1569,12 @@ MonoBehaviour:
       delayAfterWave: 0
     timeBeforeNextWave: 0
   spawnPoint: {fileID: 381093445}
-  defaultWaypoints: []
+  defaultWaypoints:
+  - {fileID: 1061361180}
+  - {fileID: 1423618864}
+  - {fileID: 1973156476}
+  - {fileID: 1680139522}
+  - {fileID: 1489621116}
   pathBifurcations: []
   stealthWaypoints: 
   stealthExitWaypoints: 

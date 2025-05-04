@@ -8,7 +8,7 @@ public class VolumeControl : MonoBehaviour
 
     void Start()
     {
-        backgorundMusicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+        backgorundMusicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
         SetVolume();
     }
 
