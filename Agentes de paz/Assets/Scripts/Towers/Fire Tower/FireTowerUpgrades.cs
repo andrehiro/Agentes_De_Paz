@@ -27,9 +27,9 @@ public class FireTowerUpgrades : TowerUpgrades
         if (!firstUpgrade)
         {
             // Primera mejora
-            tower.damage = 4f;
-            tower.fireRate = 1.2f;
-            firetower.projectileCount = 5;
+            tower.damage = 5f;
+            tower.fireRate = 1.4f;
+            firetower.projectileCount = 4;
             tower.range = 2.8f;
             tower.rangeAdjustment = 7.2f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
@@ -41,7 +41,7 @@ public class FireTowerUpgrades : TowerUpgrades
         else if (!secondUpgrade)
         {
             // Segunda mejora
-            tower.fireRate = 2f;
+            tower.fireRate = 2.2f;
             tower.damage = 6f;
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
@@ -51,9 +51,9 @@ public class FireTowerUpgrades : TowerUpgrades
         else
         {
             // Tercera mejora
-            tower.fireRate = 2.5f;
-            tower.damage = 10f;
-            firetower.projectileCount = 10;
+            tower.fireRate = 2.7f;
+            tower.damage = 12f;
+            firetower.projectileCount = 8;
             firetower.angleBetweenShots = 8f;
             tower.range = 3f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);

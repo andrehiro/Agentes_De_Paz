@@ -26,29 +26,29 @@ public class ResourceTowerUpgrades : TowerUpgrades
         if (!firstUpgrade)
         {
             // Primera mejora
-            tower.resourcesPerWave = 140;
+            tower.resourcesPerWave = 130;
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 2";
+            selectedTower.upgradeText = "Mejora 1";
         }
         else if (!secondUpgrade)
         {
             // Segunda mejora
-            tower.resourcesPerWave = 350;
+            tower.resourcesPerWave = 250;
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 3";
+            selectedTower.upgradeText = "Mejora 2";
         }
         else
         {
             // Tercera mejora
-            tower.resourcesPerWave = 1500;
+            tower.resourcesPerWave = 750;
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
 
-            selectedTower.upgradeText = "";
+            selectedTower.upgradeText = "Mejora 3";
         }
 
         selectedTowerData.towerLevel++;

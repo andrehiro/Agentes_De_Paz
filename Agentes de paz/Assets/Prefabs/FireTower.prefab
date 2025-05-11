@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd0ba1cc813b1546b04407d7e20a80c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
-  fireRate: 1
+  damage: 4
+  fireRate: 1.2
   projectileSpeed: 15
   range: 2.5
   pierce: 1
@@ -204,7 +204,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2605390464641443986, guid: 55381b85e32ea074a9ea6bd508109ee2, type: 3}
   firePoint: {fileID: 6188790325392236760}
   rangeIndicator: {fileID: 6787870790843346987}
-  projectileCount: 4
+  projectileCount: 3
   angleBetweenShots: 12
 --- !u!114 &4037245111588181362
 MonoBehaviour:
