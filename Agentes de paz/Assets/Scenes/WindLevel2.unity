@@ -4373,7 +4373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a14da48fbbdd824382a67697761b1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentResources: 350
+  currentResources: 6000
 --- !u!114 &1811966313
 MonoBehaviour:
   m_ObjectHideFlags: 0

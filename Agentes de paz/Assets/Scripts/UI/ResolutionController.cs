@@ -3,8 +3,11 @@ using TMPro;
 
 public class ResolutionController : MonoBehaviour
 {
+    [Header("Dropdowns")]
     public TMP_Dropdown resolutionDropdown;
+    public TMP_Dropdown displayModeDropdown; // Nuevo dropdown para pantalla completa / ventana
 
+    [Header("Resoluciones disponibles")]
     public Vector2Int[] resolutions = {
         new Vector2Int(1920, 1080),
         new Vector2Int(1680, 1050),
@@ -20,40 +23,71 @@ public class ResolutionController : MonoBehaviour
 
     void Start()
     {
-        PopulateDropdown();
+        PopulateResolutionDropdown();
+        PopulateDisplayModeDropdown();
+
         LoadSavedResolution();
+        LoadSavedDisplayMode();
     }
 
-    void PopulateDropdown()
+    // ------------------------------
+    //  RESOLUCIONES
+    // ------------------------------
+    void PopulateResolutionDropdown()
     {
         resolutionDropdown.ClearOptions();
-        
-        // Crear opciones para el TMP_Dropdown
+
         foreach (Vector2Int res in resolutions)
         {
             resolutionDropdown.options.Add(new TMP_Dropdown.OptionData($"{res.x} x {res.y}"));
         }
 
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
-        
-        // Cargar resolución guardada
+
         int savedIndex = PlayerPrefs.GetInt("ResolutionIndex", 0);
         resolutionDropdown.value = savedIndex;
-        resolutionDropdown.RefreshShownValue(); // Refrescar el texto mostrado en el Dropdown
+        resolutionDropdown.RefreshShownValue();
     }
 
     public void SetResolution(int resolutionIndex)
     {
         if (resolutionIndex < 0 || resolutionIndex >= resolutions.Length) return;
-        
-        Vector2Int newRes = resolutions[resolutionIndex];
-        Screen.SetResolution(newRes.x, newRes.y, Screen.fullScreenMode);
 
-        // Guardar configuración
+        Vector2Int newRes = resolutions[resolutionIndex];
+        bool isFullscreen = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
+
+        Screen.SetResolution(newRes.x, newRes.y, isFullscreen);
+
         PlayerPrefs.SetInt("ScreenWidth", newRes.x);
         PlayerPrefs.SetInt("ScreenHeight", newRes.y);
         PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
         PlayerPrefs.Save();
+    }
+
+    // ------------------------------
+    //  MODO DE PANTALLA
+    // ------------------------------
+    void PopulateDisplayModeDropdown()
+    {
+        displayModeDropdown.ClearOptions();
+
+        displayModeDropdown.options.Add(new TMP_Dropdown.OptionData("Pantalla Completa"));
+        displayModeDropdown.options.Add(new TMP_Dropdown.OptionData("Modo Ventana"));
+
+        displayModeDropdown.onValueChanged.AddListener(SetDisplayMode);
+    }
+
+    public void SetDisplayMode(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                SetFullscreenMode();
+                break;
+            case 1:
+                SetWindowedMode();
+                break;
+        }
     }
 
     public void SetFullscreenMode()
@@ -69,12 +103,14 @@ public class ResolutionController : MonoBehaviour
         PlayerPrefs.SetInt("FullscreenMode", (int)FullScreenMode.Windowed);
         PlayerPrefs.Save();
 
-        // Aplicar la última resolución guardada
         int width = PlayerPrefs.GetInt("ScreenWidth", 1280);
         int height = PlayerPrefs.GetInt("ScreenHeight", 720);
         Screen.SetResolution(width, height, false);
     }
 
+    // ------------------------------
+    //  CARGAR CONFIGURACIONES
+    // ------------------------------
     private void LoadSavedResolution()
     {
         int width = PlayerPrefs.GetInt("ScreenWidth", Screen.currentResolution.width);
@@ -82,5 +118,12 @@ public class ResolutionController : MonoBehaviour
         FullScreenMode savedMode = (FullScreenMode)PlayerPrefs.GetInt("FullscreenMode", (int)FullScreenMode.Windowed);
 
         Screen.SetResolution(width, height, savedMode);
+    }
+
+    private void LoadSavedDisplayMode()
+    {
+        FullScreenMode savedMode = (FullScreenMode)PlayerPrefs.GetInt("FullscreenMode", (int)FullScreenMode.Windowed);
+        displayModeDropdown.value = savedMode == FullScreenMode.FullScreenWindow ? 0 : 1;
+        displayModeDropdown.RefreshShownValue();
     }
 }

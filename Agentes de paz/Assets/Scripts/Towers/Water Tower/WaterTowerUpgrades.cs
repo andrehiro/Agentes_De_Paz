@@ -6,7 +6,7 @@ public class WaterTowerUpgrades : TowerUpgrades
     {
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         
-        selectedTower.upgradeText = "Mejora 1";
+        selectedTower.upgradeText = "Aumento en el poder y la velocidad de disparo.";
         UIManager.instance.upgradeText.text = selectedTower.upgradeText;
     }
 
@@ -31,7 +31,7 @@ public class WaterTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 2";
+            selectedTower.upgradeText = "Duplica la velocidad de disparo.";
         }
         else if (!secondUpgrade)
         {
@@ -41,7 +41,7 @@ public class WaterTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 3";
+            selectedTower.upgradeText = "Triplica la velocidad de disparo y aumenta el rango.";
         }
         else
         {

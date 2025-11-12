@@ -6,7 +6,7 @@ public class EarthTowerUpgrades : TowerUpgrades
     {
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         
-        selectedTower.upgradeText = "Mejora 1";
+        selectedTower.upgradeText = "Aumenta la velocidad de disparo";
         UIManager.instance.upgradeText.text = selectedTower.upgradeText;
     }
 
@@ -30,7 +30,7 @@ public class EarthTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 2";
+            selectedTower.upgradeText = "Duplica su poder y aumenta la velocidad de disparo";
         }
         else if (!secondUpgrade)
         {
@@ -40,7 +40,7 @@ public class EarthTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 3";
+            selectedTower.upgradeText = "Aumenta significativamente su poder";
         }
         else
         {

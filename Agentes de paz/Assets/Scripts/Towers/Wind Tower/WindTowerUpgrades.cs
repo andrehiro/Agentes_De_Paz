@@ -6,7 +6,7 @@ public class WindTowerUpgrades : TowerUpgrades
     {
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         
-        selectedTower.upgradeText = "Mejora 1";
+        selectedTower.upgradeText = "Aumentos menores en todas sus estadisticas";
         UIManager.instance.upgradeText.text = selectedTower.upgradeText;
     }
 
@@ -35,7 +35,7 @@ public class WindTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 2";
+            selectedTower.upgradeText = "Aumenta la velocidad de disparo y el retroceso";
         }
         else if (!secondUpgrade)
         {
@@ -45,7 +45,7 @@ public class WindTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 3";
+            selectedTower.upgradeText = "Duplica su penetracion y retroceso";
         }
         else
         {
@@ -53,8 +53,6 @@ public class WindTowerUpgrades : TowerUpgrades
             tower.damage = 5f;
             tower.pierce = 8;
             windtower.knockbackForce = 10f;
-            tower.range = 8f;
-            tower.rangeAdjustment = 8.7f;
             TowerPlacer.instance.SetTowerRangeIndicator(gameObject);
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;

@@ -18,7 +18,25 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     void Start()
+    {
+        UpdateLevelButtons();
+    }
+
+    void Update()
+    {
+        // Si se presiona la tecla P, borra el progreso
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerPrefs.DeleteKey("UnlockedLevels");
+            PlayerPrefs.Save();
+            Debug.Log("Progreso borrado.");
+            UpdateLevelButtons();
+        }
+    }
+
+    void UpdateLevelButtons()
     {
         string unlockedLevelName = PlayerPrefs.GetString("UnlockedLevels", "WindLevel1");
         int unlockedIndex = System.Array.IndexOf(levelNames, unlockedLevelName);

@@ -6,7 +6,7 @@ public class FireTowerUpgrades : TowerUpgrades
     {
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         
-        selectedTower.upgradeText = "Mejora 1";
+        selectedTower.upgradeText = "Dispara un proyectil extra y aumenta su poder";
         UIManager.instance.upgradeText.text = selectedTower.upgradeText;
     }
 
@@ -36,7 +36,7 @@ public class FireTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 2";
+            selectedTower.upgradeText = "Aumenta la velocidad de disparo y el poder";
         }
         else if (!secondUpgrade)
         {
@@ -46,7 +46,7 @@ public class FireTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 3";
+            selectedTower.upgradeText = "Duplica su poder  y numero de proyectiles";
         }
         else
         {

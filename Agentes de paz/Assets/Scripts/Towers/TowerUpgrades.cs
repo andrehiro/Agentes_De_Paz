@@ -41,13 +41,13 @@ public abstract class TowerUpgrades : MonoBehaviour, ITowerUpgrades
         if (selectedTowerData.towerLevel >= 3)
         {
             UIManager.instance.upgradeTowerButton.interactable = false;
-            UIManager.instance.upgradeCostText.text = "Máx alcanzado";
+            UIManager.instance.upgradeCostText.text = "Maximo";
         }
         else
         {
             int cost = upgrades.GetUpgradeCost(selectedTowerData.towerLevel);
             UIManager.instance.upgradeTowerButton.interactable = GameManager.instance.currentResources >= cost;
-            UIManager.instance.upgradeCostText.text = "Mejorar = " + cost;
+            UIManager.instance.upgradeCostText.text = "Mejorar " + cost;
         }
     }
 
@@ -79,7 +79,7 @@ public abstract class TowerUpgrades : MonoBehaviour, ITowerUpgrades
 
     public void UpdateSellValueText()
     {
-        UIManager.instance.sellValueText.text = "Venta = " + Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn).ToString();
+        UIManager.instance.sellValueText.text = "Venta " + Mathf.RoundToInt(GetComponent<Tower>().cost * GetComponent<Tower>().sellValueReturn).ToString();
     }
 
     public void SellTower()

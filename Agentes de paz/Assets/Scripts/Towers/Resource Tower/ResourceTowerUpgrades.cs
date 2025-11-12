@@ -6,7 +6,7 @@ public class ResourceTowerUpgrades : TowerUpgrades
     {
         TowerUpgrades selectedTower = TowerSelectionManager.instance.selectedTower.GetComponent<TowerUpgrades>();
         
-        selectedTower.upgradeText = "Mejora 1";
+        selectedTower.upgradeText = "Aumento menor en los recursos generados";
         UIManager.instance.upgradeText.text = selectedTower.upgradeText;
     }
 
@@ -30,7 +30,7 @@ public class ResourceTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite1;
             firstUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 1";
+            selectedTower.upgradeText = "Aumento mayor en los recursos generados";
         }
         else if (!secondUpgrade)
         {
@@ -39,7 +39,7 @@ public class ResourceTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite2;
             secondUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 2";
+            selectedTower.upgradeText = "Triplica la cantidad de recursos generados";
         }
         else
         {
@@ -48,7 +48,7 @@ public class ResourceTowerUpgrades : TowerUpgrades
             spriteRenderer.sprite = towerUpgradeSprite3;
             maxUpgrade = true;
 
-            selectedTower.upgradeText = "Mejora 3";
+            selectedTower.upgradeText = "";
         }
 
         selectedTowerData.towerLevel++;
