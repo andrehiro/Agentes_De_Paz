@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bateria de carro_0: 8096496577159255652
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

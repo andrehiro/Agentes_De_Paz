@@ -1,242 +1,83 @@
 using UnityEngine;
+using System.Collections;
 
 public class ColliderScaler : MonoBehaviour
 {
-    public Transform initialTransform;
-    private Vector3 initialPosition;
-    private Vector3 initialScale;
-    private Vector3 newPosition;
-    private Vector3 newScale;
-    private int lastScreenWidth;
-    private int lastScreenHeight;
+    private const float BASE_WIDTH = 1920f;
+    private const float BASE_HEIGHT = 1080f;
 
-    void Start()
+    private Vector3 basePosition;
+    private Vector3 baseScale;
+    private Camera mainCamera;
+    private float baseCameraHeight;
+    private float baseCameraWidth;
+
+    void Awake()
     {
-        if (initialTransform != null)
+        mainCamera = Camera.main;
+        baseCameraHeight = mainCamera.orthographicSize * 2f;
+        baseCameraWidth = baseCameraHeight * (BASE_WIDTH / BASE_HEIGHT);
+
+        string key = gameObject.name;
+
+        if (Screen.width == 1920 && Screen.height == 1080)
         {
-            initialPosition = initialTransform.position; 
+            basePosition = transform.position;
+            baseScale = transform.localScale;
+
+            PlayerPrefs.SetFloat(key + "_px", basePosition.x);
+            PlayerPrefs.SetFloat(key + "_py", basePosition.y);
+            PlayerPrefs.SetFloat(key + "_pz", basePosition.z);
+            PlayerPrefs.SetFloat(key + "_sx", baseScale.x);
+            PlayerPrefs.SetFloat(key + "_sy", baseScale.y);
+            PlayerPrefs.SetFloat(key + "_sz", baseScale.z);
+            PlayerPrefs.Save();
+        }
+        else if (PlayerPrefs.HasKey(key + "_px"))
+        {
+            basePosition = new Vector3(
+                PlayerPrefs.GetFloat(key + "_px"),
+                PlayerPrefs.GetFloat(key + "_py"),
+                PlayerPrefs.GetFloat(key + "_pz")
+            );
+            baseScale = new Vector3(
+                PlayerPrefs.GetFloat(key + "_sx"),
+                PlayerPrefs.GetFloat(key + "_sy"),
+                PlayerPrefs.GetFloat(key + "_sz")
+            );
         }
         else
         {
-            initialPosition = transform.position;
-        }
-        initialScale = transform.localScale;
-        lastScreenWidth = Screen.width;
-        lastScreenHeight = Screen.height;
-        HandleResolution(Screen.width, Screen.height);
-    }
-
-    void Update()
-    {
-        if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
-        {
-            lastScreenWidth = Screen.width;
-            lastScreenHeight = Screen.height;
-            HandleResolution(Screen.width, Screen.height);
+            basePosition = transform.position;
+            baseScale = transform.localScale;
         }
     }
 
-    void HandleResolution(int width, int height)
+    public void AdjustToResolution()
     {
-        if (width == 1920 && height == 1080)
-        {
-            transform.position = initialPosition;
-            transform.localScale = initialScale;
-        }
-         if (width == 1680 && height == 1050)
-        {
-            if (initialPosition.x >= -9f && initialPosition.x < -7f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.8f;
-                transform.position = newPosition;
-                newPosition.x -= 0.8f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -7f && initialPosition.x < -6f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.775f;
-                transform.position = newPosition;
-                newPosition.x -= 0.775f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -6f && initialPosition.x < -5f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.65f;
-                transform.position = newPosition;
-                newPosition.x -= 0.65f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -5f && initialPosition.x < -4f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.425f;
-                transform.position = newPosition;
-                newPosition.x -= 0.425f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -4f && initialPosition.x < -3f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.4f;
-                transform.position = newPosition;
-                newPosition.x -= 0.4f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -3f && initialPosition.x < -2f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.375f;
-                transform.position = newPosition;
-                newPosition.x -= 0.375f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -2f && initialPosition.x < -1f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.25f;
-                transform.position = newPosition;
-                newPosition.x -= 0.25f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= -1f && initialPosition.x < 0f)
-            {
-                newPosition = initialPosition;
-                newPosition.x += 0.125f;
-                transform.position = newPosition;
-                newPosition.x -= 0.125f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 0f && initialPosition.x < 1f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.125f;
-                transform.position = newPosition;
-                newPosition.x += 0.125f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 1f && initialPosition.x < 2f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.25f;
-                transform.position = newPosition;
-                newPosition.x += 0.25f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 2f && initialPosition.x < 3f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.375f;
-                transform.position = newPosition;
-                newPosition.x += 0.375f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 3f && initialPosition.x < 4f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.4f;
-                transform.position = newPosition;
-                newPosition.x += 0.4f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 4f && initialPosition.x < 5f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.425f;
-                transform.position = newPosition;
-                newPosition.x += 0.425f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 5f && initialPosition.x < 6f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.55f;
-                transform.position = newPosition;
-                newPosition.x += 0.55f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 6f && initialPosition.x < 7f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.675f;
-                transform.position = newPosition;
-                newPosition.x += 0.675f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
-            else if (initialPosition.x >= 7f && initialPosition.x < 9f)
-            {
-                newPosition = initialPosition;
-                newPosition.x -= 0.8f;
-                transform.position = newPosition;
-                newPosition.x += 0.8f;
-                newScale = initialScale;
-                newScale.x *= 0.8993f;
-                transform.localScale = newScale;
-                newScale.x /= 0.8993f;
-            }
+        StartCoroutine(AdjustNextFrame());
+    }
 
-        }
-        else if (width == 1280 && height == 720)
-        {
-            Debug.Log("Modo HD activado.");
-            // Lógica específica para 1280x720
-        }
-        else if (width == 1366 && height == 768)
-        {
-            Debug.Log("Modo WXGA activado.");
-            // Lógica específica para 1366x768
-        }
-        else
-        {
-            Debug.Log("Resolución no reconocida, aplicando configuración por defecto.");
-            // Lógica genérica para otras resoluciones
-        }
+    private IEnumerator AdjustNextFrame()
+    {
+        yield return null;
+
+        float currentCameraHeight = mainCamera.orthographicSize * 2f;
+        float currentCameraWidth = currentCameraHeight * ((float)Screen.width / Screen.height);
+
+        float ratioX = currentCameraWidth / baseCameraWidth;
+        float ratioY = currentCameraHeight / baseCameraHeight;
+
+        transform.position = new Vector3(
+            basePosition.x * ratioX,
+            basePosition.y * ratioY,
+            basePosition.z
+        );
+
+        transform.localScale = new Vector3(
+            baseScale.x * ratioX,
+            baseScale.y * ratioY,
+            baseScale.z
+        );
     }
 }

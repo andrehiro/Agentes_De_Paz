@@ -17,10 +17,15 @@ public abstract class Tower : MonoBehaviour
     public Transform firePoint;
     public GameObject rangeIndicator;
 
+    [Header("Audio")]
+    public AudioClip shootSound;
+    [Range(0f, 1f)] public float shootVolume = 1f;
+
     protected TowerTargeting targetingSystem;
     protected TowerTargeting towerTargeting;
     protected TowerUpgrades towerUpgrades;
     protected float fireCooldown = 0f;
+    protected AudioSource audioSource;
 
     protected virtual void Start()
     {
@@ -28,6 +33,9 @@ public abstract class Tower : MonoBehaviour
         towerTargeting = GetComponent<TowerTargeting>();
         towerUpgrades = GetComponent<TowerUpgrades>();
         towerUpgrades.UpdateSellValueText();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     protected virtual void Update()
@@ -44,17 +52,22 @@ public abstract class Tower : MonoBehaviour
                 EnemyMovement enemyMovement = targetEnemy.GetComponent<EnemyMovement>();
 
                 if (enemyMovement != null && enemyMovement.IsInvulnerable())
-                {
                     return;
-                }
 
                 if (fireCooldown <= 0f)
                 {
                     ShootAtEnemy(targetEnemy);
+                    PlayShootSound();
                     fireCooldown = 1f / fireRate;
                 }
             }
         }
+    }
+
+    protected void PlayShootSound()
+    {
+        if (shootSound != null)
+            audioSource.PlayOneShot(shootSound, shootVolume);
     }
 
     protected virtual void OnMouseDown()

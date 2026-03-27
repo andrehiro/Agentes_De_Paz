@@ -1,11 +1,12 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class ResolutionController : MonoBehaviour
 {
     [Header("Dropdowns")]
     public TMP_Dropdown resolutionDropdown;
-    public TMP_Dropdown displayModeDropdown; // Nuevo dropdown para pantalla completa / ventana
+    public TMP_Dropdown displayModeDropdown;
 
     [Header("Resoluciones disponibles")]
     public Vector2Int[] resolutions = {
@@ -21,13 +22,31 @@ public class ResolutionController : MonoBehaviour
         new Vector2Int(640, 480),
     };
 
+    [Header("Camara")]
+    public float baseOrthographicSize = 5f;
+    public float baseAspect = 16f / 9f;
+
+    private Camera mainCamera;
+
     void Start()
     {
+        mainCamera = Camera.main;
+
         PopulateResolutionDropdown();
         PopulateDisplayModeDropdown();
 
         LoadSavedResolution();
         LoadSavedDisplayMode();
+    }
+
+    void AdjustCamera(int width, int height)
+    {
+        float currentAspect = (float)width / height;
+
+        if (currentAspect >= baseAspect)
+            mainCamera.orthographicSize = baseOrthographicSize;
+        else
+            mainCamera.orthographicSize = baseOrthographicSize * (baseAspect / currentAspect);
     }
 
     // ------------------------------
@@ -38,9 +57,7 @@ public class ResolutionController : MonoBehaviour
         resolutionDropdown.ClearOptions();
 
         foreach (Vector2Int res in resolutions)
-        {
             resolutionDropdown.options.Add(new TMP_Dropdown.OptionData($"{res.x} x {res.y}"));
-        }
 
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
@@ -57,6 +74,12 @@ public class ResolutionController : MonoBehaviour
         bool isFullscreen = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
 
         Screen.SetResolution(newRes.x, newRes.y, isFullscreen);
+        AdjustCamera(newRes.x, newRes.y);
+
+        FindAnyObjectByType<MapScaler>()?.AdjustMap();
+
+        foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
+            cs.AdjustToResolution();
 
         PlayerPrefs.SetInt("ScreenWidth", newRes.x);
         PlayerPrefs.SetInt("ScreenHeight", newRes.y);
@@ -70,10 +93,8 @@ public class ResolutionController : MonoBehaviour
     void PopulateDisplayModeDropdown()
     {
         displayModeDropdown.ClearOptions();
-
         displayModeDropdown.options.Add(new TMP_Dropdown.OptionData("Pantalla Completa"));
         displayModeDropdown.options.Add(new TMP_Dropdown.OptionData("Modo Ventana"));
-
         displayModeDropdown.onValueChanged.AddListener(SetDisplayMode);
     }
 
@@ -81,12 +102,8 @@ public class ResolutionController : MonoBehaviour
     {
         switch (index)
         {
-            case 0:
-                SetFullscreenMode();
-                break;
-            case 1:
-                SetWindowedMode();
-                break;
+            case 0: SetFullscreenMode(); break;
+            case 1: SetWindowedMode(); break;
         }
     }
 
@@ -118,6 +135,18 @@ public class ResolutionController : MonoBehaviour
         FullScreenMode savedMode = (FullScreenMode)PlayerPrefs.GetInt("FullscreenMode", (int)FullScreenMode.Windowed);
 
         Screen.SetResolution(width, height, savedMode);
+        AdjustCamera(width, height);
+        StartCoroutine(AdjustAfterFrame());
+    }
+
+    private IEnumerator AdjustAfterFrame()
+    {
+        yield return null;
+        
+        FindAnyObjectByType<MapScaler>()?.AdjustMap();
+
+        foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
+            cs.AdjustToResolution();
     }
 
     private void LoadSavedDisplayMode()

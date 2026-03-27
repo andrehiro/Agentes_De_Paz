@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      WindTower_0: 2559202649380206903
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bandeja de foam_0: 1948561628590224164
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

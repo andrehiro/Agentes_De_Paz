@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sandia_0: -3991497467154194161
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

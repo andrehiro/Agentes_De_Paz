@@ -5,23 +5,20 @@ public class TowerPlacerButton : MonoBehaviour
 {
     public GameObject towerPrefab;
     private TowerPlacer towerPlacer;
+    private Button button;
+    private Tower tower;
 
     void Start()
     {
-        towerPlacer = Object.FindFirstObjectByType<TowerPlacer>();
-        GetComponent<Button>().onClick.AddListener(SelectTower);
+        towerPlacer = Object.FindAnyObjectByType<TowerPlacer>();
+        button = GetComponent<Button>();
+        tower = towerPrefab.GetComponent<Tower>();
+        button.onClick.AddListener(SelectTower);
     }
 
     void Update()
     {
-        if (towerPrefab.GetComponent<Tower>().cost > GameManager.instance.currentResources)
-        {
-            GetComponent<Button>().interactable = false;
-        }
-        else
-        {
-            GetComponent<Button>().interactable = true;
-        }
+        button.interactable = tower.cost <= GameManager.instance.currentResources;
     }
 
     void SelectTower()

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Botella de vidrio_0: 6665215286855683365
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
