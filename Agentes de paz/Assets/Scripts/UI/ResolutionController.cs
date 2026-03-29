@@ -10,15 +10,25 @@ public class ResolutionController : MonoBehaviour
 
     [Header("Resoluciones disponibles")]
     public Vector2Int[] resolutions = {
+        new Vector2Int(3840, 2160), 
+        new Vector2Int(2560, 1440),
         new Vector2Int(1920, 1080),
         new Vector2Int(1680, 1050),
-        new Vector2Int(1600, 900),
+        new Vector2Int(1600, 1024),
+        new Vector2Int(1440, 1080),
         new Vector2Int(1440, 900),
+        new Vector2Int(1400, 1050),
         new Vector2Int(1366, 768),
+        new Vector2Int(1360, 768),
+        new Vector2Int(1280, 960),
         new Vector2Int(1280, 800),
+        new Vector2Int(1280, 768),
         new Vector2Int(1280, 720),
+        new Vector2Int(1176, 664),
+        new Vector2Int(1152, 864),
         new Vector2Int(1024, 768),
         new Vector2Int(800, 600),
+        new Vector2Int(720, 480),
         new Vector2Int(640, 480),
     };
 
@@ -26,11 +36,23 @@ public class ResolutionController : MonoBehaviour
     public float baseOrthographicSize = 5f;
     public float baseAspect = 16f / 9f;
 
+    private const float BASE_WIDTH = 1920f;
+    private const float BASE_HEIGHT = 1080f;
+    private float currentRatioX = 1f;
+    private float currentRatioY = 1f;
     private Camera mainCamera;
 
     void Start()
     {
         mainCamera = Camera.main;
+
+        // Inicializa los ratios con la resolucion actual al arrancar
+        float currentCameraHeight = baseOrthographicSize * 2f;
+        float currentCameraWidth = currentCameraHeight * ((float)Screen.width / Screen.height);
+        float baseCameraHeight = baseOrthographicSize * 2f;
+        float baseCameraWidth = baseCameraHeight * (BASE_WIDTH / BASE_HEIGHT);
+        currentRatioX = currentCameraWidth / baseCameraWidth;
+        currentRatioY = currentCameraHeight / baseCameraHeight;
 
         PopulateResolutionDropdown();
         PopulateDisplayModeDropdown();
@@ -38,7 +60,7 @@ public class ResolutionController : MonoBehaviour
         LoadSavedResolution();
         LoadSavedDisplayMode();
     }
-
+    
     void AdjustCamera(int width, int height)
     {
         float currentAspect = (float)width / height;
@@ -73,19 +95,44 @@ public class ResolutionController : MonoBehaviour
         Vector2Int newRes = resolutions[resolutionIndex];
         bool isFullscreen = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
 
+        float oldRatioX = currentRatioX;
+        float oldRatioY = currentRatioY;
+
+        float newCameraHeight = baseOrthographicSize * 2f;
+        float newCameraWidth = newCameraHeight * ((float)newRes.x / newRes.y);
+        float baseCameraHeight = baseOrthographicSize * 2f;
+        float baseCameraWidth = baseCameraHeight * (BASE_WIDTH / BASE_HEIGHT);
+        currentRatioX = newCameraWidth / baseCameraWidth;
+        currentRatioY = newCameraHeight / baseCameraHeight;
+
         Screen.SetResolution(newRes.x, newRes.y, isFullscreen);
         AdjustCamera(newRes.x, newRes.y);
 
-        FindAnyObjectByType<MapScaler>()?.AdjustMap();
-
-        foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
-            cs.AdjustToResolution();
+        StartCoroutine(AdjustAllAfterResolution(oldRatioX, oldRatioY));
 
         PlayerPrefs.SetInt("ScreenWidth", newRes.x);
         PlayerPrefs.SetInt("ScreenHeight", newRes.y);
         PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
         PlayerPrefs.Save();
     }
+
+    private IEnumerator AdjustAllAfterResolution(float oldRatioX, float oldRatioY)
+    {
+        // Frame 1 — mapa y colliders y waypoints se reposicionan
+        FindAnyObjectByType<MapScaler>()?.AdjustMap();
+
+        foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
+            cs.AdjustToResolution();
+
+        // Espera 2 frames para que todos los ColliderScaler terminen su yield return null
+        yield return null;
+        yield return null;
+
+        // Frame 3 — ahora los waypoints ya estan en sus nuevas posiciones, mueve los enemigos
+        foreach (EnemyMovement enemy in FindObjectsByType<EnemyMovement>())
+            enemy.SnapToCurrentProgress();
+    }
+        
 
     // ------------------------------
     //  MODO DE PANTALLA

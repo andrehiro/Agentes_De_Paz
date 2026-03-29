@@ -10,13 +10,9 @@ public class LevelManager : MonoBehaviour
     void Awake() 
     {
         if (instance == null) 
-        {
             instance = this;
-        } 
         else 
-        {
             Destroy(gameObject);
-        }
     }
 
     void Start()
@@ -26,12 +22,20 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        // Si se presiona la tecla P, borra el progreso
         if (Input.GetKeyDown(KeyCode.P))
         {
             PlayerPrefs.DeleteKey("UnlockedLevels");
             PlayerPrefs.Save();
             Debug.Log("Progreso borrado.");
+            UpdateLevelButtons();
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            // Desbloquea todos los niveles guardando el ultimo
+            PlayerPrefs.SetString("UnlockedLevels", levelNames[levelNames.Length - 1]);
+            PlayerPrefs.Save();
+            Debug.Log("Todos los niveles desbloqueados.");
             UpdateLevelButtons();
         }
     }
@@ -42,8 +46,6 @@ public class LevelManager : MonoBehaviour
         int unlockedIndex = System.Array.IndexOf(levelNames, unlockedLevelName);
 
         for (int i = 0; i < levelButtons.Length; i++)
-        {
             levelButtons[i].interactable = i <= unlockedIndex;
-        }
     }
 }

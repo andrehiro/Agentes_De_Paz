@@ -10,12 +10,6 @@ public class TowerData : MonoBehaviour
     {
         towerLevel = 0;
         targetingMode = "Primero";
-        Debug.Log("Hola");
-    }
-
-    void Awake()
-    {
-
     }
 
     public void UpdateTargetingMode()
@@ -32,10 +26,5 @@ public class TowerData : MonoBehaviour
         {
             targetingMode = "Primero";
         }
-    }
-
-    public void SaveTowerData(Tower tower)
-    {
-
     }
 }

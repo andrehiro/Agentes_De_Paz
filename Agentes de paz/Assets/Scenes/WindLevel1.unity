@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 5867828}
   - component: {fileID: 5867830}
   m_Layer: 0
-  m_Name: MapBackground
+  m_Name: Map Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -896,6 +896,7 @@ GameObject:
   m_Component:
   - component: {fileID: 381093445}
   - component: {fileID: 381093444}
+  - component: {fileID: 381093446}
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: Untagged
@@ -1653,6 +1654,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &381093446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381093443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
 --- !u!1 &409540667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,19 +2609,29 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd27581e7abc1504ab7b9d1720529f56, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResolutionController
   resolutionDropdown: {fileID: 849648949}
   displayModeDropdown: {fileID: 274871466}
   resolutions:
+  - {x: 3840, y: 2160}
+  - {x: 2560, y: 1440}
   - {x: 1920, y: 1080}
   - {x: 1680, y: 1050}
-  - {x: 1600, y: 900}
+  - {x: 1600, y: 1024}
+  - {x: 1440, y: 1080}
   - {x: 1440, y: 900}
+  - {x: 1400, y: 1050}
   - {x: 1366, y: 768}
+  - {x: 1360, y: 768}
+  - {x: 1280, y: 960}
   - {x: 1280, y: 800}
+  - {x: 1280, y: 768}
   - {x: 1280, y: 720}
+  - {x: 1176, y: 664}
+  - {x: 1152, y: 864}
   - {x: 1024, y: 768}
   - {x: 800, y: 600}
+  - {x: 720, y: 480}
   - {x: 640, y: 480}
   baseOrthographicSize: 5
   baseAspect: 1.7777778
@@ -2746,6 +2769,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1061361180}
+  - component: {fileID: 1061361181}
   m_Layer: 0
   m_Name: Waypoint 1
   m_TagString: Untagged
@@ -2768,6 +2792,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1549889688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061361181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061361179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
 --- !u!1 &1063111306
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,6 +3150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1423618864}
+  - component: {fileID: 1423618865}
   m_Layer: 0
   m_Name: Waypoint 2
   m_TagString: Untagged
@@ -3136,6 +3173,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1549889688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1423618865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423618863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
 --- !u!1 &1549889687
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,6 +3251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1680139522}
+  - component: {fileID: 1680139523}
   m_Layer: 0
   m_Name: Waypoint 4
   m_TagString: Untagged
@@ -3224,6 +3274,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1549889688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1680139523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680139521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
 --- !u!1001 &1682610026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3864,6 +3926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1973156476}
+  - component: {fileID: 1973156477}
   m_Layer: 0
   m_Name: Waypoint 3
   m_TagString: Untagged
@@ -3886,6 +3949,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1549889688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1973156477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973156475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
 --- !u!95 &2017587868 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4387606195285702086, guid: 3d355d0d64058504a92593e7a1dc603c, type: 3}
@@ -4201,22 +4276,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2866803800352455240, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2866803800352455240, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898177762060211161, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898177762060211161, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5069062071939898030, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4232,10 +4291,6 @@ PrefabInstance:
     - target: {fileID: 8677601001771356471, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
       propertyPath: m_Name
       value: Settings UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8677601001771356471, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4653,7 +4708,6 @@ SceneRoots:
   - {fileID: 116583385}
   - {fileID: 1042778880}
   - {fileID: 1001918344}
-  - {fileID: 1549889688}
   - {fileID: 8565420690560998442}
   - {fileID: 425245527949427229}
   - {fileID: 5229007466218136068}
@@ -4662,3 +4716,4 @@ SceneRoots:
   - {fileID: 8942944755041749103}
   - {fileID: 5867829}
   - {fileID: 245855373}
+  - {fileID: 1549889688}

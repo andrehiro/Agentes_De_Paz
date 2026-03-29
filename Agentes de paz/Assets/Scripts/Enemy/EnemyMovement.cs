@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
 
     private List<int> stealthWaypoints = new List<int>();
     private List<int> stealthExitWaypoints = new List<int>();
-
+    
     private bool isInvulnerable = false;
     private Vector3 originalScale;
 
@@ -35,16 +35,65 @@ public class EnemyMovement : MonoBehaviour
         originalScale = transform.localScale;
 
         AssignPath();
-
         enemyCounter++;
     }
 
     void Update()
     {
         if (!isKnockedBack && waypoints != null && waypoints.Count > 0)
-        {
             MoveToWaypoint();
+    }
+
+    private IEnumerator AdjustAllAfterResolution(float oldRatioX, float oldRatioY)
+    {
+        FindAnyObjectByType<MapScaler>()?.AdjustMap();
+
+        foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
+            cs.AdjustToResolution();
+
+        yield return null;
+        yield return null;
+
+        EnemyMovement[] enemies = FindObjectsByType<EnemyMovement>();
+        Debug.Log($"Enemigos encontrados: {enemies.Length}");
+        
+        foreach (EnemyMovement enemy in enemies)
+            enemy.SnapToCurrentProgress();
+    }
+
+    public void SnapToCurrentProgress()
+    {
+        if (waypoints == null || waypoints.Count == 0) return;
+
+        // Si aun no llego al primer waypoint, queda entre spawn y waypoint 0
+        if (currentWaypointIndex == 0)
+        {
+            Vector3 spawnPos = spawnPoint != null ? spawnPoint.position : waypoints[0].position;
+            Vector3 firstWaypoint = waypoints[0].position;
+
+            float totalDistance = Vector3.Distance(spawnPos, firstWaypoint);
+            float distanceToNext = Vector3.Distance(transform.position, firstWaypoint);
+
+            float progress = totalDistance > 0 ? 1f - (distanceToNext / totalDistance) : 0f;
+            progress = Mathf.Clamp01(progress);
+
+            transform.position = Vector3.Lerp(spawnPos, firstWaypoint, progress);
+            return;
         }
+
+        int prevIndex = currentWaypointIndex - 1;
+        int nextIndex = Mathf.Min(currentWaypointIndex, waypoints.Count - 1);
+
+        Vector3 prevWaypoint = waypoints[prevIndex].position;
+        Vector3 nextWaypoint = waypoints[nextIndex].position;
+
+        float total = Vector3.Distance(prevWaypoint, nextWaypoint);
+        float dist = Vector3.Distance(transform.position, nextWaypoint);
+
+        float prog = total > 0 ? 1f - (dist / total) : 0f;
+        prog = Mathf.Clamp01(prog);
+
+        transform.position = Vector3.Lerp(prevWaypoint, nextWaypoint, prog);
     }
 
     void MoveToWaypoint()
@@ -60,13 +109,9 @@ public class EnemyMovement : MonoBehaviour
                 currentWaypointIndex++;
 
                 if (stealthWaypoints.Contains(currentWaypointIndex))
-                {
                     StartCoroutine(SetStealthMode(true));
-                }
                 else if (stealthExitWaypoints.Contains(currentWaypointIndex))
-                {
                     StartCoroutine(SetStealthMode(false));
-                }
 
                 if (currentWaypointIndex >= waypoints.Count)
                 {
@@ -103,7 +148,6 @@ public class EnemyMovement : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startScale = transform.localScale;
         Vector3 targetScale = active ? Vector3.zero : originalScale;
-
         float adjustedDuration = stealthDuration / stealthScaleSpeed;
 
         while (elapsedTime < adjustedDuration)
@@ -144,9 +188,7 @@ public class EnemyMovement : MonoBehaviour
                 transform.position += (Vector3)(moveDirection * force * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, previousWaypoint.position) < 0.1f)
-                {
                     currentWaypointIndex--;
-                }
             }
             else
             {

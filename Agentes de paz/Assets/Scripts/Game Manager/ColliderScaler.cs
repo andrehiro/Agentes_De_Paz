@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ColliderScaler : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class ColliderScaler : MonoBehaviour
         baseCameraHeight = mainCamera.orthographicSize * 2f;
         baseCameraWidth = baseCameraHeight * (BASE_WIDTH / BASE_HEIGHT);
 
-        string key = gameObject.name;
+        string key = SceneManager.GetActiveScene().name + "_" + gameObject.name;
 
         if (Screen.width == 1920 && Screen.height == 1080)
         {

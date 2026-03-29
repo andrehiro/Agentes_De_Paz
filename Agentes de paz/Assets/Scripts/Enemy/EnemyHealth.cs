@@ -18,7 +18,6 @@ public class EnemyHealth : MonoBehaviour
     // Método para recibir daño
     public void TakeDamage(float damage)
     {
-        // ❌ Si el enemigo está en stealth, no recibe daño
         if (enemyMovement != null && enemyMovement.IsInvulnerable())
         {
             return;
@@ -40,7 +39,6 @@ public class EnemyHealth : MonoBehaviour
     {
         // Agregar un efecto visual opcional antes de destruir (si lo deseas)
         // GetComponent<SpriteRenderer>().color = Color.red;
-
         Destroy(gameObject, 0.1f);
         EnemyManager.instance.UnregisterEnemy();
         GameManager.instance.GainResources(resources);
