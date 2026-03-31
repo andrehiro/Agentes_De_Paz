@@ -14,13 +14,9 @@ public class TowerPlacer : MonoBehaviour
     void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     public void SelectTowerPrefab(GameObject towerPrefab)
@@ -33,6 +29,26 @@ public class TowerPlacer : MonoBehaviour
         DisableTowerFunctionality(currentTower);
         SetTowerRangeIndicator(currentTower);
         ShowTowerRange(true);
+
+        // Ajustar escala de la torre al instanciarla segun resolucion actual
+        AdjustTowerScaleToCurrentResolution(currentTower);
+    }
+
+    void AdjustTowerScaleToCurrentResolution(GameObject tower)
+    {
+        ResolutionController rc = FindAnyObjectByType<ResolutionController>();
+        if (rc == null) return;
+
+        float camHeight = Camera.main.orthographicSize * 2f;
+        float baseOrthoHeight = rc.baseOrthographicSize * 2f;
+        float scaleRatio = camHeight / baseOrthoHeight;
+
+        Vector3 originalScale = tower.transform.localScale;
+        tower.transform.localScale = new Vector3(
+            originalScale.x * scaleRatio,
+            originalScale.y * scaleRatio,
+            originalScale.z
+        );
     }
 
     void Update()
@@ -41,23 +57,23 @@ public class TowerPlacer : MonoBehaviour
         {
             SetTowerPosition();
 
-            if (!IsPlacementValid())
-            {
-                ChangeChildSpriteColor(currentTower, "RangeIndicator", invalidColor);
-            }
-            else
-            {
-                ChangeChildSpriteColor(currentTower, "RangeIndicator", validColor);
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                PlaceTower();
-            }
-            else if (Input.GetMouseButtonDown(1))
+            Vector3 mousePos = Input.mousePosition;
+            if (mousePos.x < 0 || mousePos.x > Screen.width ||
+                mousePos.y < 0 || mousePos.y > Screen.height)
             {
                 CancelTowerPlacement();
+                return;
             }
+
+            if (!IsPlacementValid())
+                ChangeChildSpriteColor(currentTower, "RangeIndicator", invalidColor);
+            else
+                ChangeChildSpriteColor(currentTower, "RangeIndicator", validColor);
+
+            if (Input.GetMouseButtonDown(0))
+                PlaceTower();
+            else if (Input.GetMouseButtonDown(1))
+                CancelTowerPlacement();
         }
     }
 
@@ -77,6 +93,32 @@ public class TowerPlacer : MonoBehaviour
                 GameManager.instance.SpendResources(selectedTowerPrefab.GetComponent<Tower>().cost);
                 EnableTowerFunctionality(currentTower);
                 ShowTowerRange(false);
+
+                TowerData towerData = currentTower.GetComponent<TowerData>();
+                if (towerData != null)
+                {
+                    Camera cam = Camera.main;
+                    float camHeight = cam.orthographicSize * 2f;
+                    float camWidth = camHeight * ((float)Screen.width / Screen.height);
+
+                    Vector3 pos = currentTower.transform.position;
+                    towerData.normalizedPosition = new Vector2(
+                        pos.x / camWidth,
+                        pos.y / camHeight
+                    );
+
+                    // Guardar escala base dividida por ratio actual
+                    ResolutionController rc = FindAnyObjectByType<ResolutionController>();
+                    float baseOrthoHeight = rc != null ? rc.baseOrthographicSize * 2f : camHeight;
+                    float scaleRatio = camHeight / baseOrthoHeight;
+
+                    towerData.baseScale = new Vector3(
+                        currentTower.transform.localScale.x / scaleRatio,
+                        currentTower.transform.localScale.y / scaleRatio,
+                        currentTower.transform.localScale.z
+                    );
+                }
+
                 currentTower = null;
             }
         }
@@ -119,9 +161,7 @@ public class TowerPlacer : MonoBehaviour
         {
             Transform rangeIndicator = currentTower.transform.Find("RangeIndicator");
             if (rangeIndicator != null)
-            {
                 rangeIndicator.gameObject.SetActive(show);
-            }
         }
     }
 
@@ -132,41 +172,28 @@ public class TowerPlacer : MonoBehaviour
         {
             SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
-            {
                 spriteRenderer.color = newColor;
-            }
         }
     }
 
     void DisableTowerFunctionality(GameObject tower)
     {
         Collider2D col = tower.GetComponent<Collider2D>();
-        if (col != null)
-        {
-            col.isTrigger = true;
-        }
+        if (col != null) col.isTrigger = true;
 
         MonoBehaviour[] scripts = tower.GetComponents<MonoBehaviour>();
         foreach (var script in scripts)
-        {
-            if (script != this)
-                script.enabled = false;
-        }
+            if (script != this) script.enabled = false;
     }
 
     void EnableTowerFunctionality(GameObject tower)
     {
         Collider2D col = tower.GetComponent<Collider2D>();
-        if (col != null)
-        {
-            col.isTrigger = false;
-        }
+        if (col != null) col.isTrigger = false;
 
         MonoBehaviour[] scripts = tower.GetComponents<MonoBehaviour>();
         foreach (var script in scripts)
-        {
             script.enabled = true;
-        }
     }
 
     public void CancelTowerPlacement()
@@ -176,7 +203,6 @@ public class TowerPlacer : MonoBehaviour
             Destroy(currentTower);
             ShowTowerRange(false);
             currentTower = null;
-            Debug.Log("Colocación cancelada");
         }
     }
 }

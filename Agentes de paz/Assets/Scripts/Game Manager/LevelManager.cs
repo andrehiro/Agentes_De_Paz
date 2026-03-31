@@ -42,8 +42,11 @@ public class LevelManager : MonoBehaviour
 
     void UpdateLevelButtons()
     {
-        string unlockedLevelName = PlayerPrefs.GetString("UnlockedLevels", "WindLevel1");
+        string unlockedLevelName = PlayerPrefs.GetString("UnlockedLevels", levelNames[0]);
         int unlockedIndex = System.Array.IndexOf(levelNames, unlockedLevelName);
+
+        // Si no encuentra el nivel guardado, desbloquea al menos el primero
+        if (unlockedIndex < 0) unlockedIndex = 0;
 
         for (int i = 0; i < levelButtons.Length; i++)
             levelButtons[i].interactable = i <= unlockedIndex;

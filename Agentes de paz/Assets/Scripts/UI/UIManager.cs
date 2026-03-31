@@ -19,11 +19,6 @@ public class UIManager : MonoBehaviour
     public Button upgradeTowerButton;
     public Image towerUpgradeUIImage;
 
-    [Header("Audio")]
-    public AudioClip clickSound;
-    [Range(0f, 1f)] public float clickVolume = 1f;
-    private AudioSource audioSource;
-
     void Awake()
     {
         if (instance == null)
@@ -34,20 +29,8 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
 
-    public void PlayClick()
-    {
-        if (clickSound != null)
-        {
-            audioSource.PlayOneShot(clickSound, clickVolume);
-        }
-    }
     public void UpdateHealthText(float currentHealth)
     {
         healthText.text = currentHealth.ToString();

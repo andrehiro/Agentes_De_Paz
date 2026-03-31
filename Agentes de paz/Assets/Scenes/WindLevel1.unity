@@ -374,7 +374,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -865,7 +865,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1965,7 +1965,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1995,6 +1995,17 @@ GameObject:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1021538087369010351, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
   m_PrefabInstance: {fileID: 8565420690560998442}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &645069588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 504835225656962632, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
+  m_PrefabInstance: {fileID: 6691342249383419942}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -2197,7 +2208,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2374,7 +2385,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.1254902, b: 0.1254902, a: 0.7176471}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2422,7 +2433,7 @@ AudioSource:
   m_GameObject: {fileID: 1001918342}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1457493974230513121, guid: 7de9cdfaff136cb48b505dd4ab1c5b5c, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: b4dc11eaf000a5c43a1c292b92fe5f52, type: 3}
   m_PlayOnAwake: 1
@@ -2537,8 +2548,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8f325ddea7ad54d815f19c0fd3a94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 1001918343}
-  backgorundMusicVolumeSlider: {fileID: 706131724}
+  audioMixer: {fileID: 24100000, guid: 7de9cdfaff136cb48b505dd4ab1c5b5c, type: 2}
+  musicSource: {fileID: 1001918343}
+  clickSound: {fileID: 8300000, guid: 8b1c57d1d0d4f4f4a863a9164efea69d, type: 3}
+  clickVolume: 1
+  masterVolumeSlider: {fileID: 2000772560}
+  musicVolumeSlider: {fileID: 706131724}
+  sfxVolumeSlider: {fileID: 1063556253}
+  masterValueText: {fileID: 645069588}
+  musicValueText: {fileID: 1271730919}
+  sfxValueText: {fileID: 1389330352}
 --- !u!1 &1003488304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 274955690524857904, guid: de02b40984c3f174584cf146d6d91893, type: 3}
@@ -2635,6 +2654,8 @@ MonoBehaviour:
   - {x: 640, y: 480}
   baseOrthographicSize: 5
   baseAspect: 1.7777778
+  currentRatioX: 1
+  currentRatioY: 1
 --- !u!114 &1042778873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2743,8 +2764,6 @@ MonoBehaviour:
   targetingButtonText: {fileID: 1194263051}
   upgradeTowerButton: {fileID: 669970603}
   towerUpgradeUIImage: {fileID: 1796185362}
-  clickSound: {fileID: 8300000, guid: 8b1c57d1d0d4f4f4a863a9164efea69d, type: 3}
-  clickVolume: 1
 --- !u!4 &1042778880
 Transform:
   m_ObjectHideFlags: 0
@@ -2936,6 +2955,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
+--- !u!114 &1063556253 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5020810737140778526, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
+  m_PrefabInstance: {fileID: 6691342249383419942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1095043359 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8659414133122588458, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
@@ -3098,7 +3128,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3130,10 +3160,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1271730919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9158789429724909858, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
+  m_PrefabInstance: {fileID: 6691342249383419942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1311614986 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2928308264228660958, guid: 105401ffe6f627546a2a593483d2d889, type: 3}
   m_PrefabInstance: {fileID: 8565420690560998442}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1389330352 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4557410466409662868, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
+  m_PrefabInstance: {fileID: 6691342249383419942}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -3562,7 +3614,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3896,7 +3948,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3961,6 +4013,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc54f93ebb7e77841aedc58af18b0edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColliderScaler
+--- !u!114 &2000772560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7239824834913012818, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
+  m_PrefabInstance: {fileID: 6691342249383419942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &2017587868 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4387606195285702086, guid: 3d355d0d64058504a92593e7a1dc603c, type: 3}
@@ -4283,7 +4346,7 @@ PrefabInstance:
     - target: {fileID: 5069062071939898030, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1042778879}
+      objectReference: {fileID: 1001918345}
     - target: {fileID: 7792916690510880933, guid: 67fe8569223102f4b91dc07ab3abe10d, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -10,7 +10,7 @@ public class ResolutionController : MonoBehaviour
 
     [Header("Resoluciones disponibles")]
     public Vector2Int[] resolutions = {
-        new Vector2Int(3840, 2160), 
+        new Vector2Int(3840, 2160),
         new Vector2Int(2560, 1440),
         new Vector2Int(1920, 1080),
         new Vector2Int(1680, 1050),
@@ -38,15 +38,14 @@ public class ResolutionController : MonoBehaviour
 
     private const float BASE_WIDTH = 1920f;
     private const float BASE_HEIGHT = 1080f;
-    private float currentRatioX = 1f;
-    private float currentRatioY = 1f;
+    public float currentRatioX = 1f;
+    public float currentRatioY = 1f;
     private Camera mainCamera;
 
     void Start()
     {
         mainCamera = Camera.main;
 
-        // Inicializa los ratios con la resolucion actual al arrancar
         float currentCameraHeight = baseOrthographicSize * 2f;
         float currentCameraWidth = currentCameraHeight * ((float)Screen.width / Screen.height);
         float baseCameraHeight = baseOrthographicSize * 2f;
@@ -60,7 +59,7 @@ public class ResolutionController : MonoBehaviour
         LoadSavedResolution();
         LoadSavedDisplayMode();
     }
-    
+
     void AdjustCamera(int width, int height)
     {
         float currentAspect = (float)width / height;
@@ -71,9 +70,6 @@ public class ResolutionController : MonoBehaviour
             mainCamera.orthographicSize = baseOrthographicSize * (baseAspect / currentAspect);
     }
 
-    // ------------------------------
-    //  RESOLUCIONES
-    // ------------------------------
     void PopulateResolutionDropdown()
     {
         resolutionDropdown.ClearOptions();
@@ -95,9 +91,6 @@ public class ResolutionController : MonoBehaviour
         Vector2Int newRes = resolutions[resolutionIndex];
         bool isFullscreen = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
 
-        float oldRatioX = currentRatioX;
-        float oldRatioY = currentRatioY;
-
         float newCameraHeight = baseOrthographicSize * 2f;
         float newCameraWidth = newCameraHeight * ((float)newRes.x / newRes.y);
         float baseCameraHeight = baseOrthographicSize * 2f;
@@ -108,7 +101,7 @@ public class ResolutionController : MonoBehaviour
         Screen.SetResolution(newRes.x, newRes.y, isFullscreen);
         AdjustCamera(newRes.x, newRes.y);
 
-        StartCoroutine(AdjustAllAfterResolution(oldRatioX, oldRatioY));
+        StartCoroutine(AdjustAllAfterResolution());
 
         PlayerPrefs.SetInt("ScreenWidth", newRes.x);
         PlayerPrefs.SetInt("ScreenHeight", newRes.y);
@@ -116,27 +109,51 @@ public class ResolutionController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private IEnumerator AdjustAllAfterResolution(float oldRatioX, float oldRatioY)
+    private IEnumerator AdjustAllAfterResolution()
     {
-        // Frame 1 — mapa y colliders y waypoints se reposicionan
         FindAnyObjectByType<MapScaler>()?.AdjustMap();
 
         foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
             cs.AdjustToResolution();
 
-        // Espera 2 frames para que todos los ColliderScaler terminen su yield return null
         yield return null;
         yield return null;
 
-        // Frame 3 — ahora los waypoints ya estan en sus nuevas posiciones, mueve los enemigos
+        float camHeight = mainCamera.orthographicSize * 2f;
+        float camWidth = camHeight * ((float)Screen.width / Screen.height);
+
+        // Escala proporcional a la camara base
+        float baseOrthoHeight = baseOrthographicSize * 2f;
+        float scaleRatio = camHeight / baseOrthoHeight;
+
+        Tower[] towers = FindObjectsByType<Tower>(FindObjectsInactive.Exclude);
+        foreach (Tower tower in towers)
+        {
+            TowerData towerData = tower.GetComponent<TowerData>();
+            if (towerData != null && towerData.normalizedPosition != Vector2.zero)
+            {
+                tower.transform.position = new Vector3(
+                    towerData.normalizedPosition.x * camWidth,
+                    towerData.normalizedPosition.y * camHeight,
+                    0f
+                );
+
+                // Ajustar escala proporcionalmente a la camara
+                tower.transform.localScale = new Vector3(
+                    towerData.baseScale.x * scaleRatio,
+                    towerData.baseScale.y * scaleRatio,
+                    towerData.baseScale.z
+            );
+            }
+        }
+
+        yield return null;
+        Physics2D.SyncTransforms();
+
         foreach (EnemyMovement enemy in FindObjectsByType<EnemyMovement>())
             enemy.SnapToCurrentProgress();
     }
-        
 
-    // ------------------------------
-    //  MODO DE PANTALLA
-    // ------------------------------
     void PopulateDisplayModeDropdown()
     {
         displayModeDropdown.ClearOptions();
@@ -172,9 +189,6 @@ public class ResolutionController : MonoBehaviour
         Screen.SetResolution(width, height, false);
     }
 
-    // ------------------------------
-    //  CARGAR CONFIGURACIONES
-    // ------------------------------
     private void LoadSavedResolution()
     {
         int width = PlayerPrefs.GetInt("ScreenWidth", Screen.currentResolution.width);
@@ -189,7 +203,7 @@ public class ResolutionController : MonoBehaviour
     private IEnumerator AdjustAfterFrame()
     {
         yield return null;
-        
+
         FindAnyObjectByType<MapScaler>()?.AdjustMap();
 
         foreach (ColliderScaler cs in FindObjectsByType<ColliderScaler>())
